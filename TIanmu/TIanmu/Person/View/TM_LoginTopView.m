@@ -10,10 +10,7 @@
 
 @interface TM_LoginTopView()
 
-/* 头像 */
-@property (strong, nonatomic) UIButton              *headerBtn;
-/* 手机号显示label */
-@property (strong, nonatomic) UILabel               *phoneNumLabel;
+
 /* 流量卡 优惠券 收藏 */
 @property (strong, nonatomic) TM_imgLabelButton     *flowBtn;
 @property (strong, nonatomic) TM_imgLabelButton     *discountBtn;
@@ -120,18 +117,30 @@
 
 - (void)loginClick {
     NSLog(@"%@",@"登录");
+    if (self.clickBlock){
+        self.clickBlock(TM_LoginTopViewEnumLogin);
+    }
 }
 
 - (void)flowClick {
     NSLog(@"%@",@"流量卡");
+    if (self.clickBlock){
+        self.clickBlock(TM_LoginTopViewEnumFlow);
+    }
 }
 
 - (void)discountClick {
     NSLog(@"%@",@"优惠券");
+    if (self.clickBlock){
+        self.clickBlock(TM_LoginTopViewEnumDiscount);
+    }
 }
 
 - (void)favClick {
     NSLog(@"%@",@"我的收藏");
+    if (self.clickBlock){
+        self.clickBlock(TM_LoginTopViewEnumFav);
+    }
 }
 
 #pragma mark - getting

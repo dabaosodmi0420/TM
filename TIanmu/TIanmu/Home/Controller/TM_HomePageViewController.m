@@ -111,6 +111,7 @@
 #pragma mark - Activity
 - (void)rightNavItemClick {
     NSLog(@"%@",@"点击消息");
+    [self showNotOpenAlert];
 }
 -(void)endRefresh{
     [self.collectionView.mj_header endRefreshing];
@@ -119,13 +120,7 @@
 #pragma mark - JT_NavTitleViewDelegate --- 导航栏按钮点击代理
 - (void)clickHomeNavTitleViewBtnsWithSigns:(NSString *)signs {
     if ([signs isEqualToString:@"1"]) { //1-搜索按钮点击
-        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"功能暂未开启";
-        hud.removeFromSuperViewOnHide = YES;
-        [hud showAnimated:YES];
-        [hud hideAnimated:YES afterDelay:1.5];
-        [self.view addSubview:hud];
+        [self showNotOpenAlert];
     }
 }
 

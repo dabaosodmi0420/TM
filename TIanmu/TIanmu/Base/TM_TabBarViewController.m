@@ -18,10 +18,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    if (@available(iOS 15, *)){
+        UITabBarAppearance *appearance = [[UITabBarAppearance alloc] init];
+        appearance.backgroundColor = [UIColor whiteColor];
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = @{NSForegroundColorAttributeName : TM_SpecialGlobalColor};
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = @{NSForegroundColorAttributeName : TM_ColorRGB(110, 110, 110)};
+        appearance.stackedLayoutAppearance.selected.iconColor = TM_SpecialGlobalColor;
+        appearance.stackedLayoutAppearance.normal.iconColor = TM_ColorRGB(110, 110, 110);
+        self.tabBar.standardAppearance = appearance;
+        self.tabBar.scrollEdgeAppearance = appearance;
+    }else{
+        
+        self.tabBar.backgroundColor = [UIColor whiteColor];
+        self.tabBar.tintColor = TM_SpecialGlobalColor;
+        self.tabBar.unselectedItemTintColor = TM_ColorRGB(110, 110, 110);
+    }
     self.viewControllers = [self createTabBarViewController];
-    self.tabBar.backgroundColor = [UIColor lightTextColor];
-    self.tabBar.tintColor = TM_SpecialGlobalColor;
-    self.tabBar.unselectedItemTintColor = TM_ColorRGB(110, 110, 110);
 }
 
 - (NSMutableArray *)createTabBarViewController {

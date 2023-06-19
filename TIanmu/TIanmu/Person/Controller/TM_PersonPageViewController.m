@@ -89,6 +89,7 @@
         }
         
         [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        cell.backgroundColor = [UIColor whiteColor];
         
         UIButton *accessoryView = (UIButton *)cell.accessoryView;
         UIImage *image = [UIImage imageNamed:@"setting-arrow-right"];
@@ -122,7 +123,7 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [self showNotOpenAlert];
 }
 
 #pragma mark - setting && getting

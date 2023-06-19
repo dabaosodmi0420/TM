@@ -50,6 +50,8 @@
     self.allOrderBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     self.allOrderBtn.titleEdgeInsets = UIEdgeInsetsMake(-2, 0, -2, 20);
     self.allOrderBtn.imageEdgeInsets = UIEdgeInsetsMake(2, 118, 2, 2);
+    self.allOrderBtn.tag = kOrderFormTag;
+    [self.allOrderBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.allOrderBtn];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(t.frame) + 15, self.width, 1)];
@@ -65,14 +67,16 @@
         btn.text = titleArr[i];
         btn.bottomNameFont = [UIFont systemFontOfSize:15];
         btn.color = [UIColor darkGrayColor];
-        btn.tag = i + kOrderFormTag;
+        btn.tag = i + kOrderFormTag + 1;
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
     }
 }
 
 - (void)btnClick:(UIButton *)btn {
-    NSLog(@"%@",@(btn.tag - kOrderFormTag));
+    if (self.clickBlock) {
+        self.clickBlock(btn.tag - kOrderFormTag);
+    }
 }
 
 @end

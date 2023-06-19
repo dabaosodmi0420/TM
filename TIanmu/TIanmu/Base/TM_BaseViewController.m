@@ -24,6 +24,18 @@
 - (void)createView {
     
 }
+
+- (void)showNotOpenAlert {
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = @"功能暂未开启";
+    hud.removeFromSuperViewOnHide = YES;
+    [hud showAnimated:YES];
+    [hud hideAnimated:YES afterDelay:1.5];
+    [self.view addSubview:hud];
+}
+
+
 /**
  *  初始化导航条样式设置
  */

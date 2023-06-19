@@ -74,6 +74,9 @@
 - (TM_LoginTopView *)loginView{
     if(!_loginView) {
         _loginView = [[TM_LoginTopView alloc] initWithFrame:CGRectMake(0, 0, self.width - 22, 232)];
+        _loginView.clickBlock = ^(TM_LoginTopViewEnum type) {
+            NSLog(@"%@",@(type));
+        };
     }
     return _loginView;
 }
@@ -81,6 +84,9 @@
 - (TM_OrderFormView *)orderFormView {
     if(!_orderFormView){
         _orderFormView = [[TM_OrderFormView alloc] initWithFrame:CGRectMake(0, 0, self.width - 22, 145)];
+        _orderFormView.clickBlock = ^(TM_OrderFormViewEnum type) {
+            NSLog(@"%@",@(type));
+        };
     }
     return _orderFormView;
 }
