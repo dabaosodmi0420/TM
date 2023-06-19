@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>设备详情</title>
+</head>
+
+<style>
+
+	.img{
+		position: absolute;
+		height: auto;
+		width: 100%;
+		z-index: -1;
+	}
+		
+</style>
+
+<body style="margin: 0px;">
+	<div class="img">
+		<img class="img" id="img_product" />
+	</div>
+	
+	
+	
+	<script type="text/javascript">
+	//无参方法
+	function clickJS(){
+		document.getElementById("img_product").src = "./img/product_cpe.png"
+	}
+	
+	 //Android 通过jsbridge原生跟H5交互
+	function setJSforImageType(type){
+		if(type == 'CPE'){
+			document.getElementById("img_product").src = "http://jdwlwm2m.com/excel/appImg/detail_cpe.png"
+		}else if(type == 'JD600'){
+			document.getElementById("img_product").src = "http://jdwlwm2m.com/excel/appImg/detail_jd600.png"
+		}else if(type == 'T900'){
+			document.getElementById("img_product").src = "http://jdwlwm2m.com/excel/appImg/detail_t900.png"
+		}else if(type == 'TU55'){
+			document.getElementById("img_product").src = "http://jdwlwm2m.com/excel/appImg/detail_tu55.png"
+		}else if(type == 'U200'){
+			document.getElementById("img_product").src = "http://jdwlwm2m.com/excel/appImg/detail_u200.png"
+		}else if(type == 'ZMU600'){
+			document.getElementById("img_product").src = "http://jdwlwm2m.com/excel/appImg/detail_zmu600.png"
+		}
+	}
+	//Android原生方法
+	function clickAndroid(){
+		var result = prompt("js://webview?arg1=111&arg2=222")
+		alert("demo" + result)
+	}
+	</script>
+	
+</body>
+</html>

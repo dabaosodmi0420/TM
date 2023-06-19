@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>datas</key>
+	<array>
+		<dict>
+			<key>picpath</key>
+			<string>http://jdwlwm2m.com/excel/appImg/equipment_logo_balance.png</string>
+			<key>menuname</key>
+			<string>余额充值</string>
+		</dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/equipment_logo_flow.png</string>
+            <key>menuname</key>
+            <string>流量充值</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/equipment_logo_control.png</string>
+            <key>menuname</key>
+            <string>远程控制</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/equipment_logo_netchange.png</string>
+            <key>menuname</key>
+            <string>网络切换</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/equipment_logo_realname.png</string>
+            <key>menuname</key>
+            <string>实名认证</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/equipment_logo_record.png</string>
+            <key>menuname</key>
+            <string>交易记录</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/home_icon_rubbish.png</string>
+            <key>menuname</key>
+            <string>电子垃圾</string>
+        </dict>
+	</array>
+</dict>
+</plist>

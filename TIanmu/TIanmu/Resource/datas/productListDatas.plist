@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   productListDatas.plist
+   TIanmu
+
+   Created by 郑连杰 on 2023/6/16.
+   Copyright (c) 2023 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+<dict>
+    <key>datas</key>
+    <array>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/icon_cpe.png</string>
+            <key>menuname</key>
+            <string>CPE</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/icon_jd600.png</string>
+            <key>menuname</key>
+            <string>JD600</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/icon_T900.png</string>
+            <key>menuname</key>
+            <string>T900</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/icon_tu55.png</string>
+            <key>menuname</key>
+            <string>TU55</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/icon_u200.png</string>
+            <key>menuname</key>
+            <string>U200</string>
+        </dict>
+        <dict>
+            <key>picpath</key>
+            <string>http://jdwlwm2m.com/excel/appImg/icon_zmu600.png</string>
+            <key>menuname</key>
+            <string>ZMU600</string>
+        </dict>
+    </array>
+</dict>
+</plist>
