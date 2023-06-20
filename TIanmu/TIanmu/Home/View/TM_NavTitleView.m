@@ -30,7 +30,7 @@
     [button.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [button setContentVerticalAlignment:UIControlContentVerticalAlignmentTop];
-    [button setImageEdgeInsets:UIEdgeInsetsMake(getAutoSize(5), getAutoSize(10), getAutoSize(5), button.width - getAutoSize(30))];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(getAutoSize(7), getAutoSize(10), getAutoSize(5), button.width - getAutoSize(30))];
     button.layer.cornerRadius = 4;
     button.tag = kNavButtonTag;
     

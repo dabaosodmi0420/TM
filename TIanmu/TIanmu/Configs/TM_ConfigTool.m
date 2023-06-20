@@ -9,6 +9,8 @@
 
 @implementation TM_ConfigTool
 
+#pragma mark - 获取plist数据
+
 + (NSArray *)getShortMenuListDatas {
     
     return [TM_ConfigTool loadLocalPlistDataWithName:@"shortMenuDatas"][@"datas"] ;
@@ -32,5 +34,20 @@
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
     return  dic;
 }
+
+#pragma mark - 获取json数据
+
++ (NSArray *)getTabbarDatas {
+    return [TM_ConfigTool getPrepareData:@"generalDatas"][@"tabbar"];
+}
+
++ (NSDictionary *)getPrepareData:(NSString *)fileName {
+    NSString *jsonPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
+    NSData *jsonData = [[NSData alloc] initWithContentsOfFile:jsonPath];
+    NSError *error = nil;
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+    return jsonDict;
+}
+
 
 @end

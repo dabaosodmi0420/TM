@@ -40,8 +40,8 @@
     self.title = @"我的";
     
     UIButton *setting = [UIButton buttonWithType:UIButtonTypeCustom];
-    [setting setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
-    [setting setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateHighlighted];
+    [setting setImage:[UIImage imageNamed:@"personal_set"] forState:UIControlStateNormal];
+    [setting setImage:[UIImage imageNamed:@"personal_set"] forState:UIControlStateHighlighted];
     setting.frame = CGRectMake(0, 0, 20, 20);
     [setting addTarget:self action:@selector(rightNavItemClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *settingItem = [[UIBarButtonItem alloc] initWithCustomView:setting];
@@ -152,6 +152,7 @@
 - (TM_MeTopView *)topView{
     if (!_topView) {
         _topView = [[TM_MeTopView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 457)];
+        _topView.controller = self;
     }
     return _topView;
 }

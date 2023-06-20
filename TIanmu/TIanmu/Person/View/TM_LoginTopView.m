@@ -172,7 +172,7 @@
 - (TM_imgLabelButton *)flowBtn {
     if (!_flowBtn) {
         _flowBtn = [[TM_imgLabelButton alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
-        _flowBtn.image = [UIImage imageNamed:@"shoucang"];
+        _flowBtn.image = [UIImage imageNamed:@"personal_card_icon"];
         _flowBtn.text = @"流量卡";
         _flowBtn.bottomNameFont = [UIFont systemFontOfSize:16];
         _flowBtn.color = [UIColor darkGrayColor];
@@ -184,7 +184,7 @@
 - (TM_imgLabelButton *)discountBtn {
     if (!_discountBtn) {
         _discountBtn = [[TM_imgLabelButton alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
-        _discountBtn.image = [UIImage imageNamed:@"shoucang"];
+        _discountBtn.image = [UIImage imageNamed:@"personal_quan_icon"];
         _discountBtn.text = @"优惠券";
         _discountBtn.bottomNameFont = [UIFont systemFontOfSize:16];
         _discountBtn.color = [UIColor darkGrayColor];
@@ -196,7 +196,7 @@
 - (TM_imgLabelButton *)favBtn {
     if (!_favBtn) {
         _favBtn = [[TM_imgLabelButton alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
-        _favBtn.image = [UIImage imageNamed:@"shoucang"];
+        _favBtn.image = [UIImage imageNamed:@"personal_scicon"];
         _favBtn.text = @"我的收藏";
         _favBtn.bottomNameFont = [UIFont systemFontOfSize:16];
         _favBtn.color = [UIColor darkGrayColor];

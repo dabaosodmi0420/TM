@@ -9,7 +9,7 @@
 #import "TM_LoginTopView.h"
 #import "TM_OrderFormView.h"
 #import "TM_imgLabelButton.h"
-
+#import "TM_LoginViewController.h"
 @interface TM_MeTopView()
 
 /* 上面登录View */
@@ -74,8 +74,21 @@
 - (TM_LoginTopView *)loginView{
     if(!_loginView) {
         _loginView = [[TM_LoginTopView alloc] initWithFrame:CGRectMake(0, 0, self.width - 22, 232)];
+        @weakify(self);
         _loginView.clickBlock = ^(TM_LoginTopViewEnum type) {
             NSLog(@"%@",@(type));
+            @strongify(self);
+            switch (type) {
+                case TM_LoginTopViewEnumLogin:{
+                    TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
+                    loginVC.modalPresentationStyle = 0;
+                    [self.controller presentViewController:loginVC animated:YES completion:nil];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
         };
     }
     return _loginView;

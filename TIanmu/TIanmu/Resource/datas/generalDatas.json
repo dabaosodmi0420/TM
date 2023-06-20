@@ -1,0 +1,22 @@
+{
+    "tabbar" : [
+        {
+            "className" : "TM_HomePageViewController",
+            "title" : "首页",
+            "imageNormal" : "foot_home_default_icon",
+            "imageSelected" : "foot_home_highlight_icon"
+        },
+        {
+            "className" : "TM_ServicePageViewController",
+            "title" : "客服",
+            "imageNormal" : "foot_gouwuche_default_icon",
+            "imageSelected" : "foot_gouwuche_highlight_icon"
+        },
+        {
+            "className" : "TM_PersonPageViewController",
+            "title" : "我的",
+            "imageNormal" : "foot_personal_default_icon",
+            "imageSelected" : "foot_personal_highlight_icon"
+        },
+    ]
+}

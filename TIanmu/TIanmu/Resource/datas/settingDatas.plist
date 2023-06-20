@@ -1,34 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   settingDatas.plist
-   TIanmu
-
-   Created by 郑连杰 on 2023/6/19.
-   Copyright (c) 2023 ___ORGANIZATIONNAME___. All rights reserved.
--->
 <plist version="1.0">
-    <dict>
-        <key>datas</key>
-        <array>
-            <dict>
-                <key>picpath</key>
-                <string>zhanghaodenglu</string>
-                <key>menuname</key>
-                <string>我的关注</string>
-            </dict>
-            <dict>
-                <key>picpath</key>
-                <string>zhanghaodenglu</string>
-                <key>menuname</key>
-                <string>安全中心</string>
-            </dict>
-            <dict>
-                <key>picpath</key>
-                <string>zhanghaodenglu</string>
-                <key>menuname</key>
-                <string>地址管理</string>
-            </dict>
-        </array>
-    </dict>
+<dict>
+	<key>datas</key>
+	<array>
+		<dict>
+			<key>picpath</key>
+			<string>mine_business_icon</string>
+			<key>menuname</key>
+			<string>我的关注</string>
+		</dict>
+		<dict>
+			<key>picpath</key>
+			<string>mine_safe_safety</string>
+			<key>menuname</key>
+			<string>安全中心</string>
+		</dict>
+		<dict>
+			<key>picpath</key>
+			<string>mine_address_icon</string>
+			<key>menuname</key>
+			<string>地址管理</string>
+		</dict>
+	</array>
+</dict>
 </plist>

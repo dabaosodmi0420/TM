@@ -42,6 +42,8 @@
 		15BB8F182A383F4100A66E51 /* TM_ClassName.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BB8F172A383F4100A66E51 /* TM_ClassName.m */; };
 		15BB8F1B2A38491300A66E51 /* UIView+TM_Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BB8F1A2A38491300A66E51 /* UIView+TM_Frame.m */; };
 		15BC21522A40454500323D13 /* settingDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15BC21512A40454500323D13 /* settingDatas.plist */; };
+		15BC215A2A414A8100323D13 /* generalDatas.json in Resources */ = {isa = PBXBuildFile; fileRef = 15BC21572A4144BA00323D13 /* generalDatas.json */; };
+		15BC215F2A41711E00323D13 /* TM_LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC215E2A41711E00323D13 /* TM_LoginViewController.m */; };
 		95823E6D29F61185C4D705EE /* libPods-TIanmu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D17A36117D471399C28E1EAA /* libPods-TIanmu.a */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +115,9 @@
 		15BB8F192A38491300A66E51 /* UIView+TM_Frame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TM_Frame.h"; sourceTree = "<group>"; };
 		15BB8F1A2A38491300A66E51 /* UIView+TM_Frame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TM_Frame.m"; sourceTree = "<group>"; };
 		15BC21512A40454500323D13 /* settingDatas.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = settingDatas.plist; sourceTree = "<group>"; };
+		15BC21572A4144BA00323D13 /* generalDatas.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = generalDatas.json; sourceTree = "<group>"; };
+		15BC215D2A41711E00323D13 /* TM_LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_LoginViewController.h; sourceTree = "<group>"; };
+		15BC215E2A41711E00323D13 /* TM_LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_LoginViewController.m; sourceTree = "<group>"; };
 		7FD968295BA808AA2312CFF1 /* Pods-TIanmu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TIanmu.release.xcconfig"; path = "Target Support Files/Pods-TIanmu/Pods-TIanmu.release.xcconfig"; sourceTree = "<group>"; };
 		95AB8B63FC18934FD3D58AEE /* Pods-TIanmu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TIanmu.debug.xcconfig"; path = "Target Support Files/Pods-TIanmu/Pods-TIanmu.debug.xcconfig"; sourceTree = "<group>"; };
 		D17A36117D471399C28E1EAA /* libPods-TIanmu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TIanmu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +150,7 @@
 				150751192A3C26880019F81A /* shortMenuDatas.plist */,
 				15BC21512A40454500323D13 /* settingDatas.plist */,
 				1507511B2A3C26A10019F81A /* productListDatas.plist */,
+				15BC21572A4144BA00323D13 /* generalDatas.json */,
 			);
 			path = datas;
 			sourceTree = "<group>";
@@ -241,6 +247,7 @@
 		15BB8EC22A36A42800A66E51 /* TIanmu */ = {
 			isa = PBXGroup;
 			children = (
+				15BC215B2A4170B300323D13 /* Login */,
 				1507511D2A3C2A3B0019F81A /* Configs */,
 				1586F3BE2A38518100B526BC /* Network */,
 				15BB8F082A38347900A66E51 /* Person */,
@@ -365,6 +372,23 @@
 			path = Tool;
 			sourceTree = "<group>";
 		};
+		15BC215B2A4170B300323D13 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				15BC215C2A4170BD00323D13 /* Controller */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		15BC215C2A4170BD00323D13 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				15BC215D2A41711E00323D13 /* TM_LoginViewController.h */,
+				15BC215E2A41711E00323D13 /* TM_LoginViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		6C723870405F1668F5F69CE5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,6 +470,7 @@
 				15BC21522A40454500323D13 /* settingDatas.plist in Resources */,
 				15BB8ED32A36A42F00A66E51 /* LaunchScreen.storyboard in Resources */,
 				1507511A2A3C26880019F81A /* shortMenuDatas.plist in Resources */,
+				15BC215A2A414A8100323D13 /* generalDatas.json in Resources */,
 				1507511C2A3C26A10019F81A /* productListDatas.plist in Resources */,
 				15BB8ED02A36A42F00A66E51 /* Assets.xcassets in Resources */,
 			);
@@ -529,6 +554,7 @@
 				15BB8F0E2A3834E800A66E51 /* TM_HomePageViewController.m in Sources */,
 				150751112A3BF9270019F81A /* TM_ProductListModel.m in Sources */,
 				15BB8F182A383F4100A66E51 /* TM_ClassName.m in Sources */,
+				15BC215F2A41711E00323D13 /* TM_LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,7 +687,9 @@
 			baseConfigurationReference = 95AB8B63FC18934FD3D58AEE /* Pods-TIanmu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.1;
 				DEVELOPMENT_TEAM = RWT7XX3AV4;
@@ -671,7 +699,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -693,7 +722,9 @@
 			baseConfigurationReference = 7FD968295BA808AA2312CFF1 /* Pods-TIanmu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.1;
 				DEVELOPMENT_TEAM = RWT7XX3AV4;
@@ -703,7 +734,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

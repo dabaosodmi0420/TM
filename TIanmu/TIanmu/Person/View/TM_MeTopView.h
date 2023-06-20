@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TM_MeTopView : UIView
 
+/* 控制器 */
+@property (strong, nonatomic) UIViewController *controller;
 
 
 @end

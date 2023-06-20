@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat centerY;
 @property (nonatomic, assign) CGPoint origin;
 @property (nonatomic, assign) CGSize size;
+@property (nonatomic, assign, readonly) CGFloat maxX;
+@property (nonatomic, assign, readonly) CGFloat maxY;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,7 @@
 #import "TM_TabBarViewController.h"
 #import "TM_BaseViewController.h"
 #import "TM_NavigationController.h"
+#import "TM_ConfigTool.h"
 @interface TM_TabBarViewController ()
 
 @end
@@ -24,51 +25,34 @@
         appearance.stackedLayoutAppearance.selected.titleTextAttributes = @{NSForegroundColorAttributeName : TM_SpecialGlobalColor};
         appearance.stackedLayoutAppearance.normal.titleTextAttributes = @{NSForegroundColorAttributeName : TM_ColorRGB(110, 110, 110)};
         appearance.stackedLayoutAppearance.selected.iconColor = TM_SpecialGlobalColor;
-        appearance.stackedLayoutAppearance.normal.iconColor = TM_ColorRGB(110, 110, 110);
+        appearance.stackedLayoutAppearance.normal.iconColor = TM_ColorRGB(221, 221, 221);
         self.tabBar.standardAppearance = appearance;
         self.tabBar.scrollEdgeAppearance = appearance;
     }else{
         
         self.tabBar.backgroundColor = [UIColor whiteColor];
         self.tabBar.tintColor = TM_SpecialGlobalColor;
-        self.tabBar.unselectedItemTintColor = TM_ColorRGB(110, 110, 110);
+        self.tabBar.unselectedItemTintColor = TM_ColorRGB(221, 221, 221);
     }
     self.viewControllers = [self createTabBarViewController];
 }
 
 - (NSMutableArray *)createTabBarViewController {
-    NSArray *classNames = @[
-        TM_HomePageViewControllerName,
-        TM_ServicePageViewControllerName,
-        TM_PersonPageViewControllerName
-    ];
-    NSArray *tabBarTitles = @[
-        @"首页",
-        @"客服",
-        @"我的"
-    ];
-    NSArray *tabBarImageNormal = @[
-        @"tab_me_normal",
-        @"tab_me_normal",
-        @"tab_me_normal"
-    ];
-    NSArray *tabBarImageSelect = @[
-        @"tab_me_select",
-        @"tab_me_select",
-        @"tab_me_select"
-    ];
+    
+    NSArray *tabbarDatas = [TM_ConfigTool getTabbarDatas];
     
     // 创建Tabbar上的ViewController
     NSMutableArray *viewControllers = [NSMutableArray array];
 
-    for (int i = 0; i < classNames.count; i ++) {
-        NSString *className = classNames[i];
-        NSString *title = tabBarTitles[i];
+    for (int i = 0; i < tabbarDatas.count; i ++) {
+        NSDictionary *dic = tabbarDatas[i];
+        NSString *className = dic[@"className"];
+        NSString *title = dic[@"title"];
         Class class = NSClassFromString(className);
         id obj = [[class alloc] init];
         if (obj && [obj isKindOfClass:[TM_BaseViewController class]]){
             TM_BaseViewController *vc = obj;
-            vc.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:[UIImage imageNamed:tabBarImageNormal[i]] selectedImage:[UIImage imageNamed:tabBarImageSelect[i]]];
+            vc.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:[UIImage imageNamed:dic[@"imageNormal"]] selectedImage:[UIImage imageNamed:dic[@"imageSelected"]]];
             TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:vc];
             [viewControllers addObject:nav];
         }

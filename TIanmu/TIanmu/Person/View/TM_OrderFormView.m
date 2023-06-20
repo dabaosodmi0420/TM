@@ -59,7 +59,7 @@
     [self addSubview:line];
     
     NSArray *titleArr = @[@"代付款", @"代发货", @"待收货", @"待评价", @"售后"];
-    NSArray *imgArr = @[@"shoucang", @"shoucang", @"shoucang", @"shoucang", @"shoucang"];
+    NSArray *imgArr = @[@"personal_pay_icon", @"personal_send_icon", @"personal_delivery_icon", @"personal_remark_icon", @"personal_end_icon"];
     for (int i = 0; i < 5; i++) {
         TM_imgLabelButton *btn = [[TM_imgLabelButton alloc] initWithFrame:CGRectMake(0, 0, 56, 56)];
         btn.center = CGPointMake(self.width / 10 * (i * 2 + 1), CGRectGetMaxY(line.frame) + (self.height - CGRectGetMaxY(line.frame)) * 0.5);
