@@ -167,34 +167,47 @@
     [contentView addSubview:registerAccount];
     
     // 三方登录
-    UILabel *threeL = [self createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(377), kScreen_Width - 20, 20) title:@"第三方登录" fontSize:14 color:[UIColor darkGrayColor]];
-    [contentView addSubview:threeL];
+    UILabel *threeL = [self createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(377), kScreen_Width - 20, 20) title:@"第三方登录" fontSize:16 color:[UIColor darkGrayColor]];
+    threeL.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:threeL];
     
     UIButton *threeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    threeBtn.frame = CGRectMake(0, 0, getAutoWidth(120), getAutoWidth(120));
+    threeBtn.frame = CGRectMake(0, self.view.height - getAutoHeight(270), getAutoWidth(130), getAutoWidth(130));
+    threeBtn.centerX = kScreen_Width * 0.5;
     [threeBtn setImage:[UIImage imageNamed:@"login_third_wechat"] forState:UIControlStateNormal];
     [threeBtn setImage:[UIImage imageNamed:@"login_third_wechat"] forState:UIControlStateHighlighted];
+    
+    [threeBtn addTarget:self action:@selector(wechatLoginClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:threeBtn];
+    
+    UILabel *threeL1 = [self createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(106), kScreen_Width - 20, 20) title:@"Copyright ©2021 天目e生活，AllRights Reserved" fontSize:12 color:[UIColor darkGrayColor]];
+    threeL1.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:threeL1];
 }
 
 #pragma mark - Activity
-
+// 切换登录方式
 - (void)changeLoginType:(UIButton *)btn {
     
 }
-
+// 登录
 - (void)loginClick:(UIButton *)btn {
     
 }
-
+// 发送验证码
 - (void)sendCodeClick:(UIButton *)btn {
     
 }
-
+// 忘记密码
 - (void)forgetPwClick {
     
 }
-
+// 注册
 - (void)registerAccountClick {
+    
+}
+// 微信登录
+- (void)wechatLoginClick {
     
 }
 #pragma mark - 创建控件
