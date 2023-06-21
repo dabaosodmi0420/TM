@@ -7,30 +7,14 @@
 
 #import "TM_NetworkTool.h"
 #import <AFNetworking.h>
-#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonCrypto.h>
 
 @interface TM_NetworkTool()
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 @end
 
 @implementation TM_NetworkTool
-//sha256加密方式
-- (NSString *)getSha256String:(NSString *)srcString {
-    const char *cstr = [srcString cStringUsingEncoding:NSUTF8StringEncoding];
-    NSData *data = [NSData dataWithBytes:cstr length:srcString.length];
 
-    uint8_t digest[CC_SHA256_DIGEST_LENGTH];
-
-    CC_SHA256(data.bytes, data.length, digest);
-
-    NSMutableString* result = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
-
-    for(int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++) {
-        [result appendFormat:@"%02x", digest[i]];
-    }
-
-    return result;
-}
 + (instancetype)sharedNetworkTool{
     
     static TM_NetworkTool *shareNetworkTool = nil;
@@ -47,7 +31,7 @@
             _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
             _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
             // 设置请求接口回来时支持什么类型的数组
-//            _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+            _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
             _sessionManager.requestSerializer.timeoutInterval = TM_AFTIMEOUTINTERVAL;
         }
         return _sessionManager;

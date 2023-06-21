@@ -26,4 +26,15 @@
 #import <SDWebImage/SDWebImage.h>
 #import <Masonry/Masonry.h>
 
+#define TM_ShowToast(v, m) \
+({ \
+MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:v]; \
+hud.mode = MBProgressHUDModeText; \
+hud.label.text = m; \
+hud.removeFromSuperViewOnHide = YES; \
+[hud showAnimated:YES]; \
+[hud hideAnimated:YES afterDelay:1.5];\
+[v addSubview:hud];\
+})
+
 #endif /* Tianmu_Prefix_h */
