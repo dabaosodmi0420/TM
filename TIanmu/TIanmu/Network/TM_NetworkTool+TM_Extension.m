@@ -23,7 +23,7 @@
         [ret appendFormat:@"%02x",result[i]];
     }
     //大写
-    ret = (NSMutableString *)[ret uppercaseString];
+//    ret = (NSMutableString *)[ret uppercaseString];
     
     return ret;
 }
@@ -34,11 +34,17 @@
     return timeString;
 }
 - (NSString *)getToken:(NSDictionary *)param {
+    
     NSData *data = [NSJSONSerialization dataWithJSONObject:param options:0 error:nil];
     NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSString *content = [json stringByAppendingString:TM_Token_SECRET_KEY];
     NSString *encrypt = [self getSha256String:content];
     return encrypt;
 }
-
+// 获取token 传入json
+- (NSString *)getTokenWithJson:(NSString *)json {
+    NSString *content = [json stringByAppendingString:TM_Token_SECRET_KEY];
+    NSString *encrypt = [self getSha256String:content];
+    return encrypt;
+}
 @end

@@ -198,5 +198,8 @@
 #define iPadMini6       (kScreen_Width == 744.0f && kScreen_Height == 1133.0f ? YES : NO)
 #define iPad            ([[tm_SettingManager shareInstance].phoneType containsString:@"iPad"])
 
+// 适配尺寸
+#define getAutoWidth(w) ((w) / 1072.0 * kScreen_Width)
+#define getAutoHeight(h) ((h) / 2400.0 * kScreen_Height)
 
 #endif /* TM_BasicMacro_h */

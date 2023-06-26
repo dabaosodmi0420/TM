@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getTimeStamp;
 // 获取token
 - (NSString *)getToken:(NSDictionary *)param;
+// 获取token 传入json
+- (NSString *)getTokenWithJson:(NSString *)json;
 @end
 
 NS_ASSUME_NONNULL_END

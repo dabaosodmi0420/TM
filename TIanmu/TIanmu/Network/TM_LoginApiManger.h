@@ -29,6 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
                     isPwLogin:(BOOL)isPwLogin
                      success:(TMAPISuccessBlock)successBlock
                       failure:(TMAPIFailureBlock)failureBlock;
+
+// 注册接口
++ (void)sendRegisterWithPhoneNum:(NSString *)phoneNum
+                        password:(NSString *)pw
+                            code:(NSString *)code
+                         success:(TMAPISuccessBlock)successBlock
+                         failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

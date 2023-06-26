@@ -8,6 +8,9 @@
 #import "TM_NetworkTool.h"
 #import <AFNetworking.h>
 #import <CommonCrypto/CommonCrypto.h>
+#import "TM_NetworkTool+TM_Extension.h"
+
+#define TM_BaseUrl                  @"http://jdwlwm2m.com/custjdwl/apiApp"
 
 @interface TM_NetworkTool()
 @property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
@@ -98,4 +101,30 @@
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
+
+- (void)sendPOST_RequestWithPath:(NSString *)path
+                      parameters:(NSMutableDictionary *)params
+                         headers:(NSDictionary *)headers
+                         success:(TMAPISuccessBlock)successBlock
+                         failure:(TMAPIFailureBlock)failureBlock {
+    NSString *url = [NSString stringWithFormat:@"%@%@", TM_BaseUrl, path];
+    if (params){
+        NSString *token = [self getToken:params];
+        params[@"token"] = token;
+    }
+    
+    [self sendPOSTRequestWithPath:url parameters:params headers:headers success:successBlock failure:failureBlock];
+}
+- (void)sendGET_RequestWithPath:(NSString *)path
+                     parameters:(NSMutableDictionary *)params
+                        headers:(NSDictionary *)headers
+                        success:(TMAPISuccessBlock)successBlock
+                        failure:(TMAPIFailureBlock)failureBlock {
+    NSString *url = [NSString stringWithFormat:@"%@%@", TM_BaseUrl, path];
+    if (params){
+        NSString *token = [self getToken:params];
+        params[@"token"] = token;
+    }
+    [self sendGETRequestWithPath:url parameters:params headers:headers success:successBlock failure:failureBlock];
+}
 @end

@@ -7,9 +7,8 @@
 
 #import "TM_LoginViewController.h"
 #import "TM_LoginApiManger.h"
-
-#define getAutoWidth(w) ((w) / 1072.0 * kScreen_Width)
-#define getAutoHeight(h) ((h) / 2400.0 * kScreen_Height)
+#import "TM_RegisterViewController.h"
+#import "TM_NavigationController.h"
 
 @interface TM_LoginViewController ()<UITextFieldDelegate>{
     NSTimer         * _timer;
@@ -49,6 +48,13 @@
     [self changeLoginType:self.loginMenuBtn];
     
     NSLog(@"%@",[[TM_NetworkTool sharedNetworkTool] getSha256String:@"13261038218"]);
+    
+    self.phoneNumTF.text = @"13261038218";
+    self.passwordTF.text = @"lj123456";
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -272,7 +278,9 @@
 }
 // 注册
 - (void)registerAccountClick {
-    
+    TM_RegisterViewController *registerVC = [[TM_RegisterViewController alloc] init];
+    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:registerVC];
+    [self.navigationController pushViewController:registerVC animated:YES];
 }
 // 微信登录
 - (void)wechatLoginClick {

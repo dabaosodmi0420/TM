@@ -7,9 +7,9 @@
 
 #import <Foundation/Foundation.h>
 
-#define TM_AFTIMEOUTINTERVAL 15
-#define TM_AFGET @"GET"
-#define TM_AFPOST @"POST"
+#define TM_AFTIMEOUTINTERVAL        15
+#define TM_AFGET                    @"GET"
+#define TM_AFPOST                   @"POST"
 
 typedef void (^TMAPISuccessBlock)(id _Nullable respondObject);
 typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
@@ -46,6 +46,18 @@ NS_ASSUME_NONNULL_BEGIN
                 failure:(TMAPIFailureBlock)failureBlock;
 
 
+#pragma mark - 自动拼接baseurl 和 添加 token
+- (void)sendGET_RequestWithPath:(NSString *)path
+                     parameters:(NSMutableDictionary *)params
+                        headers:(NSDictionary *)headers
+                        success:(TMAPISuccessBlock)successBlock
+                        failure:(TMAPIFailureBlock)failureBlock;
+
+- (void)sendPOST_RequestWithPath:(NSString *)path
+                      parameters:(NSMutableDictionary *)params
+                         headers:(NSDictionary *)headers
+                         success:(TMAPISuccessBlock)successBlock
+                         failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

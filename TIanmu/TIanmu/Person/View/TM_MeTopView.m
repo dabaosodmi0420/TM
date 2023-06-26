@@ -10,6 +10,7 @@
 #import "TM_OrderFormView.h"
 #import "TM_imgLabelButton.h"
 #import "TM_LoginViewController.h"
+#import "TM_NavigationController.h"
 @interface TM_MeTopView()
 
 /* 上面登录View */
@@ -82,7 +83,8 @@
                 case TM_LoginTopViewEnumLogin:{
                     TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
                     loginVC.modalPresentationStyle = 0;
-                    [self.controller presentViewController:loginVC animated:YES completion:nil];
+                    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:loginVC];
+                    [self.controller presentViewController:nav animated:YES completion:nil];
                 }
                     break;
                     
