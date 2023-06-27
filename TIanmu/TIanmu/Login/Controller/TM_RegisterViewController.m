@@ -7,8 +7,10 @@
 
 #import "TM_RegisterViewController.h"
 #import "TM_LoginApiManger.h"
+#import "TM_AttributeTextView.h"
 
-@interface TM_RegisterViewController ()<UITextFieldDelegate>{
+
+@interface TM_RegisterViewController ()<UITextFieldDelegate, TM_AttributeTextViewDelegate>{
     NSTimer         * _timer;
     NSUInteger        _secondNumber;
 }
@@ -22,6 +24,11 @@
 @property (strong, nonatomic) UITextField       *codeTF;
 /* 获取验证码 */
 @property (strong, nonatomic) UIButton          *sendCodeBtn;
+/* 同意协议按钮 */
+@property (strong, nonatomic) UIButton          *agreeBtn;
+/* 协议 */
+@property (strong, nonatomic) TM_AttributeTextView  *attributeTV;
+
 
 /* 注册按钮 */
 @property (strong, nonatomic) UIButton          *registerBtn;
@@ -125,8 +132,29 @@
                                                  isSecure:YES];
     [contentView addSubview:self.passwordAgainTF];
     
+    UIButton *agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    agreeBtn.frame = CGRectMake(self.passwordAgainTF.x, self.passwordAgainTF.maxY + 15, 15, 15);
+    [agreeBtn setImage:[UIImage imageNamed:@"register_select_default_icon"] forState:UIControlStateNormal];
+    [agreeBtn setImage:[UIImage imageNamed:@"register_select_default_icon"] forState:UIControlStateHighlighted];
+    [agreeBtn setImage:[UIImage imageNamed:@"register_selected_icon"] forState:UIControlStateSelected];
+    [agreeBtn addTarget:self action:@selector(agreeClick:) forControlEvents:UIControlEventTouchUpInside];
+    [contentView addSubview:agreeBtn];
+    self.agreeBtn = agreeBtn;
+    
+    TM_AttributeTextView *attributeTV = [[TM_AttributeTextView alloc] initWithFrame:CGRectMake(self.agreeBtn.maxX + 10, self.agreeBtn.y , contentView.width - self.agreeBtn.maxX - 10 - getAutoWidth(92), 30)];
+    attributeTV.text = @"我已阅读并同意《天目e生活用户协议》和《隐私协议》";
+    attributeTV.font = [UIFont systemFontOfSize:14];
+    attributeTV.textColor = TM_ColorHex(@"#888888");
+    attributeTV.linkColor = TM_SpecialGlobalColor;
+    attributeTV.linkTextArr = @[@"《天目e生活用户协议》", @"《隐私协议》"];
+    attributeTV.linkTextSchemeArr = @[@"userProtocal", @"privateProtocal"];
+    attributeTV.delegate = self;
+    attributeTV.isSizeToFit = YES;
+    [contentView addSubview:attributeTV];
+    self.attributeTV = attributeTV;
+    
     // 注册
-    UIButton *registerBtn = [self createButton:CGRectMake(getAutoWidth(60), self.passwordAgainTF.maxY + 15, contentView.width - getAutoWidth(120), self.sendCodeBtn.height)
+    UIButton *registerBtn = [self createButton:CGRectMake(getAutoWidth(60), self.attributeTV.maxY + 10, contentView.width - getAutoWidth(120), self.sendCodeBtn.height)
                                    title:@"登录"
                               titleColoe:TM_ColorRGB(255, 255, 255)
                            selectedColor:TM_ColorRGB(255, 255, 255)
@@ -137,6 +165,22 @@
     registerBtn.clipsToBounds = YES;
     [contentView addSubview:registerBtn];
     self.registerBtn = registerBtn;
+    
+    UILabel *hasAccountL = [self createLabelWithFrame:CGRectZero title:@"已有账号？" fontSize:14 color:[UIColor darkGrayColor]];
+    [contentView addSubview:hasAccountL];
+    CGSize size = [hasAccountL sizeThatFits:CGSizeMake(MAXFLOAT, 18)];
+    CGFloat registerAccountW = 60;
+    hasAccountL.frame = CGRectMake((contentView.width - size.width - registerAccountW) * 0.5, self.registerBtn.maxY + 15, size.width, size.height);
+    
+    UIButton *returnLogin = [self createButton:CGRectMake(hasAccountL.maxX, hasAccountL.y, registerAccountW, size.height)
+                                      title:@"立即登录"
+                                 titleColoe:TM_SpecialGlobalColor
+                              selectedColor:nil
+                                   fontSize:14
+                                        sel:@selector(leftNavItemClick)];
+    [contentView addSubview:returnLogin];
+    
+    contentView.height = hasAccountL.maxY + 15;
 }
 
 #pragma mark - activity
@@ -200,10 +244,15 @@
     }];
 }
 
+// 返回
 - (void)leftNavItemClick {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+// 协议同意按钮
+- (void)agreeClick:(UIButton *)btn {
+    self.agreeBtn.selected = !self.agreeBtn.isSelected;
+}
 #pragma mark - NSTimer
 
 - (void)timerStart {
@@ -234,6 +283,19 @@
         self.sendCodeBtn.enabled = YES;
     }
 }
+
+#pragma mark - TM_AttributeTextViewDelegate
+- (void)tm_attributeTextView:(TM_AttributeTextView *)attributeTextView linkScheme:(NSString *)scheme {
+    NSLog(@"%@",scheme);
+}
+- (void)tm_attributeTextView:(TM_AttributeTextView *)attributeTextView linkClickIndex:(NSUInteger)index {
+    NSLog(@"%@",@(index));
+}
+- (void)tm_attributeTextViewClick:(TM_AttributeTextView *)attributeTextView {
+    NSLog(@"%@",@"点击");
+    [self agreeClick:self.agreeBtn];
+}
+
 #pragma mark - 创建控件
 - (UIButton *)createButton:(CGRect)frame title:(NSString *)title titleColoe:(UIColor *)titleColor selectedColor:(UIColor *)selectedColor fontSize:(CGFloat)fontSize sel:(SEL)sel{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

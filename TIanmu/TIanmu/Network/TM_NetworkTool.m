@@ -109,7 +109,9 @@
                          failure:(TMAPIFailureBlock)failureBlock {
     NSString *url = [NSString stringWithFormat:@"%@%@", TM_BaseUrl, path];
     if (params){
-        NSString *token = [self getToken:params];
+        NSString *time_stamp = [[TM_NetworkTool sharedNetworkTool] getTimeStamp];
+        params[@"time_stamp"] = time_stamp;
+        NSString *token = [self getTokenWithString:time_stamp];
         params[@"token"] = token;
     }
     
@@ -122,7 +124,9 @@
                         failure:(TMAPIFailureBlock)failureBlock {
     NSString *url = [NSString stringWithFormat:@"%@%@", TM_BaseUrl, path];
     if (params){
-        NSString *token = [self getToken:params];
+        NSString *time_stamp = [[TM_NetworkTool sharedNetworkTool] getTimeStamp];
+        params[@"time_stamp"] = time_stamp;
+        NSString *token = [self getTokenWithString:time_stamp];
         params[@"token"] = token;
     }
     [self sendGETRequestWithPath:url parameters:params headers:headers success:successBlock failure:failureBlock];

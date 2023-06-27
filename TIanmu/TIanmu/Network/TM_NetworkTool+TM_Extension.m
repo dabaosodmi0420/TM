@@ -41,9 +41,9 @@
     NSString *encrypt = [self getSha256String:content];
     return encrypt;
 }
-// 获取token 传入json
-- (NSString *)getTokenWithJson:(NSString *)json {
-    NSString *content = [json stringByAppendingString:TM_Token_SECRET_KEY];
+// 获取token 传入字符串
+- (NSString *)getTokenWithString:(NSString *)string {
+    NSString *content = [string stringByAppendingString:TM_Token_SECRET_KEY];
     NSString *encrypt = [self getSha256String:content];
     return encrypt;
 }

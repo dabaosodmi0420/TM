@@ -44,40 +44,39 @@
     }else {
         params[@"code"] = code;
     }
-    params[@"time_stamp"] = [[TM_NetworkTool sharedNetworkTool] getTimeStamp];
     
-    NSArray *sortKeys = @[@"user_name", @"user_key", @"time_stamp"];
-    
-    
-    NSMutableString *json = [NSMutableString stringWithString:@""];
-    for (int i = 0; i < sortKeys.count; i++) {
-        NSString *key = sortKeys[i];
-        NSString *value = params[key];
-        if (i == 0) {
-            [json appendString:@"{"];
-            [json appendString:[NSString stringWithFormat:@"\"%@\":\"%@\"", key, value]];
-        }
-        if (i > 0) {
-            [json appendString:@","];
-            [json appendString:[NSString stringWithFormat:@"\"%@\":\"%@\"", key, value]];
-        }
-        if (i == sortKeys.count - 1) {
-            [json appendString:@"}"];
-        }
-    }
-    NSString *token = [[TM_NetworkTool sharedNetworkTool] getTokenWithJson:json];
-    params[@"token"] = token;
-    
-    [[TM_NetworkTool sharedNetworkTool] sendPOSTRequestWithPath:@"http://jdwlwm2m.com/custjdwl/apiApp/appLogin"
-                                                     parameters:params
-                                                        headers:@{}
-                                                        success:successBlock
-                                                        failure:failureBlock];
-//    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
-//                                                      parameters:params
-//                                                         headers:@{}
-//                                                         success:successBlock
-//                                                         failure:failureBlock];
+//    NSArray *sortKeys = @[@"user_name", @"user_key", @"time_stamp"];
+//
+//
+//    NSMutableString *json = [NSMutableString stringWithString:@""];
+//    for (int i = 0; i < sortKeys.count; i++) {
+//        NSString *key = sortKeys[i];
+//        NSString *value = params[key];
+//        if (i == 0) {
+//            [json appendString:@"{"];
+//            [json appendString:[NSString stringWithFormat:@"\"%@\":\"%@\"", key, value]];
+//        }
+//        if (i > 0) {
+//            [json appendString:@","];
+//            [json appendString:[NSString stringWithFormat:@"\"%@\":\"%@\"", key, value]];
+//        }
+//        if (i == sortKeys.count - 1) {
+//            [json appendString:@"}"];
+//        }
+//    }
+//    NSString *token = [[TM_NetworkTool sharedNetworkTool] getTokenWithJson:json];
+//    params[@"token"] = token;
+//
+//    [[TM_NetworkTool sharedNetworkTool] sendPOSTRequestWithPath:@"http://jdwlwm2m.com/custjdwl/apiApp/appLogin"
+//                                                     parameters:params
+//                                                        headers:@{}
+//                                                        success:successBlock
+//                                                        failure:failureBlock];
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
 }
 
 // 注册
@@ -93,7 +92,6 @@
     params[@"user_name"]    = phoneNum;
     params[@"user_key"]     = pw;
     params[@"code"]         = code;
-    params[@"time_stamp"]   = [[TM_NetworkTool sharedNetworkTool] getTimeStamp];
     
     [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
                                                       parameters:params
