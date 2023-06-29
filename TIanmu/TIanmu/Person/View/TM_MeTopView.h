@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /* 控制器 */
 @property (strong, nonatomic) UIViewController *controller;
 
+- (void)reload;
 
 @end
 

@@ -17,6 +17,9 @@
 #import "TM_BannerModel.h"
 #import "TM_ShortMenuModel.h"
 #import "TM_ConfigTool.h"
+#import "TM_DataCardManagerViewController.h"
+#import "TM_NavigationController.h"
+#import "TM_LoginViewController.h"
 
 #define KProductListCellId  @"KProductListCellId"
 #define KBannerCellId       @"KBannerCellId"
@@ -117,7 +120,7 @@
     [self.collectionView.mj_header endRefreshing];
     [self.collectionView.mj_footer endRefreshing];
 }
-#pragma mark - JT_NavTitleViewDelegate --- 导航栏按钮点击代理
+#pragma mark - tm_NavTitleViewDelegate --- 导航栏按钮点击代理
 - (void)clickHomeNavTitleViewBtnsWithSigns:(NSString *)signs {
     if ([signs isEqualToString:@"1"]) { //1-搜索按钮点击
         [self showNotOpenAlert];
@@ -133,6 +136,15 @@
 #pragma mark - TM_HomeShortcutMenuViewDelegate
 - (void)clickHomeShortcutMenuWithIndex:(NSUInteger)index{
     NSLog(@"点击了：%@",@(index));
+    if ([TM_SettingManager shareInstance].hasPhoneLogged){
+        TM_DataCardManagerViewController *vc = [[TM_DataCardManagerViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else {
+        TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
+        loginVC.modalPresentationStyle = 0;
+        TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
 }
 #pragma mark - collectionView 代理
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

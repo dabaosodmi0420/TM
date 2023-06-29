@@ -7,7 +7,6 @@
 
 #import "TM_LoginTopView.h"
 #import "TM_imgLabelButton.h"
-
 @interface TM_LoginTopView()
 
 
@@ -111,6 +110,15 @@
         make.width.mas_equalTo(1);
     }];
     
+   
+}
+#pragma mark - public
+- (void)reload {
+    if ([TM_SettingManager shareInstance].hasPhoneLogged) {
+        self.phoneNumLabel.text = [TM_SettingManager shareInstance].sIdentifierId;
+    }else {
+        self.phoneNumLabel.text = @"请登录";
+    }
 }
 
 #pragma mark - Activity

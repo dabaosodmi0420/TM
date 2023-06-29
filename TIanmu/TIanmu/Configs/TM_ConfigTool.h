@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray *)getSettingDatas;
 // 获取tabbar显示数据
 + (NSArray *)getTabbarDatas;
+// 获取设置中心数据
++ (NSArray *)getSettingDatasCenter;
+
 @end
 
 NS_ASSUME_NONNULL_END

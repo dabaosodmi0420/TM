@@ -9,7 +9,6 @@
 #import "TM_LoginApiManger.h"
 #import "TM_RegisterViewController.h"
 #import "TM_NavigationController.h"
-
 @interface TM_LoginViewController ()<UITextFieldDelegate>{
     NSTimer         * _timer;
     NSUInteger        _secondNumber;
@@ -46,11 +45,9 @@
     
     // 默认密码登录
     [self changeLoginType:self.loginMenuBtn];
-    
-    NSLog(@"%@",[[TM_NetworkTool sharedNetworkTool] getSha256String:@"13261038218"]);
-    
-    self.phoneNumTF.text = @"13261038218";
-    self.passwordTF.text = @"lj123456";
+        
+    self.phoneNumTF.text = @"15910906332";
+    self.passwordTF.text = @"123456";
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -63,7 +60,7 @@
 - (void)createView {
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, getAutoHeight(840.0))];
     [self.view addSubview:topView];
-    [self setGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(108, 138, 205)]];
+    [UIView setGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(108, 138, 205)]];
     
     // 顶部logo
     UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,  getAutoWidth(234.0), getAutoWidth(234.0))];
@@ -89,60 +86,66 @@
     [self.view addSubview:contentView];
     
     // 登录菜单
-    UIButton *loginMenu = [self createButton:CGRectMake(0, 0, getAutoWidth(155), getAutoHeight(88))
+    UIButton *loginMenu = [UIView createButton:CGRectMake(0, 0, getAutoWidth(155), getAutoHeight(88))
                                        title:@"登录"
                                   titleColoe:TM_ColorRGB(174, 174, 174)
                                selectedColor:TM_ColorRGB(0, 0, 0)
                                     fontSize:23
-                                         sel:@selector(changeLoginType:)];
+                                         sel:@selector(changeLoginType:)
+                                        target:self];
     loginMenu.center = CGPointMake(contentView.width * 0.25, getAutoHeight(120));
     loginMenu.selected = YES;
     [contentView addSubview:loginMenu];
     self.loginMenuBtn = loginMenu;
     
     // 快捷登录菜单
-    UIButton *loginQuickMenu = [self createButton:CGRectMake(0, 0, getAutoWidth(290), getAutoHeight(88))
+    UIButton *loginQuickMenu = [UIView createButton:CGRectMake(0, 0, getAutoWidth(290), getAutoHeight(88))
                                             title:@"快捷登录"
                                        titleColoe:TM_ColorRGB(174, 174, 174)
                                     selectedColor:TM_ColorRGB(0, 0, 0)
                                          fontSize:23
-                                              sel:@selector(changeLoginType:)];
+                                              sel:@selector(changeLoginType:)
+                                             target:self];
     loginQuickMenu.center = CGPointMake(contentView.width * 0.75, getAutoHeight(120));
     [contentView addSubview:loginQuickMenu];
     self.loginQuickMenuBtn = loginQuickMenu;
     
     // 手机号输入框
-    self.phoneNumTF = [self createTextFieldWithFrame:CGRectMake(getAutoWidth(92), getAutoHeight(230), contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
+    self.phoneNumTF = [UIView createTextFieldWithFrame:CGRectMake(getAutoWidth(92), getAutoHeight(230), contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
                                             fontSize:16
                                          placeholder:@"请输入手机号"
-                                            isSecure:NO];
+                                            isSecure:NO
+                                            delegate:self];
     [self.phoneNumTF addTarget:self action:@selector(phoneTextFieldEdit:) forControlEvents:UIControlEventEditingChanged];
     self.phoneNumTF.keyboardType = UIKeyboardTypeNumberPad;
     [contentView addSubview:self.phoneNumTF];
     
     // 密码输入框
-    self.passwordTF = [self createTextFieldWithFrame:CGRectMake(getAutoWidth(92), getAutoHeight(387), contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
+    self.passwordTF = [UIView createTextFieldWithFrame:CGRectMake(getAutoWidth(92), getAutoHeight(387), contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
                                             fontSize:16
                                          placeholder:@"请输入密码"
-                                            isSecure:YES];
+                                            isSecure:YES
+                                            delegate:self];
     [contentView addSubview:self.passwordTF];
     
     // 验证码输入框
-    self.codeTF = [self createTextFieldWithFrame:CGRectMake(getAutoWidth(92), getAutoHeight(387), getAutoWidth(480) , getAutoHeight(100))
+    self.codeTF = [UIView createTextFieldWithFrame:CGRectMake(getAutoWidth(92), getAutoHeight(387), getAutoWidth(480) , getAutoHeight(100))
                                         fontSize:16
                                      placeholder:@"请输入验证码"
-                                        isSecure:NO];
+                                        isSecure:NO
+                                          delegate:self];
     self.codeTF.keyboardType = UIKeyboardTypeNumberPad;
     self.codeTF.hidden = YES;
     [contentView addSubview:self.codeTF];
     
     // 获取验证码
-    UIButton *sendCode = [self createButton:CGRectMake(0, 0, getAutoWidth(241), getAutoHeight(110))
+    UIButton *sendCode = [UIView createButton:CGRectMake(0, 0, getAutoWidth(241), getAutoHeight(110))
                                             title:@"获取验证码"
                                        titleColoe:TM_ColorRGB(255, 255, 255)
                                     selectedColor:TM_ColorRGB(255, 255, 255)
                                          fontSize:15
-                                        sel:@selector(sendCodeClick:)];
+                                        sel:@selector(sendCodeClick:)
+                                       target:self];
     sendCode.center = CGPointMake(contentView.width - getAutoWidth(92) - getAutoHeight(241) * 0.5, self.codeTF.centerY);
     sendCode.backgroundColor = TM_SpecialGlobalColor;
     sendCode.layer.cornerRadius = sendCode.height * 0.5;
@@ -152,43 +155,46 @@
     self.sendCodeBtn = sendCode;
     
     // 忘记密码
-    UIButton *forgetPW = [self createButton:CGRectMake(self.sendCodeBtn.x, self.sendCodeBtn.maxY + 15, self.sendCodeBtn.width, 20)
+    UIButton *forgetPW = [UIView createButton:CGRectMake(self.sendCodeBtn.x, self.sendCodeBtn.maxY + 15, self.sendCodeBtn.width, 20)
                                       title:@"忘记密码？"
                                  titleColoe:TM_ColorRGB(110, 110, 110)
-                              selectedColor:nil
+                              selectedColor:TM_ColorRGB(110, 110, 110)
                                    fontSize:16
-                                        sel:@selector(forgetPwClick)];
+                                        sel:@selector(forgetPwClick)
+                                       target:self];
     [contentView addSubview:forgetPW];
     
     // 登录
-    UIButton *login = [self createButton:CGRectMake(getAutoWidth(60), forgetPW.maxY + 15, contentView.width - getAutoWidth(120), self.sendCodeBtn.height)
+    UIButton *login = [UIView createButton:CGRectMake(getAutoWidth(60), forgetPW.maxY + 15, contentView.width - getAutoWidth(120), self.sendCodeBtn.height)
                                    title:@"登录"
                               titleColoe:TM_ColorRGB(255, 255, 255)
                            selectedColor:TM_ColorRGB(255, 255, 255)
                                 fontSize:16
-                                     sel:@selector(loginClick:)];
+                                     sel:@selector(loginClick:)
+                                    target:self];
     login.backgroundColor = TM_SpecialGlobalColor;
     login.layer.cornerRadius = sendCode.height * 0.5;
     login.clipsToBounds = YES;
     [contentView addSubview:login];
     self.loginBtn = login;
     
-    UILabel *noAccountL = [self createLabelWithFrame:CGRectZero title:@"没有账号？" fontSize:14 color:[UIColor darkGrayColor]];
+    UILabel *noAccountL = [UIView createLabelWithFrame:CGRectZero title:@"没有账号？" fontSize:14 color:[UIColor darkGrayColor]];
     [contentView addSubview:noAccountL];
     CGSize size = [noAccountL sizeThatFits:CGSizeMake(MAXFLOAT, 18)];
     CGFloat registerAccountW = 60;
     noAccountL.frame = CGRectMake((contentView.width - size.width - registerAccountW) * 0.5, (contentView.height - self.loginBtn.maxY - size.height) * 0.5 + self.loginBtn.maxY, size.width, size.height);
     // 注册
-    UIButton *registerAccount = [self createButton:CGRectMake(noAccountL.maxX, noAccountL.y, registerAccountW, size.height)
+    UIButton *registerAccount = [UIView createButton:CGRectMake(noAccountL.maxX, noAccountL.y, registerAccountW, size.height)
                                       title:@"立即注册"
                                  titleColoe:TM_SpecialGlobalColor
-                              selectedColor:nil
+                              selectedColor:TM_SpecialGlobalColor
                                    fontSize:14
-                                        sel:@selector(registerAccountClick)];
+                                        sel:@selector(registerAccountClick)
+                                              target:self];
     [contentView addSubview:registerAccount];
     
     // 三方登录
-    UILabel *threeL = [self createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(377), kScreen_Width - 20, 20) title:@"第三方登录" fontSize:16 color:[UIColor darkGrayColor]];
+    UILabel *threeL = [UIView createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(377), kScreen_Width - 20, 20) title:@"第三方登录" fontSize:16 color:[UIColor darkGrayColor]];
     threeL.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:threeL];
 //    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(0, tf.height - 1, tf.width, 1)];
@@ -207,7 +213,7 @@
     [threeBtn addTarget:self action:@selector(wechatLoginClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:threeBtn];
     
-    UILabel *threeL1 = [self createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(106), kScreen_Width - 20, 20) title:@"Copyright ©2021 天目e生活，AllRights Reserved" fontSize:12 color:[UIColor darkGrayColor]];
+    UILabel *threeL1 = [UIView createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(106), kScreen_Width - 20, 20) title:@"Copyright ©2021 天目e生活，AllRights Reserved" fontSize:12 color:[UIColor darkGrayColor]];
     threeL1.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:threeL1];
 }
@@ -241,6 +247,8 @@
     [TM_LoginApiManger sendLoginWithPhoneNum:self.phoneNumTF.text password:self.passwordTF.text code:self.codeTF.text isPwLogin:_isPWLogin success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+            [TM_KeyChainDataDIc tm_addValueToKeyChainDic:[self.phoneNumTF.text tm_sm4_ecb_encryptWithKey:sm4_ecb_key] key:kIdentifierId];
+            [TM_SettingManager shareInstance].sIdentifierId = self.phoneNumTF.text;
             [self dismissViewControllerAnimated:YES completion:nil];
         }else {
             NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
@@ -279,7 +287,7 @@
 // 注册
 - (void)registerAccountClick {
     TM_RegisterViewController *registerVC = [[TM_RegisterViewController alloc] init];
-    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:registerVC];
+//    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:registerVC];
     [self.navigationController pushViewController:registerVC animated:YES];
 }
 // 微信登录
@@ -323,69 +331,5 @@
         self.sendCodeBtn.enabled = YES;
     }
 }
-#pragma mark - 创建控件
 
-- (UIButton *)createButton:(CGRect)frame title:(NSString *)title titleColoe:(UIColor *)titleColor selectedColor:(UIColor *)selectedColor fontSize:(CGFloat)fontSize sel:(SEL)sel{
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = frame;
-    btn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
-    btn.titleEdgeInsets = UIEdgeInsetsZero;
-    [btn setTitle:title forState:UIControlStateNormal];
-    [btn setTitleColor: titleColor forState:UIControlStateNormal];
-    [btn setTitleColor: titleColor forState:UIControlStateHighlighted];
-    if (selectedColor) {
-        [btn setTitleColor: selectedColor forState:UIControlStateSelected];
-    }
-    [btn addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
-    return btn;
-}
-
-- (UITextField *)createTextFieldWithFrame:(CGRect)frame fontSize:(CGFloat)fontSize placeholder:(NSString *)placeholder isSecure:(BOOL)isSecure{
-    UITextField *tf = [[UITextField alloc] initWithFrame:frame];
-    tf.delegate = self;
-    tf.font = [UIFont systemFontOfSize:fontSize];
-    tf.textColor = [UIColor blackColor];
-    tf.placeholder = placeholder;
-    [tf setSecureTextEntry:isSecure];
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName:TM_ColorRGB(174, 174, 174),
-                    NSFontAttributeName:tf.font
-            }];
-    tf.attributedPlaceholder = attrString;
-
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, tf.height - 1, tf.width, 1)];
-    lineView.backgroundColor = TM_ColorRGB(174, 174, 174);
-    [tf addSubview:lineView];
-    return tf;
-}
-
-- (UILabel *)createLabelWithFrame:(CGRect)frame title:(NSString *)title fontSize:(CGFloat)fontSize color:(UIColor *)color{
-    UILabel *t = [[UILabel alloc] initWithFrame:frame];
-    t.text = title;
-    t.textColor = color;
-    t.font = [UIFont systemFontOfSize:fontSize];
-    return t;
-}
-
-- (void)setGradualChangingColor:(UIView *)view colorArr:(NSArray *)colorArr{
-    //    CAGradientLayer类对其绘制渐变背景颜色、填充层的形状(包括圆角)
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = view.bounds;
-    
-    NSMutableArray *temps = [NSMutableArray arrayWithCapacity:0];
-    for (int i=0; i<colorArr.count; i++) {
-        UIColor *tempColor = colorArr[i];
-        [temps addObject:(__bridge id)tempColor.CGColor];
-    }
-    //  创建渐变色数组，需要转换为CGColor颜色
-    gradientLayer.colors = temps;
-    
-    //  设置渐变颜色方向，左上点为(0,0), 右下点为(1,1)
-    gradientLayer.startPoint = CGPointMake(0, 0.5);
-    gradientLayer.endPoint = CGPointMake(1, 0.5);
-    
-    //  设置颜色变化点，取值范围 0.0~1.0
-    gradientLayer.locations = @[@0,@1];
-    
-    [view.layer addSublayer:gradientLayer];
-}
 @end

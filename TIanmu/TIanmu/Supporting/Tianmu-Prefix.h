@@ -16,6 +16,7 @@
 #import "UIImageView+TM_Category.h"
 #import "UILabel+TM_Category.h"
 #import "UIView+TM_Category.h"
+#import "UIView+TM_View.h"
 
 #import <YYImage/YYImage.h>
 #import <YYWebImage/YYWebImage.h>
@@ -25,6 +26,10 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/SDWebImage.h>
 #import <Masonry/Masonry.h>
+
+#import "NSString+TM_Encrypt.h"
+#import "TM_KeyChainDataDIc.h"
+#import "TM_SettingManager.h"
 
 #define TM_ShowToast(v, m) \
 ({ \

@@ -87,6 +87,11 @@
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    
+    if (self.userInteractionEnabled == NO || self.hidden == YES ||  self.alpha <= 0.01) return nil;
+    // 触摸点若不在当前视图上则无法响应事件
+    if ([self pointInside:point withEvent:event] == NO) return nil;
+    
     BOOL contains = NO;
     for (NSNumber *value in _linkTextRanges) {
         NSRange range = [value rangeValue];
@@ -109,7 +114,7 @@
             return _textView;
         }
     }
-    return [super hitTest:point withEvent:event];
+    return self;
 }
 //- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
 //    return NO;

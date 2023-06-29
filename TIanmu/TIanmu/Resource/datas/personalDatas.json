@@ -1,0 +1,42 @@
+{
+    "PersonalDatas" : [
+        {
+            "picpath" : "mine_business_icon",
+            "menuname" : "我的关注"
+        },
+        {
+            "picpath" : "mine_safe_safety",
+            "menuname" : "安全中心"
+        },
+        {
+            "picpath" : "mine_address_icon",
+            "menuname" : "地址管理"
+        }
+    ],
+    "settingDatas" : [
+        [
+            {
+                "name" : "关于我们",
+                "functionCode" : "TM_AboutUs",
+                "webUrl" : ""
+            },
+            {
+                "name" : "天目e生活用户协议",
+                "functionCode" : "TM_UserProtocal",
+                "webUrl" : ""
+            },
+            {
+                "name" : "隐私政策",
+                "functionCode" : "TM_PrivateProtocal",
+                "webUrl" : ""
+            }
+        ],
+        [
+            {
+                "name" : "清除缓存",
+                "functionCode" : "TM_ClearCache",
+                "webUrl" : ""
+            }
+        ],
+    ]
+}

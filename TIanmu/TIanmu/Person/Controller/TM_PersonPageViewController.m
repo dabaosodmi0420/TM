@@ -9,6 +9,7 @@
 #import "TM_MeTopView.h"
 #import "TM_ShortMenuModel.h"
 #import "TM_ConfigTool.h"
+#import "TM_SettingViewController.h"
 
 #define SettingRowHeight      (56)
 
@@ -29,11 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self createNav];
+    
+    [self.topView reload];
 }
 #pragma mark - 创建UI
 - (void)createNav {
@@ -59,6 +61,8 @@
 #pragma mark - Activity
 - (void)rightNavItemClick {
     NSLog(@"%@",@"点击设置");
+    TM_SettingViewController *vc = [[TM_SettingViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableViewDataSource

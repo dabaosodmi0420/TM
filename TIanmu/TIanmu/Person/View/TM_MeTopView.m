@@ -68,6 +68,11 @@
         make.height.mas_equalTo(145);
     }];
 }
+#pragma mark - Public
+- (void)reload {
+    [self.loginView reload];
+}
+
 #pragma mark - Activity
 
 #pragma mark - gettting

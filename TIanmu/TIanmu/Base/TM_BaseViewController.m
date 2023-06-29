@@ -6,6 +6,7 @@
 //
 
 #import "TM_BaseViewController.h"
+#import "TM_ConfigTool.h"
 
 @interface TM_BaseViewController ()
 
@@ -16,11 +17,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-   
-    // Do any additional setup after loading the view.
     [self initNavBarSetting];
-    
     [self createView];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 - (void)createView {
     

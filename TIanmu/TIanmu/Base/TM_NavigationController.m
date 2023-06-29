@@ -17,10 +17,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.modalPresentationStyle = UIModalPresentationFullScreen;
-
     
 }
-
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if(self.viewControllers.count == 1) {
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
+    [super pushViewController:viewController animated:animated];
+    if(self.viewControllers.count == 2) {
+        self.viewControllers[0].hidesBottomBarWhenPushed = NO;
+    }
+}
 /*
 #pragma mark - Navigation
 

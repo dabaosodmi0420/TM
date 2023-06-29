@@ -6,6 +6,7 @@
 //
 
 #import "TM_ConfigTool.h"
+#import "TM_StorageData.h"
 
 @implementation TM_ConfigTool
 
@@ -19,11 +20,6 @@
     
     return [TM_ConfigTool loadLocalPlistDataWithName:@"productListDatas"][@"datas"];
 }
-+ (NSArray *)getSettingDatas {
-    
-    return [TM_ConfigTool loadLocalPlistDataWithName:@"settingDatas"][@"datas"];
-}
-
 
 + (id)loadLocalPlistDataWithName:(NSString *)pathName {
     //获取bundle
@@ -36,7 +32,14 @@
 }
 
 #pragma mark - 获取json数据
-
++ (NSArray *)getSettingDatas {
+    
+    return [TM_ConfigTool getPrepareData:@"personalDatas"][@"PersonalDatas"];
+}
++ (NSArray *)getSettingDatasCenter {
+    
+    return [TM_ConfigTool getPrepareData:@"personalDatas"][@"settingDatas"];
+}
 + (NSArray *)getTabbarDatas {
     return [TM_ConfigTool getPrepareData:@"generalDatas"][@"tabbar"];
 }

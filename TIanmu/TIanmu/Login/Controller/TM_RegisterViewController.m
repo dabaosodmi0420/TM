@@ -49,7 +49,7 @@
 }
 
 - (void)createView {
-    [self setGradualChangingColor:self.view colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(108, 138, 205)]];
+    [UIView setGradualChangingColor:self.view colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(108, 138, 205)]];
     
     // 返回按钮
     UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -82,35 +82,38 @@
     contentView.clipsToBounds = NO;
     [self.view addSubview:contentView];
     
-    UILabel *tLabel = [self createLabelWithFrame:CGRectMake(getAutoWidth(92), 20, 50, 30) title:@"注册" fontSize:23 color:[UIColor blackColor]];
+    UILabel *tLabel = [UIView createLabelWithFrame:CGRectMake(getAutoWidth(92), 20, 50, 30) title:@"注册" fontSize:23 color:[UIColor blackColor]];
     tLabel.textAlignment = NSTextAlignmentLeft;
     [contentView addSubview:tLabel];
     
     // 手机号输入框
-    self.phoneNumTF = [self createTextFieldWithFrame:CGRectMake(getAutoWidth(92), tLabel.maxY + 15, contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
+    self.phoneNumTF = [UIView createTextFieldWithFrame:CGRectMake(getAutoWidth(92), tLabel.maxY + 15, contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
                                             fontSize:16
                                          placeholder:@"请输入手机号"
-                                            isSecure:NO];
+                                            isSecure:NO
+                                              delegate:self];
     [self.phoneNumTF addTarget:self action:@selector(phoneTextFieldEdit:) forControlEvents:UIControlEventEditingChanged];
     self.phoneNumTF.keyboardType = UIKeyboardTypeNumberPad;
     [contentView addSubview:self.phoneNumTF];
     
     
     // 验证码输入框
-    self.codeTF = [self createTextFieldWithFrame:CGRectMake(getAutoWidth(92), self.phoneNumTF.maxY + 15, getAutoWidth(480) , getAutoHeight(100))
+    self.codeTF = [UIView createTextFieldWithFrame:CGRectMake(getAutoWidth(92), self.phoneNumTF.maxY + 15, getAutoWidth(480) , getAutoHeight(100))
                                         fontSize:16
                                      placeholder:@"请输入手机验证码"
-                                        isSecure:NO];
+                                        isSecure:NO
+                                          delegate:self];
     self.codeTF.keyboardType = UIKeyboardTypeNumberPad;
     [contentView addSubview:self.codeTF];
     
     // 获取验证码
-    UIButton *sendCode = [self createButton:CGRectMake(0, 0, getAutoWidth(241), getAutoHeight(110))
+    UIButton *sendCode = [UIView createButton:CGRectMake(0, 0, getAutoWidth(241), getAutoHeight(110))
                                             title:@"获取验证码"
                                        titleColoe:TM_ColorRGB(255, 255, 255)
                                     selectedColor:TM_ColorRGB(255, 255, 255)
                                          fontSize:15
-                                        sel:@selector(sendCodeClick:)];
+                                        sel:@selector(sendCodeClick:)
+                                       target:self];
     sendCode.center = CGPointMake(contentView.width - getAutoWidth(92) - getAutoHeight(241) * 0.5, self.codeTF.centerY);
     sendCode.backgroundColor = TM_SpecialGlobalColor;
     sendCode.layer.cornerRadius = sendCode.height * 0.5;
@@ -119,17 +122,19 @@
     self.sendCodeBtn = sendCode;
     
     // 密码输入框
-    self.passwordTF = [self createTextFieldWithFrame:CGRectMake(getAutoWidth(92), self.codeTF.maxY + 15, contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
+    self.passwordTF = [UIView createTextFieldWithFrame:CGRectMake(getAutoWidth(92), self.codeTF.maxY + 15, contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
                                             fontSize:16
                                          placeholder:@"请输入密码"
-                                            isSecure:YES];
+                                            isSecure:YES
+                                              delegate:self];
     [contentView addSubview:self.passwordTF];
     
     // 确认密码输入框
-    self.passwordAgainTF = [self createTextFieldWithFrame:CGRectMake(getAutoWidth(92), self.passwordTF.maxY + 15, contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
+    self.passwordAgainTF = [UIView createTextFieldWithFrame:CGRectMake(getAutoWidth(92), self.passwordTF.maxY + 15, contentView.width - 2 * getAutoWidth(92) , getAutoHeight(100))
                                                  fontSize:16
                                               placeholder:@"请再次输入密码"
-                                                 isSecure:YES];
+                                                 isSecure:YES
+                                                   delegate:self];
     [contentView addSubview:self.passwordAgainTF];
     
     UIButton *agreeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -154,30 +159,32 @@
     self.attributeTV = attributeTV;
     
     // 注册
-    UIButton *registerBtn = [self createButton:CGRectMake(getAutoWidth(60), self.attributeTV.maxY + 10, contentView.width - getAutoWidth(120), self.sendCodeBtn.height)
+    UIButton *registerBtn = [UIView createButton:CGRectMake(getAutoWidth(60), self.attributeTV.maxY + 10, contentView.width - getAutoWidth(120), self.sendCodeBtn.height)
                                    title:@"登录"
                               titleColoe:TM_ColorRGB(255, 255, 255)
                            selectedColor:TM_ColorRGB(255, 255, 255)
                                 fontSize:16
-                                     sel:@selector(registerClick:)];
+                                     sel:@selector(registerClick:)
+                                          target:self];
     registerBtn.backgroundColor = TM_SpecialGlobalColor;
     registerBtn.layer.cornerRadius = sendCode.height * 0.5;
     registerBtn.clipsToBounds = YES;
     [contentView addSubview:registerBtn];
     self.registerBtn = registerBtn;
     
-    UILabel *hasAccountL = [self createLabelWithFrame:CGRectZero title:@"已有账号？" fontSize:14 color:[UIColor darkGrayColor]];
+    UILabel *hasAccountL = [UIView createLabelWithFrame:CGRectZero title:@"已有账号？" fontSize:14 color:[UIColor darkGrayColor]];
     [contentView addSubview:hasAccountL];
     CGSize size = [hasAccountL sizeThatFits:CGSizeMake(MAXFLOAT, 18)];
     CGFloat registerAccountW = 60;
     hasAccountL.frame = CGRectMake((contentView.width - size.width - registerAccountW) * 0.5, self.registerBtn.maxY + 15, size.width, size.height);
     
-    UIButton *returnLogin = [self createButton:CGRectMake(hasAccountL.maxX, hasAccountL.y, registerAccountW, size.height)
+    UIButton *returnLogin = [UIView createButton:CGRectMake(hasAccountL.maxX, hasAccountL.y, registerAccountW, size.height)
                                       title:@"立即登录"
                                  titleColoe:TM_SpecialGlobalColor
-                              selectedColor:nil
+                              selectedColor:TM_SpecialGlobalColor
                                    fontSize:14
-                                        sel:@selector(leftNavItemClick)];
+                                        sel:@selector(leftNavItemClick)
+                                          target:self];
     [contentView addSubview:returnLogin];
     
     contentView.height = hasAccountL.maxY + 15;
@@ -227,6 +234,10 @@
     }
     if (![self.passwordTF.text isEqualToString: self.passwordAgainTF.text]) {
         TM_ShowToast(self.view, @"两次密码不一致，请重新输入密码");
+        return;
+    }
+    if (!self.agreeBtn.selected) {
+        TM_ShowToast(self.view, @"请阅读《天目e生活用户协议》和《隐私协议》");
         return;
     }
     
@@ -287,6 +298,11 @@
 #pragma mark - TM_AttributeTextViewDelegate
 - (void)tm_attributeTextView:(TM_AttributeTextView *)attributeTextView linkScheme:(NSString *)scheme {
     NSLog(@"%@",scheme);
+    if ([scheme isEqualToString:@"userProtocal"]) {
+        NSString *url = @"http://jdwlwm2m.com/custjdwl/trigger/queryUserXY";
+    }else if ([scheme isEqualToString:@"privateProtocal"]) {
+        NSString *url = @"http://jdwlwm2m.com/custjdwl/trigger/queryAppZC";
+    }
 }
 - (void)tm_attributeTextView:(TM_AttributeTextView *)attributeTextView linkClickIndex:(NSUInteger)index {
     NSLog(@"%@",@(index));
@@ -296,68 +312,4 @@
     [self agreeClick:self.agreeBtn];
 }
 
-#pragma mark - 创建控件
-- (UIButton *)createButton:(CGRect)frame title:(NSString *)title titleColoe:(UIColor *)titleColor selectedColor:(UIColor *)selectedColor fontSize:(CGFloat)fontSize sel:(SEL)sel{
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = frame;
-    btn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
-    btn.titleEdgeInsets = UIEdgeInsetsZero;
-    [btn setTitle:title forState:UIControlStateNormal];
-    [btn setTitleColor: titleColor forState:UIControlStateNormal];
-    [btn setTitleColor: titleColor forState:UIControlStateHighlighted];
-    if (selectedColor) {
-        [btn setTitleColor: selectedColor forState:UIControlStateSelected];
-    }
-    [btn addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
-    return btn;
-}
-
-- (UITextField *)createTextFieldWithFrame:(CGRect)frame fontSize:(CGFloat)fontSize placeholder:(NSString *)placeholder isSecure:(BOOL)isSecure{
-    UITextField *tf = [[UITextField alloc] initWithFrame:frame];
-    tf.delegate = self;
-    tf.font = [UIFont systemFontOfSize:fontSize];
-    tf.textColor = [UIColor blackColor];
-    tf.placeholder = placeholder;
-    [tf setSecureTextEntry:isSecure];
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName:TM_ColorRGB(174, 174, 174),
-                    NSFontAttributeName:tf.font
-            }];
-    tf.attributedPlaceholder = attrString;
-
-    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, tf.height - 1, tf.width, 1)];
-    lineView.backgroundColor = TM_ColorRGB(174, 174, 174);
-    [tf addSubview:lineView];
-    return tf;
-}
-
-- (UILabel *)createLabelWithFrame:(CGRect)frame title:(NSString *)title fontSize:(CGFloat)fontSize color:(UIColor *)color{
-    UILabel *t = [[UILabel alloc] initWithFrame:frame];
-    t.text = title;
-    t.textColor = color;
-    t.font = [UIFont systemFontOfSize:fontSize];
-    return t;
-}
-
-- (void)setGradualChangingColor:(UIView *)view colorArr:(NSArray *)colorArr{
-    //    CAGradientLayer类对其绘制渐变背景颜色、填充层的形状(包括圆角)
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = view.bounds;
-    
-    NSMutableArray *temps = [NSMutableArray arrayWithCapacity:0];
-    for (int i=0; i<colorArr.count; i++) {
-        UIColor *tempColor = colorArr[i];
-        [temps addObject:(__bridge id)tempColor.CGColor];
-    }
-    //  创建渐变色数组，需要转换为CGColor颜色
-    gradientLayer.colors = temps;
-    
-    //  设置渐变颜色方向，左上点为(0,0), 右下点为(1,1)
-    gradientLayer.startPoint = CGPointMake(0, 0.5);
-    gradientLayer.endPoint = CGPointMake(1, 0.5);
-    
-    //  设置颜色变化点，取值范围 0.0~1.0
-    gradientLayer.locations = @[@0,@1];
-    
-    [view.layer addSublayer:gradientLayer];
-}
 @end
