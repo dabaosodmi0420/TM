@@ -49,7 +49,7 @@
 }
 
 - (void)createView {
-    [UIView setGradualChangingColor:self.view colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(108, 138, 205)]];
+    [UIView setHorGradualChangingColor:self.view colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(108, 138, 205)]];
     
     // 返回按钮
     UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];

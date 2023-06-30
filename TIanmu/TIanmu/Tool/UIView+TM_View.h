@@ -14,8 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (UITextField *)createTextFieldWithFrame:(CGRect)frame fontSize:(CGFloat)fontSize placeholder:(NSString *)placeholder isSecure:(BOOL)isSecure delegate:(id)delegate;
 + (UILabel *)createLabelWithFrame:(CGRect)frame title:(NSString *)title fontSize:(CGFloat)fontSize color:(UIColor *)color;
 
-+ (void)setGradualChangingColor:(UIView *)view colorArr:(NSArray *)colorArr;
-
+// 横向渐变
++ (void)setHorGradualChangingColor:(UIView *)view colorArr:(NSArray *)colorArr;
+// 纵向渐变
++ (void)setVerGradualChangingColor:(UIView *)view colorArr:(NSArray *)colorArr;
 @end
 
 NS_ASSUME_NONNULL_END

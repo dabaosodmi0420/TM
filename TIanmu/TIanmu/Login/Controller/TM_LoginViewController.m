@@ -60,7 +60,7 @@
 - (void)createView {
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, getAutoHeight(840.0))];
     [self.view addSubview:topView];
-    [UIView setGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(108, 138, 205)]];
+    [UIView setHorGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(108, 138, 205)]];
     
     // 顶部logo
     UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,  getAutoWidth(234.0), getAutoWidth(234.0))];

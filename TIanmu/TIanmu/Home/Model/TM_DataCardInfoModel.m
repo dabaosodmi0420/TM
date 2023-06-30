@@ -9,4 +9,7 @@
 
 @implementation TM_DataCardInfoModel
 
+
+
+
 @end

@@ -18,6 +18,7 @@
 		1507512D2A3C52D00019F81A /* TM_MeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1507512C2A3C52D00019F81A /* TM_MeTopView.m */; };
 		150751302A3C5AC70019F81A /* TM_OrderFormView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1507512F2A3C5AC70019F81A /* TM_OrderFormView.m */; };
 		150751332A3C5AFF0019F81A /* TM_LoginTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 150751322A3C5AFF0019F81A /* TM_LoginTopView.m */; };
+		150CB55E2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 150CB55D2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m */; };
 		151A284A2A4977E8004B33E3 /* TM_ForgetPassswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A28492A4977E8004B33E3 /* TM_ForgetPassswordViewController.m */; };
 		151A284D2A4A7C5C004B33E3 /* TM_AttributeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A284C2A4A7C5C004B33E3 /* TM_AttributeTextView.m */; };
 		151A284F2A4A7C79004B33E3 /* TM_ServicePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 151A284E2A4A7C79004B33E3 /* TM_ServicePageViewController.m */; };
@@ -88,6 +89,8 @@
 		1507512F2A3C5AC70019F81A /* TM_OrderFormView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_OrderFormView.m; sourceTree = "<group>"; };
 		150751312A3C5AFF0019F81A /* TM_LoginTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_LoginTopView.h; sourceTree = "<group>"; };
 		150751322A3C5AFF0019F81A /* TM_LoginTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_LoginTopView.m; sourceTree = "<group>"; };
+		150CB55C2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_DataCardDetalInfoModel.h; sourceTree = "<group>"; };
+		150CB55D2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_DataCardDetalInfoModel.m; sourceTree = "<group>"; };
 		151A28482A4977E8004B33E3 /* TM_ForgetPassswordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_ForgetPassswordViewController.h; sourceTree = "<group>"; };
 		151A28492A4977E8004B33E3 /* TM_ForgetPassswordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_ForgetPassswordViewController.m; sourceTree = "<group>"; };
 		151A284B2A4A7C5C004B33E3 /* TM_AttributeTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_AttributeTextView.h; sourceTree = "<group>"; };
@@ -299,6 +302,8 @@
 				150751222A3C2D1D0019F81A /* TM_ShortMenuModel.m */,
 				159E476E2A4C280400810719 /* TM_DataCardInfoModel.h */,
 				159E476F2A4C280400810719 /* TM_DataCardInfoModel.m */,
+				150CB55C2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.h */,
+				150CB55D2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -685,6 +690,7 @@
 				15BB8EF02A3817AF00A66E51 /* TM_NavigationController.m in Sources */,
 				15A427BD2A4D5F5C0018A96F /* TM_SettingViewController.m in Sources */,
 				15CE23352A493C4500DD595E /* TM_RegisterViewController.m in Sources */,
+				150CB55E2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m in Sources */,
 				15BB8EF62A3819C800A66E51 /* TM_TabBarViewController.m in Sources */,
 				1586F3F32A395C0000B526BC /* TM_NavTitleView.m in Sources */,
 				15BB8F0E2A3834E800A66E51 /* TM_HomePageViewController.m in Sources */,

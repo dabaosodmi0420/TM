@@ -25,6 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 /* datas */
 @property (strong, nonatomic) NSArray<TM_ShortMenuModel *> *dataArray;
 
+/* 行数 */
+@property (assign, nonatomic) NSUInteger nLineNum;
+/* 每行个数 */
+@property (assign, nonatomic) NSUInteger nEachLineNum;
+
 
 @end
 
