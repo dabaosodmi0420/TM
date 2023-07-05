@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TM_DataCardInfoModel : NSObject
+@interface TM_DataCardInfoModel : NSObject<NSCoding>
 
 /* iccid号 */
 @property (strong, nonatomic) NSString *iccid;

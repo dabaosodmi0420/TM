@@ -19,9 +19,35 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self initNavBarSetting];
     [self createView];
+    
+    self.navigationItem.hidesBackButton = YES;
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.navigationController.viewControllers.count > 1) {
+        [self createNav];
+    }
+}
+#pragma mark - 创建UI
+- (void)createNav {
+    // 返回按钮
+    UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    returnBtn.frame = CGRectMake(0, 0, 20, 20);
+    [returnBtn setImage:[UIImage imageNamed:@"back_white_icon"] forState:UIControlStateNormal];
+    [returnBtn setImage:[UIImage imageNamed:@"back_white_icon"] forState:UIControlStateHighlighted];
+    returnBtn.imageEdgeInsets = UIEdgeInsetsMake(6, 0, 6, 10);
+    [returnBtn addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *returnBtnItem = [[UIBarButtonItem alloc] initWithCustomView:returnBtn];
+    self.navigationItem.leftBarButtonItems = @[ returnBtnItem];
+    
+}
+#pragma mark - Activity
+- (void)leftNavItemClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)createView {
     
@@ -36,7 +62,6 @@
     [hud hideAnimated:YES afterDelay:1.5];
     [self.view addSubview:hud];
 }
-
 
 /**
  *  初始化导航条样式设置

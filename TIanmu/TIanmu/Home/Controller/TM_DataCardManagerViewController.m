@@ -10,6 +10,7 @@
 #import "TM_DataCardApiManager.h"
 #import "TM_SettingViewController.h"
 #import "TM_DeviceDetailViewController.h"
+#import "TM_StorageData.h"
 
 @interface TM_DataCardManagerViewController ()<UITableViewDelegate, UITableViewDataSource> {
     CGFloat _cellHeight;
@@ -159,6 +160,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TM_DataCardInfoModel *model = self.dataArray[indexPath.row];
+    
+    [[TM_SettingManager shareInstance] updateCurrentDataCardInfoModel:model];
+    
     TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
     vc.cardInfoModel = model;
     [self.navigationController pushViewController:vc animated:YES];
@@ -187,14 +191,5 @@
     }
     return _tableView;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

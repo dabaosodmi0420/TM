@@ -86,14 +86,16 @@
             @strongify(self);
             switch (type) {
                 case TM_LoginTopViewEnumLogin:{
-                    TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
-                    loginVC.modalPresentationStyle = 0;
-                    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:loginVC];
-                    [self.controller presentViewController:nav animated:YES completion:nil];
+//                    TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
+//                    loginVC.modalPresentationStyle = 0;
+//                    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:loginVC];
+//                    [self.controller presentViewController:nav animated:YES completion:nil];
                 }
                     break;
                     
-                default:
+                default:{
+                    TM_ShowFuncNoOpenToast;
+                }
                     break;
             }
         };
@@ -106,6 +108,7 @@
         _orderFormView = [[TM_OrderFormView alloc] initWithFrame:CGRectMake(0, 0, self.width - 22, 145)];
         _orderFormView.clickBlock = ^(TM_OrderFormViewEnum type) {
             NSLog(@"%@",@(type));
+            TM_ShowFuncNoOpenToast;
         };
     }
     return _orderFormView;

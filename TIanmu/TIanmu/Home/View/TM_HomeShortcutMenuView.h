@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 // 点击快捷菜单
 - (void)clickHomeShortcutMenuWithIndex:(NSUInteger)index;
+- (void)clickHomeShortcutMenuWithModel:(TM_ShortMenuModel *)model;
 
 @end
 

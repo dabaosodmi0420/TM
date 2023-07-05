@@ -10,15 +10,27 @@
 #import "NSString+TM_Encrypt.h"
 #import "TM_KeyChainDataDIc.h"
 #import "TM_SettingManager.h"
+#import "TM_StorageData.h"
+
+#define kDataCardInfoModelPath @"tm.dataCardInfoModel"
+
 @implementation TM_SettingManager
 
+static TM_SettingManager *settingMgr = nil;
+//static dispatch_once_t onceToken;
 + (instancetype)shareInstance {
-    static TM_SettingManager *settingMgr = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (!settingMgr){
         settingMgr = [[TM_SettingManager alloc] init];
-    });
+    };
     return settingMgr;
+}
+
++ (void)clear {
+    // 清除保存的手机号
+    [TM_KeyChainDataDIc tm_deleteValueFromKeyChainDicWithKey:kIdentifierId];
+    // 清除保存的选中设备
+    [TM_StorageData deleteArchiveDataWithPath:kDataCardInfoModelPath];
+    settingMgr = nil;
 }
 
 - (instancetype)init {
@@ -52,4 +64,18 @@
         return NO;
     }
 }
+
+- (TM_DataCardInfoModel *)dataCardInfoModel {
+    NSArray *datas = [TM_StorageData unarchiveDataFromCache:kDataCardInfoModelPath];
+    if (datas && datas.count > 0) {
+        return datas[0];
+    }
+    return nil;
+}
+
+- (void)updateCurrentDataCardInfoModel:(TM_DataCardInfoModel *)dataCardInfoModel {
+    // 保存选中的设备信息
+    [TM_StorageData archiveData:@[dataCardInfoModel] IntoCache:kDataCardInfoModelPath];
+}
+
 @end

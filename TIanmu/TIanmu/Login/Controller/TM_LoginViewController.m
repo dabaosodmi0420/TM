@@ -194,15 +194,23 @@
     [contentView addSubview:registerAccount];
     
     // 三方登录
-    UILabel *threeL = [UIView createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(377), kScreen_Width - 20, 20) title:@"第三方登录" fontSize:16 color:[UIColor darkGrayColor]];
+    UILabel *threeL = [UIView createLabelWithFrame:CGRectMake(10, self.view.height - getAutoHeight(377), 0, 20) title:@"第三方登录" fontSize:16 color:[UIColor darkGrayColor]];
     threeL.textAlignment = NSTextAlignmentCenter;
+    [threeL sizeToFit];
+    threeL.centerX = kScreen_Width * 0.5;
     [self.view addSubview:threeL];
-//    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(0, tf.height - 1, tf.width, 1)];
-//    lineView.backgroundColor = TM_ColorRGB(174, 174, 174);
-//    [self.view addSubview:lineView];
-//    UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, tf.height - 1, tf.width, 1)];
-//    lineView.backgroundColor = TM_ColorRGB(174, 174, 174);
-//    [tf addSubview:lineView];
+    
+    CGFloat lineW = 60;
+    UIView *lineL = [[UIView alloc]initWithFrame:CGRectMake(0, 0, lineW, 0.5)];
+    lineL.backgroundColor = TM_ColorRGB(174, 174, 174);
+    lineL.centerY = threeL.centerY;
+    lineL.right = threeL.x - 25;
+    [self.view addSubview:lineL];
+    UIView *lineR = [[UIView alloc]initWithFrame:CGRectMake(0, 0, lineW, 0.5)];
+    lineR.backgroundColor = TM_ColorRGB(174, 174, 174);
+    lineR.centerY = threeL.centerY;
+    lineR.x = threeL.maxX + 25;
+    [self.view addSubview:lineR];
     
     UIButton *threeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     threeBtn.frame = CGRectMake(0, self.view.height - getAutoHeight(270), getAutoWidth(130), getAutoWidth(130));
@@ -282,7 +290,7 @@
 }
 // 忘记密码
 - (void)forgetPwClick {
-    
+    TM_ShowFuncNoOpenToast;
 }
 // 注册
 - (void)registerAccountClick {
@@ -292,7 +300,7 @@
 }
 // 微信登录
 - (void)wechatLoginClick {
-    
+    TM_ShowFuncNoOpenToast;
 }
 // 限制手机号输入个数
 - (void)phoneTextFieldEdit:(UITextField*)textfield {

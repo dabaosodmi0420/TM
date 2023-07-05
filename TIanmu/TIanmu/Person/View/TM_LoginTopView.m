@@ -124,10 +124,10 @@
 #pragma mark - Activity
 
 - (void)loginClick {
-    NSLog(@"%@",@"登录");
-    if (self.clickBlock){
-        self.clickBlock(TM_LoginTopViewEnumLogin);
-    }
+//    NSLog(@"%@",@"登录");
+//    if (self.clickBlock){
+//        self.clickBlock(TM_LoginTopViewEnumLogin);
+//    }
 }
 
 - (void)flowClick {

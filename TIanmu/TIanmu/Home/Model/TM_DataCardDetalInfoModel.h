@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TM_Device_info : NSObject
+@interface TM_Device_info : NSObject<NSCoding>
 /* u200 套餐有效期 */
 @property (copy, nonatomic) NSString *serveValidDate;
 /* 总天数 */
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSString *leftDays;
 @end
 
-@interface TM_Mainmenu : NSObject  //app主菜单（1是开启，0是关闭）
+@interface TM_Mainmenu : NSObject<NSCoding>  //app主菜单（1是开启，0是关闭）
 /* 销卡 */
 @property (copy, nonatomic) NSString *xk;
 /* 交易记录 */
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSString *auth;
 @end
 
-@interface TM_DataCardDetalInfoModel : NSObject
+@interface TM_DataCardDetalInfoModel : NSObject<NSCoding>
 /* 0是卡，1是设备 */
 @property (copy, nonatomic) NSString *card_or_device;
 /* 子表表名 */
@@ -92,10 +92,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSString *realname_id;
 /* 代理商id */
 @property (copy, nonatomic) NSString *agent_id;
-///* 设备信息 */
-//@property (copy, nonatomic) TM_Device_info *device_info;
-///* app主菜单（1是开启，0是关闭） */
-//@property (copy, nonatomic) TM_Mainmenu *mainmenu;
+/* 设备信息 */
+@property (strong, nonatomic) TM_Device_info *device_info;
+/* app主菜单（1是开启，0是关闭） */
+@property (strong, nonatomic) TM_Mainmenu *mainmenu;
 @end
 
 

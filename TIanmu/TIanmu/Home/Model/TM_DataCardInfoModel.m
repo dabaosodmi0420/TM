@@ -10,6 +10,6 @@
 @implementation TM_DataCardInfoModel
 
 
-
+MJExtensionCodingImplementation
 
 @end

@@ -9,6 +9,8 @@
 #import "TM_ConfigTool.h"
 #import "TM_LoginViewController.h"
 #import "TM_NavigationController.h"
+#import "TM_AboutCompanyController.h"
+#import "TM_ProtocolViewController.h"
 
 #define SettingRowHeight      (45)
 #define SettingFooterHeigt    (55)
@@ -35,6 +37,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self createNav];
+    
+    [self updateFooterViewStatus];
 }
 #pragma mark - 创建UI
 - (void)createNav {
@@ -85,7 +89,12 @@
 
 - (void)logoutClick:(UIButton *)btn {
     if ([TM_SettingManager shareInstance].hasPhoneLogged) {
-        [TM_KeyChainDataDIc tm_deleteValueFromKeyChainDicWithKey:kIdentifierId];
+        [JTDefinitionTextView jt_showWithTitle:nil Text:@"是否退出登录" type:JTAlertTypeNot actionTextArr:@[@"取消",@"退出登录"] handler:^(NSInteger index) {
+            if (index == 1) {
+                [TM_SettingManager clear];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
     }else{
         TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
         loginVC.modalPresentationStyle = 0;
@@ -132,7 +141,32 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            TM_AboutCompanyController *vc = [TM_AboutCompanyController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            NSString *urlString = @"";
+            NSString *title = @"";
+            if (indexPath.row == 1) {
+                // 注册协议
+                urlString = @"http://jdwlwm2m.com/custjdwl/trigger/queryUserXY";
+                title = @"用户协议";
+            }else if (indexPath.row == 2) {
+                // 隐私协议
+                urlString = @"http://jdwlwm2m.com/custjdwl/trigger/queryAppZC";
+                title = @"隐私协议";
+            }
+            TM_ProtocolViewController *vc = [TM_ProtocolViewController new];
+            vc.requestHandle.remoteUrl = urlString;
+            vc.title = title;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }else if (indexPath.section == 1) {
+        NSLog(@"%@",@"清理缓存");
+    }else{
     
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

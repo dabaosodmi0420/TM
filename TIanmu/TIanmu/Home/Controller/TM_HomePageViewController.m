@@ -20,6 +20,7 @@
 #import "TM_DataCardManagerViewController.h"
 #import "TM_NavigationController.h"
 #import "TM_LoginViewController.h"
+#import "TM_DeviceDetailViewController.h"
 
 #define KProductListCellId  @"KProductListCellId"
 #define KBannerCellId       @"KBannerCellId"
@@ -137,8 +138,15 @@
 - (void)clickHomeShortcutMenuWithIndex:(NSUInteger)index{
     NSLog(@"点击了：%@",@(index));
     if ([TM_SettingManager shareInstance].hasPhoneLogged){
-        TM_DataCardManagerViewController *vc = [[TM_DataCardManagerViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        TM_DataCardInfoModel *model = [TM_SettingManager shareInstance].dataCardInfoModel;
+        if (model) {
+            TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
+            vc.cardInfoModel = model;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            TM_DataCardManagerViewController *vc = [[TM_DataCardManagerViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }else {
         TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
         loginVC.modalPresentationStyle = 0;

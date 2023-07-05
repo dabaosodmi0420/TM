@@ -31,6 +31,8 @@
 #import "TM_KeyChainDataDIc.h"
 #import "TM_SettingManager.h"
 
+#import "JTDefinitionTextView.h"
+
 #define TM_ShowToast(v, m) \
 ({ \
 MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:v]; \
@@ -40,6 +42,17 @@ hud.removeFromSuperViewOnHide = YES; \
 [hud showAnimated:YES]; \
 [hud hideAnimated:YES afterDelay:1.5];\
 [v addSubview:hud];\
+})
+
+#define TM_ShowFuncNoOpenToast \
+({\
+MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:[UIApplication sharedApplication].keyWindow];\
+hud.mode = MBProgressHUDModeText;\
+hud.label.text = @"功能暂未开启";\
+hud.removeFromSuperViewOnHide = YES;\
+[hud showAnimated:YES];\
+[hud hideAnimated:YES afterDelay:1.5];\
+[[UIApplication sharedApplication].keyWindow addSubview:hud];\
 })
 
 #endif /* Tianmu_Prefix_h */

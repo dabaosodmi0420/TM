@@ -9,17 +9,17 @@
 
 @implementation TM_Device_info
 
-//MJExtensionCodingImplementation
+MJExtensionCodingImplementation
 
 @end
 
 @implementation TM_Mainmenu
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
-    return @{@"ID": @"id"};
+    return @{@"ID": @"id"}; 
 }
 
-//MJExtensionCodingImplementation
+MJExtensionCodingImplementation
 
 @end
 
@@ -31,5 +31,5 @@
 //    };
 //}
 
-//MJExtensionCodingImplementation
+MJExtensionCodingImplementation
 @end

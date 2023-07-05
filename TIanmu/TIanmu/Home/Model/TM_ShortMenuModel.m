@@ -9,4 +9,8 @@
 
 @implementation TM_ShortMenuModel
 
+- (TM_ShortMenuType)funcType {
+    return _funcNo;
+}
+
 @end

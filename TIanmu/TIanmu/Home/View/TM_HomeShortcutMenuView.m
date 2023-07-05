@@ -78,5 +78,8 @@
     if ([self.delegate respondsToSelector:@selector(clickHomeShortcutMenuWithIndex:)]) {
         [self.delegate clickHomeShortcutMenuWithIndex:btn.tag - kFuncationTag];
     }
+    if ([self.delegate respondsToSelector:@selector(clickHomeShortcutMenuWithModel:)]) {
+        [self.delegate clickHomeShortcutMenuWithModel:_dataArray[btn.tag - kFuncationTag]];
+    }
 }
 @end

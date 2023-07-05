@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)createView;
 
 - (void)showNotOpenAlert;
+
+- (void)leftNavItemClick;
 @end
 
 NS_ASSUME_NONNULL_END
