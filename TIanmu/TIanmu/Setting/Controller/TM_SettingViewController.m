@@ -92,7 +92,7 @@
         [JTDefinitionTextView jt_showWithTitle:nil Text:@"是否退出登录" type:JTAlertTypeNot actionTextArr:@[@"取消",@"退出登录"] handler:^(NSInteger index) {
             if (index == 1) {
                 [TM_SettingManager clear];
-                [self.navigationController popViewControllerAnimated:YES];
+                [self updateFooterViewStatus];
             }
         }];
     }else{

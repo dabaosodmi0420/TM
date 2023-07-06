@@ -36,6 +36,13 @@ NS_ASSUME_NONNULL_BEGIN
                             code:(NSString *)code
                          success:(TMAPISuccessBlock)successBlock
                          failure:(TMAPIFailureBlock)failureBlock;
+
+// 修改密码
++ (void)sendFixPWWithPhoneNum:(NSString *)phoneNum
+                     password:(NSString *)pw
+                         code:(NSString *)code
+                      success:(TMAPISuccessBlock)successBlock
+                      failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -31,8 +31,8 @@
                      password:(NSString *)pw
                          code:(NSString *)code
                     isPwLogin:(BOOL)isPwLogin
-                     success:(TMAPISuccessBlock)successBlock
-                     failure:(TMAPIFailureBlock)failureBlock{
+                      success:(TMAPISuccessBlock)successBlock
+                      failure:(TMAPIFailureBlock)failureBlock{
     
     NSString *url = @"/appLogin";
     
@@ -58,6 +58,27 @@
                          failure:(TMAPIFailureBlock)failureBlock{
     
     NSString *url = @"/registerUser";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"user_name"]    = phoneNum;
+    params[@"user_key"]     = pw;
+    params[@"code"]         = code;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+
+// 修改密码
++ (void)sendFixPWWithPhoneNum:(NSString *)phoneNum
+                     password:(NSString *)pw
+                         code:(NSString *)code
+                      success:(TMAPISuccessBlock)successBlock
+                      failure:(TMAPIFailureBlock)failureBlock{
+    
+    NSString *url = @"/updatePwd";
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"user_name"]    = phoneNum;

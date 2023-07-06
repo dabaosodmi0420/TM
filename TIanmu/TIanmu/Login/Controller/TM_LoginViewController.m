@@ -9,6 +9,7 @@
 #import "TM_LoginApiManger.h"
 #import "TM_RegisterViewController.h"
 #import "TM_NavigationController.h"
+#import "TM_ForgetPassswordViewController.h"
 @interface TM_LoginViewController ()<UITextFieldDelegate>{
     NSTimer         * _timer;
     NSUInteger        _secondNumber;
@@ -290,13 +291,16 @@
 }
 // 忘记密码
 - (void)forgetPwClick {
-    TM_ShowFuncNoOpenToast;
+    TM_ForgetPassswordViewController *vc = [TM_ForgetPassswordViewController new];
+    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:vc];
+
+    [self.navigationController pushViewController:vc animated:YES];
 }
 // 注册
 - (void)registerAccountClick {
     TM_RegisterViewController *registerVC = [[TM_RegisterViewController alloc] init];
-//    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:registerVC];
-    [self.navigationController pushViewController:registerVC animated:YES];
+    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:registerVC];
+    [self.navigationController pushViewController:nav animated:YES];
 }
 // 微信登录
 - (void)wechatLoginClick {
