@@ -8,7 +8,7 @@
 #import "TM_RegisterViewController.h"
 #import "TM_LoginApiManger.h"
 #import "TM_AttributeTextView.h"
-
+#import "TM_ProtocolViewController.h"
 
 @interface TM_RegisterViewController ()<UITextFieldDelegate, TM_AttributeTextViewDelegate>{
     NSTimer         * _timer;
@@ -299,11 +299,21 @@
 #pragma mark - TM_AttributeTextViewDelegate
 - (void)tm_attributeTextView:(TM_AttributeTextView *)attributeTextView linkScheme:(NSString *)scheme {
     NSLog(@"%@",scheme);
+    NSString *urlString = @"";
+    NSString *title = @"";
     if ([scheme isEqualToString:@"userProtocal"]) {
-        NSString *url = @"http://jdwlwm2m.com/custjdwl/trigger/queryUserXY";
+        // 注册协议
+        urlString = @"http://jdwlwm2m.com/custjdwl/trigger/queryUserXY";
+        title = @"用户协议";
     }else if ([scheme isEqualToString:@"privateProtocal"]) {
-        NSString *url = @"http://jdwlwm2m.com/custjdwl/trigger/queryAppZC";
+        // 隐私协议
+        urlString = @"http://jdwlwm2m.com/custjdwl/trigger/queryAppZC";
+        title = @"隐私协议";
     }
+    TM_ProtocolViewController *vc = [TM_ProtocolViewController new];
+    vc.requestHandle.remoteUrl = urlString;
+    vc.title = title;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)tm_attributeTextView:(TM_AttributeTextView *)attributeTextView linkClickIndex:(NSUInteger)index {
     NSLog(@"%@",@(index));

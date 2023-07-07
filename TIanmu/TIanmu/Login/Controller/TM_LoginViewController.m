@@ -299,12 +299,13 @@
 // 注册
 - (void)registerAccountClick {
     TM_RegisterViewController *registerVC = [[TM_RegisterViewController alloc] init];
-    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:registerVC];
-    [self.navigationController pushViewController:nav animated:YES];
+    [self.navigationController pushViewController:registerVC animated:YES];
 }
 // 微信登录
 - (void)wechatLoginClick {
     TM_ShowFuncNoOpenToast;
+//     public static String AppID_WEIXIN = "wxdf3f5bb8f29eb08f";
+//    public static String APPKEY_WEIXIN = "D5V3UU3U0N79HF8UT4H3BB6F90JR5ET4"
 }
 // 限制手机号输入个数
 - (void)phoneTextFieldEdit:(UITextField*)textfield {

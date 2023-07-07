@@ -245,7 +245,7 @@
             <Locations>
                <Location
                   uuid = "821FB762-C7C3-407F-A665-118D268E1A4F - 1bc28f88c20a29c9"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TM_MeTopView createView]"
@@ -260,7 +260,7 @@
                </Location>
                <Location
                   uuid = "821FB762-C7C3-407F-A665-118D268E1A4F - 3040d13ae935ea3a"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__26-[TM_MeTopView createView]_block_invoke"
@@ -325,7 +325,7 @@
             <Locations>
                <Location
                   uuid = "6E3D2235-2BE4-47A8-A64F-D9C5E4D229BD - 6302a3a163351f66"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[TM_LoginTopView createView]"
@@ -340,7 +340,7 @@
                </Location>
                <Location
                   uuid = "6E3D2235-2BE4-47A8-A64F-D9C5E4D229BD - 8faa74ad41bc9a3"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "__29-[TM_LoginTopView createView]_block_invoke_4"
@@ -360,7 +360,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             uuid = "26334272-11D5-4E18-B048-03CC3316840B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             breakpointStackSelectionBehavior = "1"

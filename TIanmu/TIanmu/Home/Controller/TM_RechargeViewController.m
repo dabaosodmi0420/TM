@@ -55,7 +55,7 @@
     [label2 sizeToFit];
     [topView addSubview:label2];
     // 剩余天数
-    UILabel *label3 = [UIView createLabelWithFrame:CGRectMake(label2.maxX + 60, label2.y, 0, 25) title:@"剩余：0天" fontSize:16 color:[UIColor whiteColor]];
+    UILabel *label3 = [UIView createLabelWithFrame:CGRectMake(label2.maxX + 35, label2.y, 0, 25) title:@"剩余：0天" fontSize:16 color:[UIColor whiteColor]];
     [label3 sizeToFit];
     [topView addSubview:label3];
     // 余额
