@@ -10,6 +10,7 @@
 #import "TM_RegisterViewController.h"
 #import "TM_NavigationController.h"
 #import "TM_ForgetPassswordViewController.h"
+#import "TM_WeixinTool.h"
 @interface TM_LoginViewController ()<UITextFieldDelegate>{
     NSTimer         * _timer;
     NSUInteger        _secondNumber;
@@ -303,9 +304,8 @@
 }
 // 微信登录
 - (void)wechatLoginClick {
-    TM_ShowFuncNoOpenToast;
-//     public static String AppID_WEIXIN = "wxdf3f5bb8f29eb08f";
-//    public static String APPKEY_WEIXIN = "D5V3UU3U0N79HF8UT4H3BB6F90JR5ET4"
+//    TM_ShowFuncNoOpenToast;
+    [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin];
 }
 // 限制手机号输入个数
 - (void)phoneTextFieldEdit:(UITextField*)textfield {

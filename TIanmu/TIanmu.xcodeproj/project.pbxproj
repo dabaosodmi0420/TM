@@ -72,6 +72,8 @@
 		15BC21522A40454500323D13 /* settingDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15BC21512A40454500323D13 /* settingDatas.plist */; };
 		15BC215A2A414A8100323D13 /* generalDatas.json in Resources */ = {isa = PBXBuildFile; fileRef = 15BC21572A4144BA00323D13 /* generalDatas.json */; };
 		15BC215F2A41711E00323D13 /* TM_LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC215E2A41711E00323D13 /* TM_LoginViewController.m */; };
+		15C1BADD2A5BA885008063F5 /* TM_WeixinTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1BADC2A5BA885008063F5 /* TM_WeixinTool.m */; };
+		15C1BAE02A5BDF54008063F5 /* TM_DataCardUsedFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1BADF2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.m */; };
 		15CE23352A493C4500DD595E /* TM_RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15CE23342A493C4500DD595E /* TM_RegisterViewController.m */; };
 		15CE23382A4954A400DD595E /* UIView+TM_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 15CE23372A4954A400DD595E /* UIView+TM_View.m */; };
 		95823E6D29F61185C4D705EE /* libPods-TIanmu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D17A36117D471399C28E1EAA /* libPods-TIanmu.a */; };
@@ -202,6 +204,10 @@
 		15BC21572A4144BA00323D13 /* generalDatas.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = generalDatas.json; sourceTree = "<group>"; };
 		15BC215D2A41711E00323D13 /* TM_LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_LoginViewController.h; sourceTree = "<group>"; };
 		15BC215E2A41711E00323D13 /* TM_LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_LoginViewController.m; sourceTree = "<group>"; };
+		15C1BADB2A5BA885008063F5 /* TM_WeixinTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_WeixinTool.h; sourceTree = "<group>"; };
+		15C1BADC2A5BA885008063F5 /* TM_WeixinTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_WeixinTool.m; sourceTree = "<group>"; };
+		15C1BADE2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_DataCardUsedFlowModel.h; sourceTree = "<group>"; };
+		15C1BADF2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_DataCardUsedFlowModel.m; sourceTree = "<group>"; };
 		15CE23332A493C4500DD595E /* TM_RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_RegisterViewController.h; sourceTree = "<group>"; };
 		15CE23342A493C4500DD595E /* TM_RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_RegisterViewController.m; sourceTree = "<group>"; };
 		15CE23362A4954A400DD595E /* UIView+TM_View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TM_View.h"; sourceTree = "<group>"; };
@@ -371,6 +377,8 @@
 				159E476F2A4C280400810719 /* TM_DataCardInfoModel.m */,
 				150CB55C2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.h */,
 				150CB55D2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m */,
+				15C1BADE2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.h */,
+				15C1BADF2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -382,6 +390,8 @@
 				15A427AB2A4D2BBF0018A96F /* TM_UserInfo.m */,
 				15A427AD2A4D2EEB0018A96F /* TM_SettingManager.h */,
 				15A427AE2A4D2EEB0018A96F /* TM_SettingManager.m */,
+				15C1BADB2A5BA885008063F5 /* TM_WeixinTool.h */,
+				15C1BADC2A5BA885008063F5 /* TM_WeixinTool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -765,7 +775,9 @@
 				15BB8F1B2A38491300A66E51 /* UIView+TM_Frame.m in Sources */,
 				151A284F2A4A7C79004B33E3 /* TM_ServicePageViewController.m in Sources */,
 				15BB8EF02A3817AF00A66E51 /* TM_NavigationController.m in Sources */,
+				15C1BADD2A5BA885008063F5 /* TM_WeixinTool.m in Sources */,
 				15A427BD2A4D5F5C0018A96F /* TM_SettingViewController.m in Sources */,
+				15C1BAE02A5BDF54008063F5 /* TM_DataCardUsedFlowModel.m in Sources */,
 				155D389D2A55524600310AE2 /* TM_WKBaseWebViewController.m in Sources */,
 				15CE23352A493C4500DD595E /* TM_RegisterViewController.m in Sources */,
 				150CB55E2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m in Sources */,
@@ -914,11 +926,10 @@
 				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = L63N47SZPH;
+				DEVELOPMENT_TEAM = RWT7XX3AV4;
 				GCC_PREFIX_HEADER = "TIanmu/Supporting/Tianmu-Prefix.h";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIanmu/Info.plist;
@@ -934,10 +945,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.csc.zxjtzq;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tm.tmlife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zxjtzq_develope;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -954,11 +964,10 @@
 				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=iphoneos*]" = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.1;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = L63N47SZPH;
+				DEVELOPMENT_TEAM = RWT7XX3AV4;
 				GCC_PREFIX_HEADER = "TIanmu/Supporting/Tianmu-Prefix.h";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TIanmu/Info.plist;
@@ -974,10 +983,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.csc.zxjtzq;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tm.tmlife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = zxjtzq_develope;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -7,16 +7,27 @@
 
 #import "TM_RechargeViewController.h"
 #import "JT_TopSegmentMenuView.h"
+#import "TM_DataCardApiManager.h"
+#import "TM_DataCardUsedFlowModel.h"
+
+#define K_TmpStr  @"# #"
 
 @interface TM_RechargeViewController (){
     UIButton *_selectedBtn;
+    NSArray <UILabel *>*_topInfoLables;
 }
+
+/* 流量卡使用情况 */
+@property (strong, nonatomic) TM_DataCardUsedFlowModel *usedFlowModel;
+
+
 #pragma mark - 余额充值
 /* customMoneyTF */
 @property (strong, nonatomic) UITextField *customMoneyTF;
 
 #pragma mark - 流量充值
 @property (nonatomic, strong) JT_TopSegmentMenuView *segmentMenuView;
+
 
 @end
 
@@ -25,15 +36,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self reloadData];
 }
 
 - (void)createView {
     [super createView];
-    if (self.model.funcType == TM_ShortMenuTypeBalanceRecharge) {
+    if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {
         self.title = @"余额充值";
-    }else if (self.model.funcType == TM_ShortMenuTypeFlowRecharge) {
+    }else if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) {
         self.title = @"流量充值";
     }
+        
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 220)];
     [self.view addSubview:topView];
     [UIView setVerGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(59, 85, 183)]];
@@ -47,48 +61,50 @@
     [topView addSubview:logoImg];
     
     // 当前套餐
-    UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, 20, 0, 25) title:@"当前套餐：测试" fontSize:16 color:[UIColor whiteColor]];
+    UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, 20, 0, 25) title:[NSString stringWithFormat:@"当前套餐：%@", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
     [label1 sizeToFit];
     [topView addSubview:label1];
     // 已用天数
-    UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:@"已使用：0天" fontSize:16 color:[UIColor whiteColor]];
+    UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:[NSString stringWithFormat:@"已使用：%@天", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
     [label2 sizeToFit];
     [topView addSubview:label2];
     // 剩余天数
-    UILabel *label3 = [UIView createLabelWithFrame:CGRectMake(label2.maxX + 35, label2.y, 0, 25) title:@"剩余：0天" fontSize:16 color:[UIColor whiteColor]];
+    UILabel *label3 = [UIView createLabelWithFrame:CGRectMake(label2.maxX + 30, label2.y, 0, 25) title:[NSString stringWithFormat:@"剩余：%@天", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
     [label3 sizeToFit];
     [topView addSubview:label3];
     // 余额
-    UILabel *label4 = [UIView createLabelWithFrame:CGRectMake(label1.x, label2.maxY + 15, 0, 25) title:@"剩余：0.1元" fontSize:16 color:[UIColor whiteColor]];
+    UILabel *label4 = [UIView createLabelWithFrame:CGRectMake(label1.x, label2.maxY + 15, 0, 25) title:[NSString stringWithFormat:@"剩余：%@元", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
     [label4 sizeToFit];
     [topView addSubview:label4];
     // 设备编号
-    UILabel *label5 = [UIView createLabelWithFrame:CGRectMake(logoImg.x, logoImg.maxY + 20, 0, 25) title:@"设备编号：0000000" fontSize:16 color:[UIColor whiteColor]];
+    UILabel *label5 = [UIView createLabelWithFrame:CGRectMake(logoImg.x, logoImg.maxY + 20, 0, 25) title:[NSString stringWithFormat:@"设备编号：%@", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
     [label5 sizeToFit];
     [topView addSubview:label5];
     // 有效期
-    UILabel *label6 = [UIView createLabelWithFrame:CGRectMake(logoImg.x, label5.maxY + 20, 0, 25) title:@"套餐有效期：2023-01-01" fontSize:16 color:[UIColor whiteColor]];
+    UILabel *label6 = [UIView createLabelWithFrame:CGRectMake(logoImg.x, label5.maxY + 20, 0, 25) title:[NSString stringWithFormat:@"套餐有效期：%@", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
     [label6 sizeToFit];
     [topView addSubview:label6];
     
+    _topInfoLables = @[label1, label2, label3, label4, label5, label6];
     
-    if (self.model.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
+    if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
         [self flowRechargeView];
-    }else if (self.model.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
+    }else if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
         [self balanceRechargeView];
     }
     
     // 登录
     UIButton *recharge = [UIView createButton:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44, kScreen_Width, 44)
-                                   title:@"立即充值"
-                              titleColoe:TM_ColorRGB(255, 255, 255)
-                           selectedColor:TM_ColorRGB(255, 255, 255)
-                                fontSize:16
-                                     sel:@selector(rechargeClick)
-                                    target:self];
+                                        title:@"立即充值"
+                                   titleColoe:TM_ColorRGB(255, 255, 255)
+                                selectedColor:TM_ColorRGB(255, 255, 255)
+                                     fontSize:16
+                                          sel:@selector(rechargeClick)
+                                       target:self];
     recharge.backgroundColor = TM_SpecialGlobalColor;
     [self.view addSubview:recharge];
 }
+// MARK: 流量充值页面
 - (void)flowRechargeView {
     _segmentMenuView = [[JT_TopSegmentMenuView alloc] initWithFrame:CGRectMake(0, 220, kScreen_Width, getAutoSize(60))];
     _segmentMenuView.backgroundColor = [UIColor whiteColor];
@@ -120,6 +136,7 @@
     
     [self.view addSubview:btn];
 }
+// // MARK: 余额充值页面
 - (void)balanceRechargeView {
     // 流量卡卡号
     UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(20, 240, 0, 25) title:@"流量卡卡号" fontSize:13 color:TM_ColorRGB(174, 174, 174)];
@@ -169,7 +186,7 @@
             customMoneyTF.keyboardType = UIKeyboardTypeNumberPad;
             customMoneyTF.placeholder = rechargeArr[i];
             [customMoneyTF addTarget:self action:@selector(customMoneyTFEdit:) forControlEvents:UIControlEventEditingChanged];
-
+            
             NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:rechargeArr[i] attributes:@{NSForegroundColorAttributeName:TM_ColorRGB(174, 174, 174),NSFontAttributeName:customMoneyTF.font}];
             customMoneyTF.attributedPlaceholder = attrString;
             customMoneyTF.layer.cornerRadius = 5;
@@ -183,7 +200,46 @@
     
     
 }
+#pragma mark - 获取数据
+- (void)reloadData {
+    [TM_DataCardApiManager sendQueryUserFlowWithCardNo:self.cardDetailInfoModel.iccid success:^(id  _Nullable respondObject) {
+        NSLog(@"%@",respondObject);
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+            id data = respondObject[@"data"];
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                [self refreshUIData:data];
+            }else {
+                TM_ShowToast(self.view, @"获取数据失败");
+            }
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+            TM_ShowToast(self.view, msg);
+        }
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+        TM_ShowToast(self.view, @"获取数据失败");
+    }];
+}
+- (void)refreshUIData:(NSDictionary *)data {
+    self.usedFlowModel = [TM_DataCardUsedFlowModel mj_objectWithKeyValues:data];
+    NSArray <NSString *>*datas =  @[
+        [NSString stringWithFormat:@"%@",self.cardDetailInfoModel.package_name],
+        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.useDays],
+        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.leftDays],
+        [NSString stringWithFormat:@"%@",self.usedFlowModel.balance],
+        [NSString stringWithFormat:@"%@",self.cardDetailInfoModel.iccid],
+        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.serveValidDate]
+    ];
+    for (int i = 0; i < datas.count; i++) {
+        UILabel *l = _topInfoLables[i];
+        NSMutableString *text = [NSMutableString stringWithString:l.text];
+        [text replaceCharactersInRange:[text rangeOfString:K_TmpStr] withString:datas[i]];
+        l.text = [NSString stringWithFormat:@"%@",text];
+        [l sizeToFit];
+    }
+}
 
+#pragma mark - Activity
 - (void)changeRechargeMoney:(UIButton *)btn {
     self.customMoneyTF.text = @"";
     [self.customMoneyTF resignFirstResponder];;
@@ -203,10 +259,10 @@
 }
 
 - (void)rechargeClick {
-    if (self.model.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
+    if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
         NSLog(@"%@",@"流量充值");
 
-    }else if (self.model.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
+    }else if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
         NSLog(@"%@",@"余额充值");
     
     }

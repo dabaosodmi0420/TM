@@ -123,7 +123,7 @@
         [label sizeToFit];
         [topView addSubview:label];
         
-        UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(x, label.maxY + 5, w, h) title:@"123456" fontSize:18 color:[UIColor whiteColor]];
+        UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(x, label.maxY + 5, w, h) title:@"" fontSize:18 color:[UIColor whiteColor]];
         label1.textAlignment = NSTextAlignmentCenter;
         [label1 sizeToFit];
         [topView addSubview:label1];
@@ -177,7 +177,10 @@
     ];
     for (int i = 0; i < datas.count; i++) {
         UILabel *l = _topInfoLables[i];
+        CGFloat centerX = l.centerX;
         l.text = [NSString stringWithFormat:@"%@",datas[i]];
+        [l sizeToFit];
+        l.centerX = centerX;
     }
 }
 - (void)refreshShortMenuView {
@@ -223,7 +226,8 @@
         case TM_ShortMenuTypeBalanceRecharge:
         case TM_ShortMenuTypeFlowRecharge: {
             TM_RechargeViewController *vc = [TM_RechargeViewController new];
-            vc.model = model;
+            vc.menuModel = model;
+            vc.cardDetailInfoModel = self.model;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;

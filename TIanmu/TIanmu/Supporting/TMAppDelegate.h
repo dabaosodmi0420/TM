@@ -6,8 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WXApi.h>
 
-@interface TMAppDelegate : UIResponder <UIApplicationDelegate>
+@interface TMAppDelegate : UIResponder <UIApplicationDelegate, WXApiDelegate>
 
 /** UIWindow **/
 @property (nonatomic, strong) UIWindow *window;

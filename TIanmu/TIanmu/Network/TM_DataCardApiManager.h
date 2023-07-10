@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sendQueryUserAllCardWithCardNo:(NSString *)cardNo
                                success:(TMAPISuccessBlock)successBlock
                                failure:(TMAPIFailureBlock)failureBlock;
+// 查询流量使用情况
++ (void)sendQueryUserFlowWithCardNo:(NSString *)cardNo
+                            success:(TMAPISuccessBlock)successBlock
+                            failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

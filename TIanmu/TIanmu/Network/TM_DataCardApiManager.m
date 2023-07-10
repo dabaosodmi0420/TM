@@ -37,4 +37,19 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
+
+// 查询流量使用情况
++ (void)sendQueryUserFlowWithCardNo:(NSString *)cardNo success:(TMAPISuccessBlock)successBlock failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/getUsedFlow";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"] = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 @end
