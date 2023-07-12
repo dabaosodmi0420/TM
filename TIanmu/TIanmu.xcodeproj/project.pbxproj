@@ -74,8 +74,15 @@
 		15BC215F2A41711E00323D13 /* TM_LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC215E2A41711E00323D13 /* TM_LoginViewController.m */; };
 		15C1BADD2A5BA885008063F5 /* TM_WeixinTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1BADC2A5BA885008063F5 /* TM_WeixinTool.m */; };
 		15C1BAE02A5BDF54008063F5 /* TM_DataCardUsedFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1BADF2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.m */; };
+		15C9B7A42A5E913A003A8EE7 /* TM_AddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9B7A32A5E913A003A8EE7 /* TM_AddDeviceViewController.m */; };
+		15C9B7A72A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9B7A62A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m */; };
+		15C9B7AA2A5E9D80003A8EE7 /* TM_RealNameAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9B7A92A5E9D80003A8EE7 /* TM_RealNameAuthViewController.m */; };
+		15C9B7AD2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9B7AC2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.m */; };
+		15C9B7B02A5EA9B5003A8EE7 /* TM_CardTradeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9B7AF2A5EA9B5003A8EE7 /* TM_CardTradeModel.m */; };
 		15CE23352A493C4500DD595E /* TM_RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15CE23342A493C4500DD595E /* TM_RegisterViewController.m */; };
 		15CE23382A4954A400DD595E /* UIView+TM_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 15CE23372A4954A400DD595E /* UIView+TM_View.m */; };
+		15F172472A5CE8BB00D6A1AA /* TM_NoFuncView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F172462A5CE8BB00D6A1AA /* TM_NoFuncView.m */; };
+		15F1724A2A5CFFED00D6A1AA /* TM_CardDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F172492A5CFFED00D6A1AA /* TM_CardDetailViewController.m */; };
 		95823E6D29F61185C4D705EE /* libPods-TIanmu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D17A36117D471399C28E1EAA /* libPods-TIanmu.a */; };
 /* End PBXBuildFile section */
 
@@ -208,10 +215,24 @@
 		15C1BADC2A5BA885008063F5 /* TM_WeixinTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_WeixinTool.m; sourceTree = "<group>"; };
 		15C1BADE2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_DataCardUsedFlowModel.h; sourceTree = "<group>"; };
 		15C1BADF2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_DataCardUsedFlowModel.m; sourceTree = "<group>"; };
+		15C9B7A22A5E9139003A8EE7 /* TM_AddDeviceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_AddDeviceViewController.h; sourceTree = "<group>"; };
+		15C9B7A32A5E913A003A8EE7 /* TM_AddDeviceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_AddDeviceViewController.m; sourceTree = "<group>"; };
+		15C9B7A52A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_BuyHistoryViewController.h; sourceTree = "<group>"; };
+		15C9B7A62A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_BuyHistoryViewController.m; sourceTree = "<group>"; };
+		15C9B7A82A5E9D80003A8EE7 /* TM_RealNameAuthViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_RealNameAuthViewController.h; sourceTree = "<group>"; };
+		15C9B7A92A5E9D80003A8EE7 /* TM_RealNameAuthViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_RealNameAuthViewController.m; sourceTree = "<group>"; };
+		15C9B7AB2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_ChangeNetViewController.h; sourceTree = "<group>"; };
+		15C9B7AC2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_ChangeNetViewController.m; sourceTree = "<group>"; };
+		15C9B7AE2A5EA9B5003A8EE7 /* TM_CardTradeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_CardTradeModel.h; sourceTree = "<group>"; };
+		15C9B7AF2A5EA9B5003A8EE7 /* TM_CardTradeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_CardTradeModel.m; sourceTree = "<group>"; };
 		15CE23332A493C4500DD595E /* TM_RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_RegisterViewController.h; sourceTree = "<group>"; };
 		15CE23342A493C4500DD595E /* TM_RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_RegisterViewController.m; sourceTree = "<group>"; };
 		15CE23362A4954A400DD595E /* UIView+TM_View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TM_View.h"; sourceTree = "<group>"; };
 		15CE23372A4954A400DD595E /* UIView+TM_View.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TM_View.m"; sourceTree = "<group>"; };
+		15F172452A5CE8BB00D6A1AA /* TM_NoFuncView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_NoFuncView.h; sourceTree = "<group>"; };
+		15F172462A5CE8BB00D6A1AA /* TM_NoFuncView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_NoFuncView.m; sourceTree = "<group>"; };
+		15F172482A5CFFED00D6A1AA /* TM_CardDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_CardDetailViewController.h; sourceTree = "<group>"; };
+		15F172492A5CFFED00D6A1AA /* TM_CardDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_CardDetailViewController.m; sourceTree = "<group>"; };
 		7FD968295BA808AA2312CFF1 /* Pods-TIanmu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TIanmu.release.xcconfig"; path = "Target Support Files/Pods-TIanmu/Pods-TIanmu.release.xcconfig"; sourceTree = "<group>"; };
 		95AB8B63FC18934FD3D58AEE /* Pods-TIanmu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TIanmu.debug.xcconfig"; path = "Target Support Files/Pods-TIanmu/Pods-TIanmu.debug.xcconfig"; sourceTree = "<group>"; };
 		D17A36117D471399C28E1EAA /* libPods-TIanmu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TIanmu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -379,6 +400,8 @@
 				150CB55D2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m */,
 				15C1BADE2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.h */,
 				15C1BADF2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.m */,
+				15C9B7AE2A5EA9B5003A8EE7 /* TM_CardTradeModel.h */,
+				15C9B7AF2A5EA9B5003A8EE7 /* TM_CardTradeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -500,6 +523,7 @@
 		15BB8F072A38345F00A66E51 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				15F172442A5CE88E00D6A1AA /* View */,
 				15BB8F0A2A3834A100A66E51 /* Controller */,
 			);
 			path = Service;
@@ -521,10 +545,20 @@
 				15BB8F0D2A3834E800A66E51 /* TM_HomePageViewController.m */,
 				159E476B2A4BD45600810719 /* TM_DataCardManagerViewController.h */,
 				159E476C2A4BD45600810719 /* TM_DataCardManagerViewController.m */,
+				15C9B7A22A5E9139003A8EE7 /* TM_AddDeviceViewController.h */,
+				15C9B7A32A5E913A003A8EE7 /* TM_AddDeviceViewController.m */,
 				15A427A02A4D27A90018A96F /* TM_DeviceDetailViewController.h */,
 				15A427A12A4D27A90018A96F /* TM_DeviceDetailViewController.m */,
+				15F172482A5CFFED00D6A1AA /* TM_CardDetailViewController.h */,
+				15F172492A5CFFED00D6A1AA /* TM_CardDetailViewController.m */,
 				155D38AC2A5570D200310AE2 /* TM_RechargeViewController.h */,
 				155D38AD2A5570D200310AE2 /* TM_RechargeViewController.m */,
+				15C9B7A52A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.h */,
+				15C9B7A62A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m */,
+				15C9B7A82A5E9D80003A8EE7 /* TM_RealNameAuthViewController.h */,
+				15C9B7A92A5E9D80003A8EE7 /* TM_RealNameAuthViewController.m */,
+				15C9B7AB2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.h */,
+				15C9B7AC2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -591,6 +625,15 @@
 				151A28492A4977E8004B33E3 /* TM_ForgetPassswordViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		15F172442A5CE88E00D6A1AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				15F172452A5CE8BB00D6A1AA /* TM_NoFuncView.h */,
+				15F172462A5CE8BB00D6A1AA /* TM_NoFuncView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		6C723870405F1668F5F69CE5 /* Frameworks */ = {
@@ -736,6 +779,7 @@
 				15CE23382A4954A400DD595E /* UIView+TM_View.m in Sources */,
 				155D38A12A55569A00310AE2 /* TM_WKRequestHandle.m in Sources */,
 				15BB8EC52A36A42800A66E51 /* TMAppDelegate.m in Sources */,
+				15C9B7AA2A5E9D80003A8EE7 /* TM_RealNameAuthViewController.m in Sources */,
 				159E476D2A4BD45600810719 /* TM_DataCardManagerViewController.m in Sources */,
 				150751172A3C0A520019F81A /* TM_BannerModel.m in Sources */,
 				15A307362A5423B8004D70CA /* JTNetworkSignalView.m in Sources */,
@@ -746,6 +790,7 @@
 				150751332A3C5AFF0019F81A /* TM_LoginTopView.m in Sources */,
 				15A427B22A4D48BE0018A96F /* TM_KeyChain.m in Sources */,
 				1507512D2A3C52D00019F81A /* TM_MeTopView.m in Sources */,
+				15C9B7A42A5E913A003A8EE7 /* TM_AddDeviceViewController.m in Sources */,
 				15BB8EED2A38178900A66E51 /* TM_BaseViewController.m in Sources */,
 				154FF7772A42CD9600FAEE73 /* TM_NetworkTool+TM_Extension.m in Sources */,
 				1586F3BD2A384E3500B526BC /* UIImage+TM_Category.m in Sources */,
@@ -755,8 +800,11 @@
 				155D38B12A56B87B00310AE2 /* JT_TopSegmentMenuView.m in Sources */,
 				1586F3D12A386D5200B526BC /* UIView+TM_Category.m in Sources */,
 				15A427B52A4D4FA90018A96F /* TM_KeyChainDataDIc.m in Sources */,
+				15C9B7A72A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m in Sources */,
+				15C9B7AD2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.m in Sources */,
 				159E47702A4C280400810719 /* TM_DataCardInfoModel.m in Sources */,
 				155D38A72A555F9800310AE2 /* TM_ProtocolViewController.m in Sources */,
+				15F172472A5CE8BB00D6A1AA /* TM_NoFuncView.m in Sources */,
 				1507510E2A3BF8E30019F81A /* TM_ProductListCell.m in Sources */,
 				150751302A3C5AC70019F81A /* TM_OrderFormView.m in Sources */,
 				1586F3C12A3851A900B526BC /* TM_NetworkTool.m in Sources */,
@@ -774,10 +822,12 @@
 				1586F3F72A39615C00B526BC /* TM_ScrollView.m in Sources */,
 				15BB8F1B2A38491300A66E51 /* UIView+TM_Frame.m in Sources */,
 				151A284F2A4A7C79004B33E3 /* TM_ServicePageViewController.m in Sources */,
+				15C9B7B02A5EA9B5003A8EE7 /* TM_CardTradeModel.m in Sources */,
 				15BB8EF02A3817AF00A66E51 /* TM_NavigationController.m in Sources */,
 				15C1BADD2A5BA885008063F5 /* TM_WeixinTool.m in Sources */,
 				15A427BD2A4D5F5C0018A96F /* TM_SettingViewController.m in Sources */,
 				15C1BAE02A5BDF54008063F5 /* TM_DataCardUsedFlowModel.m in Sources */,
+				15F1724A2A5CFFED00D6A1AA /* TM_CardDetailViewController.m in Sources */,
 				155D389D2A55524600310AE2 /* TM_WKBaseWebViewController.m in Sources */,
 				15CE23352A493C4500DD595E /* TM_RegisterViewController.m in Sources */,
 				150CB55E2A4E9D55007CFF15 /* TM_DataCardDetalInfoModel.m in Sources */,

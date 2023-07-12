@@ -135,24 +135,40 @@
 }
 
 #pragma mark - TM_HomeShortcutMenuViewDelegate
-- (void)clickHomeShortcutMenuWithIndex:(NSUInteger)index{
-    NSLog(@"点击了：%@",@(index));
-    if ([TM_SettingManager shareInstance].hasPhoneLogged){
-        TM_DataCardInfoModel *model = [TM_SettingManager shareInstance].dataCardInfoModel;
-        if (model) {
-            TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
-            vc.cardInfoModel = model;
-            [self.navigationController pushViewController:vc animated:YES];
-        }else{
-            TM_DataCardManagerViewController *vc = [[TM_DataCardManagerViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+- (void)clickHomeShortcutMenuWithModel:(TM_ShortMenuModel *)model{
+    switch (model.funcType) {
+        case TM_ShortMenuTypeBalanceRecharge:
+        case TM_ShortMenuTypeFlowRecharge:
+        case TM_ShortMenuTypeRealNameAuth:
+        case TM_ShortMenuTypeTransactionRecord:
+        case TM_ShortMenuTypeNetChange:
+        case TM_ShortMenuTypeRemoteControl: {
+            if ([TM_SettingManager shareInstance].hasPhoneLogged){
+                TM_DataCardInfoModel *model = [TM_SettingManager shareInstance].dataCardInfoModel;
+                if (model) {
+                    TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
+                    vc.cardInfoModel = model;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }else{
+                    TM_DataCardManagerViewController *vc = [[TM_DataCardManagerViewController alloc] init];
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+            }else {
+                TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
+                loginVC.modalPresentationStyle = 0;
+                TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:loginVC];
+                [self presentViewController:nav animated:YES completion:nil];
+            }
         }
-    }else {
-        TM_LoginViewController *loginVC = [[TM_LoginViewController alloc] init];
-        loginVC.modalPresentationStyle = 0;
-        TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:loginVC];
-        [self presentViewController:nav animated:YES completion:nil];
+            break;
+        case TM_ShortMenuTypeElectronicWaste: {
+            TM_ShowFuncNoOpenToast;
+        }
+            break;
+        default:
+            break;
     }
+    
 }
 #pragma mark - collectionView 代理
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

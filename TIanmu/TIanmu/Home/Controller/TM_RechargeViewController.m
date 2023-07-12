@@ -264,7 +264,12 @@
 
     }else if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
         NSLog(@"%@",@"余额充值");
-    
+        NSString *recharge_money = @"";
+        [TM_DataCardApiManager sendGetWechatRechargePreWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:recharge_money success:^(id  _Nullable respondObject) {
+            
+        } failure:^(NSError * _Nullable error) {
+            
+        }];
     }
 }
 

@@ -65,7 +65,7 @@
         [menuBtn addTarget:self action:@selector(menuItemClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:menuBtn];
         menuBtn.text = _dataArray[i].menuname;
-        [menuBtn.imageV sd_setImageWithURL:[NSURL URLWithString:_dataArray[i].picpath]];
+        [menuBtn.imageV sd_setImageWithURL:[NSURL URLWithString:_dataArray[i].picpath] placeholderImage:[UIImage imageNamed:@"logo_placehold"]];
     }
 }
 

@@ -22,6 +22,37 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sendQueryUserFlowWithCardNo:(NSString *)cardNo
                             success:(TMAPISuccessBlock)successBlock
                             failure:(TMAPIFailureBlock)failureBlock;
+
+// 用户绑定流量卡
++ (void)sendUserBindCardWithPhoneNum:(NSString *)phoneNum
+                              CardNo:(NSString *)cardNo
+                             success:(TMAPISuccessBlock)successBlock
+                             failure:(TMAPIFailureBlock)failureBlock;
+
+// 用户解绑流量卡
++ (void)sendUserUnBindCardWithPhoneNum:(NSString *)phoneNum
+                                CardNo:(NSString *)cardNo
+                               success:(TMAPISuccessBlock)successBlock
+                               failure:(TMAPIFailureBlock)failureBlock;
+
+// 账户充值 生成预支付订单
++ (void)sendGetWechatRechargePreWithPhoneNum:(NSString *)phoneNum
+                                      CardNo:(NSString *)cardNo
+                              recharge_money:(NSString *)recharge_money
+                                     success:(TMAPISuccessBlock)successBlock
+                                     failure:(TMAPIFailureBlock)failureBlock;
+
+// 查询套餐列表
++ (void)sendQueryTaoCanListWithCardNo:(NSString *)cardNo
+                                 type:(NSString *)type
+                              success:(TMAPISuccessBlock)successBlock
+                              failure:(TMAPIFailureBlock)failureBlock;
+
+// 查询购买记录
++ (void)sendGetCardTradeWithCardNo:(NSString *)cardNo
+                             month:(NSString *)month
+                           success:(TMAPISuccessBlock)successBlock
+                           failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

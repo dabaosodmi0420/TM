@@ -124,8 +124,8 @@ HandlerClick handlerClick;
         [blankView addSubview:textView];
         
         CGFloat actionY = blankView.frame.size.height - actionH;
-        UIColor *normalColor = [UIColor colorWithRed:252/255.0 green:86/255.0 blue:19/255.0 alpha:1];
-        UIColor *cancelColor = [UIColor colorWithRed:127/255.0 green:134/255.0 blue:152/255.0 alpha:1];
+        UIColor *normalColor = [UIColor colorWithRed:38/255.0 green:197/255.0 blue:223/255.0 alpha:1];
+        UIColor *cancelColor = [UIColor colorWithRed:38/255.0 green:197/255.0 blue:223/255.0 alpha:1];
         if (actionTextArr.count == 1) {
             [blankView addSubview:[JTDefinitionTextView createButtonCGRect:CGRectMake(20 , actionY + 5, blankView_W - 40, 30) title:actionTextArr[0] titleColor:normalColor tag:K_JTDefinitionTextView_ButtonTag]];
         }else if(actionTextArr.count > 1){

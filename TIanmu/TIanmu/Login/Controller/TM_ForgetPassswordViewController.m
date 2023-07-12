@@ -46,7 +46,9 @@
                                             fontSize:16
                                          placeholder:@"请输入手机号"
                                             isSecure:NO
-                                              delegate:self];
+                                              delegate:self
+                                        leftImageName:@"login_phone_icon"
+                                      isShowBottomLine:YES];
     [self.phoneNumTF addTarget:self action:@selector(phoneTextFieldEdit:) forControlEvents:UIControlEventEditingChanged];
     self.phoneNumTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:self.phoneNumTF];
@@ -57,7 +59,9 @@
                                         fontSize:16
                                      placeholder:@"请输入手机验证码"
                                         isSecure:NO
-                                          delegate:self];
+                                          delegate:self
+                                     leftImageName:@"register_code_icon"
+                                   isShowBottomLine:YES];
     self.codeTF.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:self.codeTF];
     
@@ -81,7 +85,9 @@
                                             fontSize:16
                                          placeholder:@"请输入密码"
                                             isSecure:YES
-                                              delegate:self];
+                                              delegate:self
+                                         leftImageName:@"login_pwd_icon"
+                                       isShowBottomLine:YES];
     [self.view addSubview:self.passwordTF];
     
     // 确认密码输入框
@@ -89,7 +95,9 @@
                                                  fontSize:16
                                               placeholder:@"请再次输入密码"
                                                  isSecure:YES
-                                                   delegate:self];
+                                                   delegate:self
+                                              leftImageName:@"login_pwd_icon"
+                                            isShowBottomLine:YES];
     [self.view addSubview:self.passwordAgainTF];
     
     // 注册

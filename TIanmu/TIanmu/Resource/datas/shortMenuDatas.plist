@@ -21,8 +21,8 @@
 			<string>流量充值</string>
 			<key>funcCode</key>
 			<string>flowRecharge</string>
-            <key>funcNo</key>
-            <integer>1</integer>
+			<key>funcNo</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>picpath</key>
@@ -31,8 +31,8 @@
 			<string>远程控制</string>
 			<key>funcCode</key>
 			<string>remoteControl</string>
-            <key>funcNo</key>
-            <integer>2</integer>
+			<key>funcNo</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>picpath</key>
@@ -41,8 +41,8 @@
 			<string>网络切换</string>
 			<key>funcCode</key>
 			<string>netChange</string>
-            <key>funcNo</key>
-            <integer>3</integer>
+			<key>funcNo</key>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>picpath</key>
@@ -51,8 +51,8 @@
 			<string>实名认证</string>
 			<key>funcCode</key>
 			<string>realNameAuth</string>
-            <key>funcNo</key>
-            <integer>4</integer>
+			<key>funcNo</key>
+			<integer>4</integer>
 		</dict>
 		<dict>
 			<key>picpath</key>
@@ -61,8 +61,8 @@
 			<string>交易记录</string>
 			<key>funcCode</key>
 			<string>transactionRecord</string>
-            <key>funcNo</key>
-            <integer>5</integer>
+			<key>funcNo</key>
+			<integer>5</integer>
 		</dict>
 		<dict>
 			<key>picpath</key>
@@ -71,8 +71,8 @@
 			<string>电子垃圾</string>
 			<key>funcCode</key>
 			<string>electronicWaste</string>
-            <key>funcNo</key>
-            <integer>7</integer>
+			<key>funcNo</key>
+			<integer>6</integer>
 		</dict>
 	</array>
 </dict>

@@ -11,9 +11,13 @@
 #import "TM_SettingViewController.h"
 #import "TM_DeviceDetailViewController.h"
 #import "TM_StorageData.h"
+#import "TM_AddDeviceViewController.h"
+
+#define kDeleteBtn_Tag 111
 
 @interface TM_DataCardManagerViewController ()<UITableViewDelegate, UITableViewDataSource> {
     CGFloat _cellHeight;
+    BOOL _isEdit;// 是否点击的编辑按钮
 }
 
 /* uitableView */
@@ -48,11 +52,11 @@
     self.navigationItem.leftBarButtonItems = @[ settingItem];
     
     UIButton *editBtn = [UIView createButton:CGRectMake(0, 0, 30, 30)
-                                    title:@"编辑"
-                               titleColoe:[UIColor whiteColor]
-                            selectedColor:[UIColor whiteColor]
-                                 fontSize:14
-                                      sel:@selector(editClick)
+                                       title:@"编辑"
+                                  titleColoe:[UIColor whiteColor]
+                               selectedColor:[UIColor whiteColor]
+                                    fontSize:14
+                                         sel:@selector(editClick:)
                                       target:self];
     
     UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithCustomView:editBtn];
@@ -62,7 +66,7 @@
     [super createView];
     [self.view addSubview:self.tableView];
     
-    UIButton *addDataCard = [UIView createButton:CGRectMake(10, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 40, kScreen_Width - 20, 40)
+    UIButton *addDataCard = [UIView createButton:CGRectMake(10, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 45, kScreen_Width - 20, 40)
                                            title:@"+添加流量卡"
                                       titleColoe:[UIColor whiteColor]
                                    selectedColor:[UIColor whiteColor]
@@ -103,10 +107,46 @@
 }
 - (void)addDataCardClick {
     NSLog(@"%@",@"添加流量卡");
+    TM_AddDeviceViewController *vc = [TM_AddDeviceViewController new];
+    vc.refreshDataBlock = ^() {
+        NSLog(@"%@",@"刷新数据");
+        [self getDatas];
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
-- (void)editClick {
+- (void)editClick:(UIButton *)btn {
     NSLog(@"%@",@"编辑");
+    _isEdit = !_isEdit;
+    if (_isEdit) {
+        [btn setTitle:@"完成" forState:UIControlStateNormal];
+    }else {
+        [btn setTitle:@"编辑" forState:UIControlStateNormal];
+    }
+    [self.tableView reloadData];
 }
+
+- (void)deleteCardItem:(UIButton *)btn {
+    [JTDefinitionTextView jt_showWithTitle:@"提示" Text:@"确定移除该流量卡吗" type:JTAlertTypeNot actionTextArr:@[@"确定",@"取消"] handler:^(NSInteger index) {
+        if (index == 0) {
+            TM_DataCardInfoModel *model = self.dataArray[btn.tag - kDeleteBtn_Tag];
+            [TM_DataCardApiManager sendUserUnBindCardWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:model.card_define_no success:^(id  _Nullable respondObject) {
+                if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                    NSMutableArray *tmpArr = [NSMutableArray arrayWithArray:self.dataArray];
+                    [tmpArr removeObject:model];
+                    self.dataArray = tmpArr;
+                    [self.tableView reloadData];
+                }else {
+                    NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                    TM_ShowToast(self.view, msg);
+                }
+            } failure:^(NSError * _Nullable error) {
+                NSLog(@"%@",error);
+                TM_ShowToast(self.view, @"解绑失败");
+            }];
+        }
+    }];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -140,7 +180,7 @@
     imageV.contentMode = UIViewContentModeScaleAspectFit;
     [contentView addSubview:imageV];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(imageV.maxX + margin, margin, contentView.width - (imageV.maxX + margin) - 50, imageV.height)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(imageV.maxX + margin, margin, contentView.width - (imageV.maxX + margin) - 55, imageV.height)];
     label.text = [NSString stringWithFormat:@"%@",model.iccid];
     label.textColor = [UIColor darkGrayColor];
     label.font = [UIFont systemFontOfSize:17];
@@ -149,11 +189,21 @@
     
     UIImageView *accessoryView = [UIImageView new];
     accessoryView.size = CGSizeMake(15, 15);
-    accessoryView.center = CGPointMake(contentView.width - 30, contentView.height * 0.5);
+    accessoryView.center = CGPointMake(contentView.width - 45, contentView.height * 0.5);
     UIImage *image = [UIImage imageNamed:@"setting-arrow-right"];
     accessoryView.image = image;
     accessoryView.contentMode = UIViewContentModeScaleAspectFit;
     [contentView addSubview:accessoryView];
+    
+    UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    deleteBtn.size = CGSizeMake(11, 13);
+    deleteBtn.center = CGPointMake(contentView.width - deleteBtn.width - 5, contentView.height * 0.5);
+    [deleteBtn setImage:[UIImage imageNamed:@"delete_highlight_icon"] forState:UIControlStateNormal];
+    [deleteBtn setImage:[UIImage imageNamed:@"delete_highlight_icon"] forState:UIControlStateHighlighted];
+    deleteBtn.tag = kDeleteBtn_Tag + indexPath.row;
+    [deleteBtn addTarget:self action:@selector(deleteCardItem:) forControlEvents:UIControlEventTouchUpInside];
+    [contentView addSubview:deleteBtn];
+    deleteBtn.hidden = !_isEdit;
     
     return cell;
 }
@@ -172,7 +222,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _cellHeight = 80;
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 40) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 45) style:UITableViewStylePlain];
         _tableView.backgroundColor = TM_SpecialGlobalColorBg;
         _tableView.dataSource = self;
         _tableView.delegate = self;

@@ -6,6 +6,7 @@
 //
 
 #import "TM_ServicePageViewController.h"
+#import "TM_NoFuncView.h"
 @interface TM_ServicePageViewController ()
 
 @end
@@ -20,6 +21,10 @@
 
 - (void)createView {
     self.title = @"客服";
+    self.view.backgroundColor = TM_SpecialGlobalColorBg;
+    TM_NoFuncView *noFuncView = [[TM_NoFuncView alloc] initWithFrame:CGRectMake(0, 60, 130, 0)];
+    noFuncView.centerX = self.view.width * 0.5;
+    [self.view addSubview:noFuncView];
 }
 
 /*

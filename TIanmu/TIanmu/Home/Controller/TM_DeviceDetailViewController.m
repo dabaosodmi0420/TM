@@ -14,6 +14,9 @@
 #import "JTNetworkSignalView.h"
 #import "TM_DataCardManagerViewController.h"
 #import "TM_RechargeViewController.h"
+#import "TM_BuyHistoryViewController.h"
+#import "TM_RealNameAuthViewController.h"
+#import "TM_ChangeNetViewController.h"
 
 @interface TM_DeviceDetailViewController ()<TM_HomeShortcutMenuViewDelegate>{
     NSMutableArray <UILabel *>*_topInfoLables;
@@ -43,27 +46,16 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self createNav];
 }
 #pragma mark - 创建UI
-- (void)createNav {
-    self.title = @"设备";
-//    self.navigationController.navigationBar.translucent = YES;
-//    self.extendedLayoutIncludesOpaqueBars = YES;
-    
-    // 返回按钮
-    UIButton *returnBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    returnBtn.frame = CGRectMake(0, 0, 20, 20);
-    [returnBtn setImage:[UIImage imageNamed:@"back_white_icon"] forState:UIControlStateNormal];
-    [returnBtn setImage:[UIImage imageNamed:@"back_white_icon"] forState:UIControlStateHighlighted];
-    returnBtn.imageEdgeInsets = UIEdgeInsetsMake(6, 0, 6, 10);
-    [returnBtn addTarget:self action:@selector(leftNavItemClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *returnBtnItem = [[UIBarButtonItem alloc] initWithCustomView:returnBtn];
-    self.navigationItem.leftBarButtonItems = @[ returnBtnItem];
-    
-}
 - (void)createView {
     [super createView];
+    self.title = @"设备";
+}
+- (void)createCardInfoUI {
+    
+}
+- (void)createDeviceInfoUI {
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 320)];
     [self.view addSubview:topView];
     [UIView setVerGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(59, 85, 183)]];
@@ -138,7 +130,6 @@
     self.shortcutMenuView.y = topView.maxY + 10;
     [self.view addSubview:self.shortcutMenuView];
 }
-
 #pragma mark - 获取数据
 - (void)loadDatas {
     [TM_DataCardApiManager sendQueryUserAllCardWithCardNo:self.cardInfoModel.iccid success:^(id  _Nullable respondObject) {
@@ -151,7 +142,7 @@
                 TM_ShowToast(self.view, @"获取数据失败");
             }
         }else {
-            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"msg"]];
             TM_ShowToast(self.view, msg);
         }
     } failure:^(NSError * _Nullable error) {
@@ -161,6 +152,11 @@
 }
 - (void)refreshUIData:(NSDictionary *)data {
     self.model = [TM_DataCardDetalInfoModel mj_objectWithKeyValues:data];
+    if([[NSString stringWithFormat:@"%@",self.model.card_or_device] isEqualToString:@"0"]) { // 卡
+        [self createCardInfoUI];
+    }else if ([[NSString stringWithFormat:@"%@",self.model.card_or_device] isEqualToString:@"1"]) { // 设备
+        [self createDeviceInfoUI];
+    }
     [self refreshTopInfo];
     [self refreshShortMenuView];
 }
@@ -186,12 +182,20 @@
 - (void)refreshShortMenuView {
     NSArray *menuNames = @[];
     if([[NSString stringWithFormat:@"%@",self.model.card_or_device] isEqualToString:@"0"]) { // 卡
-        if ([self.model.card_type isEqualToString:@""]){
+        if ([self.model.card_type isEqualToString:@"card_qhdx"] || [self.model.card_type isEqualToString:@"card_qhdx2"]){ // 前海电信
+            
+        }else {
             
         }
     }else if ([[NSString stringWithFormat:@"%@",self.model.card_or_device] isEqualToString:@"1"]) { // 设备
-        if ([self.model.card_type isEqualToString:@"device_tmfsk"]){
+        if ([self.model.card_type isEqualToString:@"device_tmfsk"]){ // 飞猫分身卡
             menuNames = @[@"流量充值",@"余额充值",@"实名认证",@"交易记录",@"网络切换"];
+        }else if ([self.model.card_type isEqualToString:@"device_zxv"]){  // 中兴V设备信息
+            
+        }else if ([self.model.card_type isEqualToString:@"device_fsk"]){  // 分身卡
+            
+        }else { // 华海双切设备
+            
         }
     }
     
@@ -232,15 +236,21 @@
         }
             break;
         case TM_ShortMenuTypeRealNameAuth: {
-            
+            TM_RealNameAuthViewController *vc = [TM_RealNameAuthViewController new];
+            vc.cardDetailInfoModel = self.model;
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case TM_ShortMenuTypeTransactionRecord: {
-            
+            TM_BuyHistoryViewController *vc = [TM_BuyHistoryViewController new];
+            vc.cardDetailInfoModel = self.model;
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case TM_ShortMenuTypeNetChange: {
-            
+            TM_ChangeNetViewController *vc = [TM_ChangeNetViewController new];
+            vc.cardDetailInfoModel = self.model;
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:
