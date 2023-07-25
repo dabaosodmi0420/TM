@@ -40,6 +40,7 @@
 		1586F3F32A395C0000B526BC /* TM_NavTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1586F3F12A395C0000B526BC /* TM_NavTitleView.m */; };
 		1586F3F42A395C0000B526BC /* TM_imgLabelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1586F3F22A395C0000B526BC /* TM_imgLabelButton.m */; };
 		1586F3F72A39615C00B526BC /* TM_ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1586F3F62A39615C00B526BC /* TM_ScrollView.m */; };
+		1589C9F32A6FD0E600CC5F1B /* TM_WXBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1589C9F22A6FD0E600CC5F1B /* TM_WXBindViewController.m */; };
 		159A209B2A39A03500541913 /* TM_HomeShortcutMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 159A209A2A39A03500541913 /* TM_HomeShortcutMenuView.m */; };
 		159A20A52A39B61C00541913 /* TM_HomeProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 159A20A42A39B61C00541913 /* TM_HomeProductView.m */; };
 		159E476A2A4BCE0E00810719 /* TM_StorageData.m in Sources */ = {isa = PBXBuildFile; fileRef = 159E47692A4BCE0E00810719 /* TM_StorageData.m */; };
@@ -150,6 +151,8 @@
 		1586F3F22A395C0000B526BC /* TM_imgLabelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TM_imgLabelButton.m; sourceTree = "<group>"; };
 		1586F3F52A39615C00B526BC /* TM_ScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_ScrollView.h; sourceTree = "<group>"; };
 		1586F3F62A39615C00B526BC /* TM_ScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_ScrollView.m; sourceTree = "<group>"; };
+		1589C9F12A6FD0E600CC5F1B /* TM_WXBindViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_WXBindViewController.h; sourceTree = "<group>"; };
+		1589C9F22A6FD0E600CC5F1B /* TM_WXBindViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_WXBindViewController.m; sourceTree = "<group>"; };
 		159A20992A39A03500541913 /* TM_HomeShortcutMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_HomeShortcutMenuView.h; sourceTree = "<group>"; };
 		159A209A2A39A03500541913 /* TM_HomeShortcutMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_HomeShortcutMenuView.m; sourceTree = "<group>"; };
 		159A20A32A39B61C00541913 /* TM_HomeProductView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_HomeProductView.h; sourceTree = "<group>"; };
@@ -623,6 +626,8 @@
 				15CE23342A493C4500DD595E /* TM_RegisterViewController.m */,
 				151A28482A4977E8004B33E3 /* TM_ForgetPassswordViewController.h */,
 				151A28492A4977E8004B33E3 /* TM_ForgetPassswordViewController.m */,
+				1589C9F12A6FD0E600CC5F1B /* TM_WXBindViewController.h */,
+				1589C9F22A6FD0E600CC5F1B /* TM_WXBindViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -825,6 +830,7 @@
 				15C9B7B02A5EA9B5003A8EE7 /* TM_CardTradeModel.m in Sources */,
 				15BB8EF02A3817AF00A66E51 /* TM_NavigationController.m in Sources */,
 				15C1BADD2A5BA885008063F5 /* TM_WeixinTool.m in Sources */,
+				1589C9F32A6FD0E600CC5F1B /* TM_WXBindViewController.m in Sources */,
 				15A427BD2A4D5F5C0018A96F /* TM_SettingViewController.m in Sources */,
 				15C1BAE02A5BDF54008063F5 /* TM_DataCardUsedFlowModel.m in Sources */,
 				15F1724A2A5CFFED00D6A1AA /* TM_CardDetailViewController.m in Sources */,

@@ -305,7 +305,11 @@
 // 微信登录
 - (void)wechatLoginClick {
 //    TM_ShowFuncNoOpenToast;
-    [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin];
+    [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin completeBlock:^(NSDictionary * _Nonnull param) {
+        NSLog(@"%@", param);
+        [TM_SettingManager shareInstance].wxAccessToken = param[KWeixin_AccessToken_Key];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 // 限制手机号输入个数
 - (void)phoneTextFieldEdit:(UITextField*)textfield {

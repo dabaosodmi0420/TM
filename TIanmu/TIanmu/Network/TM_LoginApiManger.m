@@ -91,4 +91,52 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
+
+// 绑定微信登录
++ (void)sendBindWXLoginWithPhoneNum:(NSString *)phoneNum
+                           password:(NSString *)pw
+                               code:(NSString *)code
+                             wxData:(NSDictionary *)wxData
+                            success:(TMAPISuccessBlock)successBlock
+                            failure:(TMAPIFailureBlock)failureBlock{
+    
+    NSString *url = @"/bindUserWx";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"user_name"]        = phoneNum;
+    params[@"wx_WXOpenID"]      = wxData[@"openid"];
+    params[@"wx_HeadPic"]       = wxData[@"headimgurl"];
+    params[@"wx_NickName"]      = wxData[@"nickname"];
+    params[@"wx_Uinionid"]      = wxData[@"unionid"];
+    params[@"wx_ClientId"]      = wxData[@"appid"];
+    params[@"user_key"]         = pw;
+    params[@"code"]             = code;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+
+// 查询是否绑定微信登录
++ (void)sendQueryBindWXLoginWithwxData:(NSDictionary *)wxData
+                               success:(TMAPISuccessBlock)successBlock
+                               failure:(TMAPIFailureBlock)failureBlock{
+    
+    NSString *url = @"/queryUserWxBind";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"wx_WXOpenID"]      = wxData[@"openid"];
+    params[@"wx_HeadPic"]       = wxData[@"headimgurl"];
+    params[@"wx_NickName"]      = wxData[@"nickname"];
+    params[@"wx_Uinionid"]      = wxData[@"unionid"];
+    params[@"wx_ClientId"]      = wxData[@"appid"];
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 @end

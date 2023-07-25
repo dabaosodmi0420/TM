@@ -8,8 +8,12 @@
 #import "TM_WeixinTool.h"
 #import <AFNetworking/AFNetworking.h>
 
-#define TM_weixinApi_login_url          @"https://api.weixin.qq.com/sns/oauth2/access_token"    // 通过 code 获取 access_token
-#define TM_weixinApi_refreshToken_url   @"https://api.weixin.qq.com/sns/oauth2/refresh_token"   // 刷新 access_token 有效期
+// 通过 code 获取 access_token
+#define TM_weixinApi_login_url          @"https://api.weixin.qq.com/sns/oauth2/access_token"
+// 刷新 access_token 有效期
+#define TM_weixinApi_refreshToken_url   @"https://api.weixin.qq.com/sns/oauth2/refresh_token"
+// 刷新 access_token 有效期
+#define TM_weixinApi_getUserInfo_url @"https://api.weixin.qq.com/sns/userinfo"
 
 #pragma mark - 微信网络请求类
 #define TM_AFTIMEOUTINTERVAL 15
@@ -44,7 +48,7 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
             _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
             _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
             // 设置请求接口回来时支持什么类型的数组
-//            _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+            _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html",@"text/plain", nil];
             _sessionManager.requestSerializer.timeoutInterval = TM_AFTIMEOUTINTERVAL;
         }
         return _sessionManager;
@@ -104,10 +108,10 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
                 failure:(TMAPIFailureBlock)failureBlock{
     NSLog(@"\nrequestURL:%@",path);
     [self sendRequestPath:path params:params headers:headers method:method asyn:YES success:successBlock failure:failureBlock ];
-    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+//    [[NSURLCache sharedURLCache] removeAllCachedResponses];
 }
 
-#pragma mark - API
+#pragma mark - 微信API
 /** 微信登录获取  AccessToken  **/
 - (void)tm_getWeixinAccessTokenWithParams:(NSDictionary *)params
                                   success:(TMAPISuccessBlock)successBlock
@@ -124,6 +128,17 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
                                       success:(TMAPISuccessBlock)successBlock
                                       failure:(TMAPIFailureBlock)failureBlock{
     [self sendRequestPath:TM_weixinApi_refreshToken_url
+                   params:params
+                  headers:nil
+                   method:TM_AFGET
+                  success:successBlock
+                  failure:failureBlock];
+}
+/** 微信获取用户信息 **/
+- (void)tm_getUserInfoWithParams:(NSDictionary *)params
+                         success:(TMAPISuccessBlock)successBlock
+                         failure:(TMAPIFailureBlock)failureBlock{
+    [self sendRequestPath:TM_weixinApi_getUserInfo_url
                    params:params
                   headers:nil
                    method:TM_AFGET
@@ -152,6 +167,8 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
 
 @implementation TM_WeixinTool
 
+
+#pragma mark - public
 + (instancetype)shareWeixinToolManager {
     static TM_WeixinTool *manager = nil;
     static dispatch_once_t onceToken;
@@ -161,9 +178,9 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
     return manager;
 }
 
-- (void)tm_weixinToolWithType:(TM_WeixinToolType)type {
+- (void)tm_weixinToolWithType:(TM_WeixinToolType)type completeBlock:(nonnull TMWeixinToolCompleteBlock)completeBlock{
     _type = type;
-    
+    _completeBlock = completeBlock;
     switch (type) {
         case TM_WeixinToolTypeLogin: {
             [self tm_weixinLoginActivity];
@@ -178,7 +195,56 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
         }
             break;
     }
-    
+}
+
+- (BOOL)tm_checkIsExpiresin {
+    NSDictionary *weixinParam = [[NSUserDefaults standardUserDefaults] valueForKeyPath:kWeixin_AccessTokenPath];
+    if (weixinParam) {
+        NSInteger expires_in  = [[NSString stringWithFormat:@"%@", weixinParam[KWeixin_Expiresin_Key]] integerValue];
+        NSInteger curTime     = [self getTimeStamp];
+        if (expires_in > curTime) {
+            return NO;
+        }else {
+            return YES;
+        }
+    }
+    return YES;
+}
+
+- (void)tm_checkAccessToken:(void (^)(BOOL, NSString *))block {
+    NSDictionary *weixinParam = [[NSUserDefaults standardUserDefaults] valueForKeyPath:kWeixin_AccessTokenPath];
+    if (weixinParam) {
+        if ([self tm_checkIsExpiresin]) {
+            NSString *access_token = weixinParam[KWeixin_AccessToken_Key];
+            self.wxAccessToken = access_token;
+            if (self.wxAccessToken && self.wxAccessToken.length > 0) {
+                if(block){
+                    block(YES, self.wxAccessToken);
+                }
+            }else {
+                if(block){
+                    block(NO, nil);
+                }
+            }
+        }else {
+            NSString *refresh_token     = weixinParam[KWeixin_RefreshToken_Key];
+            [self refreshAccessTokenWithRefreshToken:refresh_token cmpBlock:^void(void) {
+                if (self.wxAccessToken && self.wxAccessToken.length > 0) {
+                    if(block){
+                        block(YES, self.wxAccessToken);
+                    }
+                }else {
+                    if(block){
+                        block(NO, nil);
+                    }
+                }
+            }];
+        }
+    }else {
+        if(block){
+            block(NO, nil);
+        }
+    }
 }
 
 #pragma mark - Activity
@@ -195,56 +261,116 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
 }
 // 微信支付
 - (void)tm_weixinPayActvity {
-    
+    PayReq *request = [[PayReq alloc] init];
+
+    request.partnerId = @"10000100";
+
+    request.prepayId = @"1101000000140415649af9fc314aa427";
+
+    request.package = @"Sign=WXPay";
+
+    request.nonceStr = @"a462b76e7436e98e0ed6e13c64b4fd1c";
+
+    request.timeStamp = 1397527777;
+
+    request.sign = @"582282D72DD2B03AD892830965F428CB16E7A256";
+
+    [WXApi sendReq:request completion:^(BOOL success) {
+        NSLog(@"%@",success ? @"成功" : @"失败");
+    }];
 }
+
 // 由于 access_token 有效期（目前为 2 个小时）较短， 使用 refresh_token 刷新 access_token 有效期
-- (void)refreshAccessToken {
+- (void)refreshAccessTokenWithRefreshToken:(NSString *)refresh_token cmpBlock:(void (^)(void))cmp {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"appid"]            = kWeixin_AppID;
-    params[@"secret"]           = kWeixin_AppSecret;
-    params[@"secret"]           = @"refresh_token";
-    params[@"refresh_token"]    = self.refresh_token;
+    params[@"grant_type"]       = @"refresh_token";
+    params[@"refresh_token"]    = refresh_token;
     
     [[TM_WeixinApi sharedNetworkingAPI] tm_refreshWeixinAccessTokenWithParams:params success:^(id  _Nullable respondObject) {
         NSDictionary *dic = (NSDictionary *)respondObject;
         NSString *access_token      = dic[@"access_token"];
-        NSString *refresh_token     = dic[@"refresh_token"];
-        NSString *expires_in        = [NSString stringWithFormat:@"%@", dic[@"expires_in"]];
         if(access_token != nil && access_token.length != 0) {
-            
+            [self saveWXData:dic];
+            self.wxAccessToken = access_token;
+            if(cmp) {
+                cmp();
+            }
+        }else {
+            if(cmp) {
+                cmp();
+            }
+        }
+    } failure:^(NSError * _Nullable error) {
+        if(cmp) {
+            cmp();
+        }
+    }];
+}
+// 获取 access_token
+- (void)getAccess_tokenWithCode:(NSString *)code {
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"appid"]    = kWeixin_AppID;
+    params[@"secret"]   = kWeixin_AppSecret;
+    params[@"grant_type"]   = @"authorization_code";
+    params[@"code"]     = code;
+    
+    [[TM_WeixinApi sharedNetworkingAPI] tm_getWeixinAccessTokenWithParams:params success:^(id  _Nullable respondObject) {
+        NSDictionary *dic = (NSDictionary *)respondObject;
+        NSString *access_token      = dic[@"access_token"];
+        if(access_token != nil && access_token.length != 0) {
+            [self saveWXData:dic];
+            [self getUserInfoWithAccessToken:access_token code:code];
+        }
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+    }];
+}
+// 获取微信用户信息
+- (void)getUserInfoWithAccessToken:(NSString *)accessToken code:(NSString *)code{
+    [[TM_WeixinApi sharedNetworkingAPI] tm_getUserInfoWithParams:@{@"access_token" : accessToken, @"openid" : kWeixin_AppID} success:^(id  _Nullable respondObject) {
+        if (respondObject && [respondObject isKindOfClass:[NSDictionary class]]) {
+            NSMutableDictionary *dic =  [NSMutableDictionary dictionaryWithDictionary:respondObject];
+            dic[KWeixin_AccessToken_Key] = accessToken;
+            dic[@"code"] = code;
+            dic[@"appid"] = kWeixin_AppID;
+            if (self.completeBlock) {
+                self.completeBlock(dic);
+            }
         }
     } failure:^(NSError * _Nullable error) {
         
     }];
 }
-
-#pragma mark - 回调函数
-- (void)tm_weixinOnReq:(BaseReq *)req {
-    
+// 获取当前时间戳
+- (NSInteger)getTimeStamp {
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a = [dat timeIntervalSince1970];
+    NSString *timeString = [NSString stringWithFormat:@"%f", floor(a)];
+    return [timeString integerValue];
 }
+// 保存数据
+- (void)saveWXData:(NSDictionary *)data {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:data];
+    NSInteger expires_in = [[NSString stringWithFormat:@"%@", dic[KWeixin_Expiresin_Key]] integerValue];
+    dic[KWeixin_Expiresin_Key] = @(expires_in + [self getTimeStamp]);
+    [[NSUserDefaults standardUserDefaults] setValue:dic forKeyPath:kWeixin_AccessTokenPath];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+// 清除缓存
+- (void)clearData {
+    [[NSUserDefaults standardUserDefaults] setValue:@{} forKeyPath:kWeixin_AccessTokenPath];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+#pragma mark - 回调函数
+- (void)tm_weixinOnReq:(BaseReq *)req {}
+
 - (void)tm_weixinOnResp:(id)resp {
     if ([resp isKindOfClass:[SendAuthResp class]]) { // 微信登录
         SendAuthResp *response = (SendAuthResp *)resp;
         if (response.errCode == 0) { // 用户同意
             NSString *code = response.code;
-            NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            params[@"appid"]    = kWeixin_AppID;
-            params[@"secret"]   = kWeixin_AppSecret;
-            params[@"secret"]   = @"authorization_code";
-            params[@"code"]     = code;
-            
-            [[TM_WeixinApi sharedNetworkingAPI] tm_getWeixinAccessTokenWithParams:params success:^(id  _Nullable respondObject) {
-                NSDictionary *dic = (NSDictionary *)respondObject;
-                NSString *access_token      = dic[@"access_token"];
-                NSString *refresh_token     = dic[@"refresh_token"];
-                NSString *expires_in        = [NSString stringWithFormat:@"%@", dic[@"expires_in"]];
-                if(access_token != nil && access_token.length != 0) {
-                    
-                }
-            } failure:^(NSError * _Nullable error) {
-                
-            }];
-            
+            [self getAccess_tokenWithCode:code];
         }else if (response.errCode == -4) { // 用户拒绝授权
             NSLog(@"%@",@"用户拒绝授权");
         }else if (response.errCode == -2) { // 用户取消
@@ -253,6 +379,34 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
             NSLog(@"错误码：%d", response.errCode);
         }
         
+    }else if ([resp isKindOfClass:[PayResp class]]){
+        PayResp *response = (PayResp *)resp;
+        switch(response.errCode){
+            case WXSuccess:{                //服务器端查询支付通知或查询API返回的结果再提示成功
+                NSLog(@"支付成功");
+            }
+                break;
+            case WXErrCodeCommon:{          // 普通错误类型
+                NSLog(@"普通错误类型");
+            }
+                break;
+            case WXErrCodeUserCancel:{      // 用户点击取消并返回
+                NSLog(@"用户点击取消并返回");
+            }
+                break;
+            case WXErrCodeSentFail:{        // 发送失败
+                NSLog(@"发送失败");
+            }
+                break;
+            case WXErrCodeAuthDeny:{        // 授权失败
+                NSLog(@"授权失败");
+            }
+                break;
+            default:
+                NSLog(@"支付失败，retcode=%d",response.errCode);
+                break;
+
+          }
     }
 }
 

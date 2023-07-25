@@ -33,7 +33,7 @@
 }
 #pragma mark - 获取数据
 - (void)getDatas {
-    [TM_DataCardApiManager sendGetCardTradeWithCardNo:self.cardDetailInfoModel.card_define_no month:@"" success:^(id  _Nullable respondObject) {
+    [TM_DataCardApiManager sendGetCardTradeWithCardNo:self.cardDetailInfoModel.card_define_no month:@"2023-06" success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             id data = respondObject[@"data"];
@@ -78,14 +78,15 @@
     CGFloat margin = 25;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(margin, 7, contentView.width - 2 * margin, 20)];
-    label.text = [NSString stringWithFormat:@"账户充值  %f",model.sum];
+    label.text = [NSString stringWithFormat:@"账户充值  %0.2f",model.sum];
     label.textColor = [UIColor darkGrayColor];
-    label.font = [UIFont systemFontOfSize:16];
+    label.font = [UIFont systemFontOfSize:15];
     [label adjustsFontSizeToFitWidth];
     [contentView addSubview:label];
     
     
-    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = @"Paste me!";
     return cell;
 }
 

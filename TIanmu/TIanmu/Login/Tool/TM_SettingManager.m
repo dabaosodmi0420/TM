@@ -31,6 +31,8 @@ static TM_SettingManager *settingMgr = nil;
     // 清除保存的选中设备
     [TM_StorageData deleteArchiveDataWithPath:kDataCardInfoModelPath];
     settingMgr = nil;
+    
+    [[TM_WeixinTool shareWeixinToolManager] clearData];
 }
 
 - (instancetype)init {
@@ -58,7 +60,7 @@ static TM_SettingManager *settingMgr = nil;
     
 }
 - (BOOL)hasPhoneLogged {
-    if (self.sIdentifierId.length > 0){
+    if (self.sIdentifierId.length > 0 || self.wxAccessToken.length > 0){
         return YES;
     } else {
         return NO;

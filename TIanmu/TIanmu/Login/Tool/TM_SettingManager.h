@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TM_DataCardInfoModel.h"
+#import "TM_WeixinTool.h"
 
 #define kIdentifierId   @"TM_IdentifierId"
 
@@ -19,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)clear;
 @property (nonatomic, copy) NSString *sIdentifierId;                    // 用户注册的号
 @property (nonatomic, assign, readonly) BOOL  hasPhoneLogged;           // 手机号是否登录成功
-
+@property (nonatomic, copy) NSString *wxAccessToken;                    // 微信获取token
 /* 当前选中的卡片 */
 @property (strong, nonatomic, readonly) TM_DataCardInfoModel *dataCardInfoModel;
 - (void)updateCurrentDataCardInfoModel:(TM_DataCardInfoModel *)dataCardInfoModel;    // 更新当前选中的卡片
