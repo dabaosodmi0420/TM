@@ -11,6 +11,8 @@
 #import "TM_NavigationController.h"
 #import "TM_ForgetPassswordViewController.h"
 #import "TM_WeixinTool.h"
+#import "TM_WXBindViewController.h"
+
 @interface TM_LoginViewController ()<UITextFieldDelegate>{
     NSTimer         * _timer;
     NSUInteger        _secondNumber;
@@ -305,11 +307,33 @@
 // 微信登录
 - (void)wechatLoginClick {
 //    TM_ShowFuncNoOpenToast;
-    [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin completeBlock:^(NSDictionary * _Nonnull param) {
-        NSLog(@"%@", param);
-        [TM_SettingManager shareInstance].wxAccessToken = param[KWeixin_AccessToken_Key];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+    if(![TM_SettingManager shareInstance].hasPhoneLogged) {
+        [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin completeBlock:^(NSDictionary * _Nonnull param) {
+            NSLog(@"%@", param);
+            [TM_LoginApiManger sendQueryBindWXLoginWithwxData:param success:^(id  _Nullable respondObject) {
+                if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                    if([respondObject[@"bind"] isEqualToString:@"no"]) {
+                        TM_WXBindViewController *vc = [TM_WXBindViewController new];
+                        vc.wxdata = param;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    }else {
+                        NSString *phoneNum = respondObject[@"data"][@"user_name"];
+                        [TM_KeyChainDataDIc tm_addValueToKeyChainDic:[phoneNum tm_sm4_ecb_encryptWithKey:sm4_ecb_key] key:kIdentifierId];
+                        [TM_SettingManager shareInstance].sIdentifierId = phoneNum;
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }
+                }else {
+                    NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                    TM_ShowToast(self.view, msg);
+                }
+            } failure:^(NSError * _Nullable error) {
+                NSLog(@"%@",error);
+                TM_ShowToast(self.view, @"登录失败");
+            }];
+        }];
+    }else {
+        TM_ShowToast(self.view, @"已登录成功");
+    }
 }
 // 限制手机号输入个数
 - (void)phoneTextFieldEdit:(UITextField*)textfield {

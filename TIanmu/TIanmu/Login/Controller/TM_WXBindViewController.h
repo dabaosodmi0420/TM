@@ -10,6 +10,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TM_WXBindViewController : TM_BaseViewController
+/* 微信数据 */
+@property (strong, nonatomic) NSDictionary *wxdata;
 
 @end
 

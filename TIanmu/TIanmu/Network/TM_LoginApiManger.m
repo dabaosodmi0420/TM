@@ -106,7 +106,7 @@
     params[@"user_name"]        = phoneNum;
     params[@"wx_WXOpenID"]      = wxData[@"openid"];
     params[@"wx_HeadPic"]       = wxData[@"headimgurl"];
-    params[@"wx_NickName"]      = wxData[@"nickname"];
+    params[@"wx_NickName"]      = @"";//wxData[@"nickname"];
     params[@"wx_Uinionid"]      = wxData[@"unionid"];
     params[@"wx_ClientId"]      = wxData[@"appid"];
     params[@"user_key"]         = pw;
@@ -129,7 +129,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"wx_WXOpenID"]      = wxData[@"openid"];
     params[@"wx_HeadPic"]       = wxData[@"headimgurl"];
-    params[@"wx_NickName"]      = wxData[@"nickname"];
+    params[@"wx_NickName"]      = @"";//wxData[@"nickname"];
     params[@"wx_Uinionid"]      = wxData[@"unionid"];
     params[@"wx_ClientId"]      = wxData[@"appid"];
     

@@ -378,8 +378,8 @@
             filePath = "TIanmu/Login/Controller/TM_LoginViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "-loginClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -602,8 +602,8 @@
             filePath = "TIanmu/Login/Controller/TM_LoginViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "-createView"
             landmarkType = "7">
          </BreakpointContent>
@@ -829,6 +829,134 @@
             startingLineNumber = "79"
             endingLineNumber = "79"
             landmarkName = "-sendGETRequestWithPath:parameters:success:failure:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F29FE6A5-2D48-4C61-941A-1F6FDFDA2082"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Login/Controller/TM_LoginViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "-sendCodeClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC6E90CA-C67F-4509-AE76-CBC5CBC9FFA4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Login/Controller/TM_LoginViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "-sendCodeClick:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DC6E90CA-C67F-4509-AE76-CBC5CBC9FFA4 - db2a323e4454f3ad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40-[TM_LoginViewController sendCodeClick:]_block_invoke"
+                  moduleName = "TIanmu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhenglianjie/Desktop/TM_Workspace/TM/TIanmu/TIanmu/Login/Controller/TM_LoginViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "287"
+                  endingLineNumber = "287"
+                  offsetFromSymbolStart = "336">
+               </Location>
+               <Location
+                  uuid = "DC6E90CA-C67F-4509-AE76-CBC5CBC9FFA4 - db2a323e4454f3ad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40-[TM_LoginViewController sendCodeClick:]_block_invoke"
+                  moduleName = "TIanmu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhenglianjie/Desktop/TM_Workspace/TM/TIanmu/TIanmu/Login/Controller/TM_LoginViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "287"
+                  endingLineNumber = "287"
+                  offsetFromSymbolStart = "612">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB7F3268-E32A-447A-B357-36DCDAA90BC7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Login/Controller/TM_WXBindViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "-rightNavItemClick"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CB7F3268-E32A-447A-B357-36DCDAA90BC7 - 4f13a258ae366bc6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__44-[TM_WXBindViewController rightNavItemClick]_block_invoke_2"
+                  moduleName = "TIanmu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhenglianjie/Desktop/TM_Workspace/TM/TIanmu/TIanmu/Login/Controller/TM_WXBindViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "181"
+                  endingLineNumber = "181"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "CB7F3268-E32A-447A-B357-36DCDAA90BC7 - 4f13a258ae366bc6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__44-[TM_WXBindViewController rightNavItemClick]_block_invoke_2"
+                  moduleName = "TIanmu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhenglianjie/Desktop/TM_Workspace/TM/TIanmu/TIanmu/Login/Controller/TM_WXBindViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "181"
+                  endingLineNumber = "181"
+                  offsetFromSymbolStart = "352">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D8C649D2-3507-4898-B594-39CDF3D908B6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Network/TM_NetworkTool.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-sendPOST_RequestWithPath:parameters:headers:success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -179,21 +179,26 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
 }
 
 - (void)tm_weixinToolWithType:(TM_WeixinToolType)type completeBlock:(nonnull TMWeixinToolCompleteBlock)completeBlock{
-    _type = type;
-    _completeBlock = completeBlock;
-    switch (type) {
-        case TM_WeixinToolTypeLogin: {
-            [self tm_weixinLoginActivity];
+    
+    if ([WXApi isWXAppInstalled]) {
+        _type = type;
+        _completeBlock = completeBlock;
+        switch (type) {
+            case TM_WeixinToolTypeLogin: {
+                [self tm_weixinLoginActivity];
+            }
+                break;
+            case  TM_WeixinToolTypePay: {
+                [self tm_weixinPayActvity];
+            }
+                break;
+            default:{
+                
+            }
+                break;
         }
-            break;
-        case  TM_WeixinToolTypePay: {
-            [self tm_weixinPayActvity];
-        }
-            break;
-        default:{
-            
-        }
-            break;
+    }else {
+        TM_ShowToast([UIApplication sharedApplication].keyWindow, @"请先安装微信app");
     }
 }
 

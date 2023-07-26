@@ -43,6 +43,19 @@ NS_ASSUME_NONNULL_BEGIN
                          code:(NSString *)code
                       success:(TMAPISuccessBlock)successBlock
                       failure:(TMAPIFailureBlock)failureBlock;
+
+// 绑定微信登录
++ (void)sendBindWXLoginWithPhoneNum:(NSString *)phoneNum
+                           password:(NSString *)pw
+                               code:(NSString *)code
+                             wxData:(NSDictionary *)wxData
+                            success:(TMAPISuccessBlock)successBlock
+                            failure:(TMAPIFailureBlock)failureBlock;
+
+// 查询是否绑定微信登录
++ (void)sendQueryBindWXLoginWithwxData:(NSDictionary *)wxData
+                               success:(TMAPISuccessBlock)successBlock
+                               failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

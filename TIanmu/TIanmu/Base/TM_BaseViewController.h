@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TM_BaseViewController : UIViewController
-
+- (void)createNav;
 - (void)createView;
 
 - (void)showNotOpenAlert;
