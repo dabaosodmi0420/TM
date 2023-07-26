@@ -36,7 +36,7 @@ typedef void(^TMWeixinToolCompleteBlock)(NSDictionary *param);
 
 + (instancetype)shareWeixinToolManager;
 // 使用微信登录或支付功能
-- (void)tm_weixinToolWithType:(TM_WeixinToolType)type completeBlock:(TMWeixinToolCompleteBlock)completeBlock;
+- (void)tm_weixinToolWithType:(TM_WeixinToolType)type data:(NSDictionary *)data completeBlock:(TMWeixinToolCompleteBlock)completeBlock;
 // 检查 accessToken 是否过期
 - (BOOL)tm_checkIsExpiresin;
 // 判断是否 accessToken 登录过 登过过就刷新  accessToken

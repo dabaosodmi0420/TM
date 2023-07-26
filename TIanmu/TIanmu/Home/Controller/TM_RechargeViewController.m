@@ -9,6 +9,7 @@
 #import "JT_TopSegmentMenuView.h"
 #import "TM_DataCardApiManager.h"
 #import "TM_DataCardUsedFlowModel.h"
+#import "TM_WeixinTool.h"
 
 #define K_TmpStr  @"# #"
 
@@ -264,11 +265,20 @@
 
     }else if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
         NSLog(@"%@",@"余额充值");
-        NSString *recharge_money = @"";
+        NSString *recharge_money = @"0.1";
         [TM_DataCardApiManager sendGetWechatRechargePreWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:recharge_money success:^(id  _Nullable respondObject) {
-            
+            NSLog(@"%@",respondObject);
+            if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypePay data:respondObject completeBlock:^(NSDictionary * _Nonnull param) {
+                                    
+                }];
+            }else {
+                NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                TM_ShowToast(self.view, msg);
+            }
         } failure:^(NSError * _Nullable error) {
-            
+            NSLog(@"%@",error);
+            TM_ShowToast(self.view, @"获取订单失败");
         }];
     }
 }

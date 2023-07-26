@@ -295,8 +295,6 @@
 // 忘记密码
 - (void)forgetPwClick {
     TM_ForgetPassswordViewController *vc = [TM_ForgetPassswordViewController new];
-    TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:vc];
-
     [self.navigationController pushViewController:vc animated:YES];
 }
 // 注册
@@ -308,7 +306,7 @@
 - (void)wechatLoginClick {
 //    TM_ShowFuncNoOpenToast;
     if(![TM_SettingManager shareInstance].hasPhoneLogged) {
-        [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin completeBlock:^(NSDictionary * _Nonnull param) {
+        [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin data:@{} completeBlock:^(NSDictionary * _Nonnull param) {
             NSLog(@"%@", param);
             [TM_LoginApiManger sendQueryBindWXLoginWithwxData:param success:^(id  _Nullable respondObject) {
                 if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {

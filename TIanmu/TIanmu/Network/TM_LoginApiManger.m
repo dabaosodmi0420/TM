@@ -1,15 +1,15 @@
 //
-//  TM_LoginApiManger.m
-//  TIanmu
+//:  TM_LoginApiManger.m
+//:  TIanmu
 //
-//  Created by 郑连杰 on 2023/6/21.
+//:  Created by 郑连杰 on 2023/6/21.
 //
 
 #import "TM_LoginApiManger.h"
 
 @implementation TM_LoginApiManger
 
-// 发送验证码
+//MARK: 发送验证码
 + (void)sendCodeWithPhoneNum:(NSString *)phoneNum
                      success:(TMAPISuccessBlock)successBlock
                      failure:(TMAPIFailureBlock)failureBlock{
@@ -26,7 +26,7 @@
                                                          failure:failureBlock];
 }
 
-// 登录
+//MARK: 登录
 + (void)sendLoginWithPhoneNum:(NSString *)phoneNum
                      password:(NSString *)pw
                          code:(NSString *)code
@@ -50,7 +50,7 @@
                                                          failure:failureBlock];
 }
 
-// 注册
+//MARK: 注册
 + (void)sendRegisterWithPhoneNum:(NSString *)phoneNum
                         password:(NSString *)pw
                             code:(NSString *)code
@@ -71,7 +71,7 @@
                                                          failure:failureBlock];
 }
 
-// 修改密码
+//MARK: 修改密码
 + (void)sendFixPWWithPhoneNum:(NSString *)phoneNum
                      password:(NSString *)pw
                          code:(NSString *)code
@@ -92,7 +92,7 @@
                                                          failure:failureBlock];
 }
 
-// 绑定微信登录
+//MARK: 绑定微信登录
 + (void)sendBindWXLoginWithPhoneNum:(NSString *)phoneNum
                            password:(NSString *)pw
                                code:(NSString *)code
@@ -119,7 +119,7 @@
                                                          failure:failureBlock];
 }
 
-// 查询是否绑定微信登录
+//MARK: 查询是否绑定微信登录
 + (void)sendQueryBindWXLoginWithwxData:(NSDictionary *)wxData
                                success:(TMAPISuccessBlock)successBlock
                                failure:(TMAPIFailureBlock)failureBlock{

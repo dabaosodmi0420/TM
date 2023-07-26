@@ -155,6 +155,9 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
 
 /* type */
 @property (assign, nonatomic) TM_WeixinToolType type;
+/* 传入数据 */
+@property (strong, nonatomic) NSDictionary      *data;
+
 
 /* access_token */
 @property (strong, nonatomic) NSString          *access_token;
@@ -178,10 +181,11 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
     return manager;
 }
 
-- (void)tm_weixinToolWithType:(TM_WeixinToolType)type completeBlock:(nonnull TMWeixinToolCompleteBlock)completeBlock{
+- (void)tm_weixinToolWithType:(TM_WeixinToolType)type data:(NSDictionary *)data completeBlock:(nonnull TMWeixinToolCompleteBlock)completeBlock{
     
     if ([WXApi isWXAppInstalled]) {
         _type = type;
+        _data = data;
         _completeBlock = completeBlock;
         switch (type) {
             case TM_WeixinToolTypeLogin: {
@@ -268,18 +272,13 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
 - (void)tm_weixinPayActvity {
     PayReq *request = [[PayReq alloc] init];
 
-    request.partnerId = @"10000100";
-
-    request.prepayId = @"1101000000140415649af9fc314aa427";
-
-    request.package = @"Sign=WXPay";
-
-    request.nonceStr = @"a462b76e7436e98e0ed6e13c64b4fd1c";
-
-    request.timeStamp = 1397527777;
-
-    request.sign = @"582282D72DD2B03AD892830965F428CB16E7A256";
-
+    request.partnerId       = self.data[@"partnerid"];
+    request.prepayId        = self.data[@"prepay_id"];
+    request.package         = self.data[@"Package"];
+    request.nonceStr        = self.data[@"noncestr"];
+    request.timeStamp       = [self.data[@"timestamp"] intValue];
+    request.sign            = self.data[@"sign"];
+    request.openID          = kWeixin_AppID;
     [WXApi sendReq:request completion:^(BOOL success) {
         NSLog(@"%@",success ? @"成功" : @"失败");
     }];
