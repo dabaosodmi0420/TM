@@ -277,7 +277,7 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
     request.package         = self.data[@"Package"];
     request.nonceStr        = self.data[@"noncestr"];
     request.timeStamp       = [self.data[@"timestamp"] intValue];
-    request.sign            = self.data[@"sign"];
+    request.sign            = @"md5";//self.data[@"sign"];
     request.openID          = kWeixin_AppID;
     [WXApi sendReq:request completion:^(BOOL success) {
         NSLog(@"%@",success ? @"成功" : @"失败");
@@ -385,6 +385,7 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
         
     }else if ([resp isKindOfClass:[PayResp class]]){
         PayResp *response = (PayResp *)resp;
+
         switch(response.errCode){
             case WXSuccess:{                //服务器端查询支付通知或查询API返回的结果再提示成功
                 NSLog(@"支付成功");

@@ -714,8 +714,8 @@
             filePath = "TIanmu/Home/Controller/TM_RechargeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "-createView"
             landmarkType = "7">
          </BreakpointContent>
@@ -762,8 +762,8 @@
             filePath = "TIanmu/Network/TM_DataCardApiManager.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "+sendUserBindCardWithPhoneNum:CardNo:success:failure:"
             landmarkType = "7">
          </BreakpointContent>
@@ -963,16 +963,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "42A5F0E7-3FA9-4AAE-B14C-F7A871E7114C"
-            shouldBeEnabled = "Yes"
+            uuid = "344BFED9-D75C-4455-9682-4DD0707CC82E"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TIanmu/Login/Tool/TM_WeixinTool.m"
+            filePath = "TIanmu/Home/Controller/TM_RechargeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
-            landmarkName = "-tm_weixinPayActvity"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "-requestTaocanData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B9B9FCB0-DC54-461F-AE42-31741DAB0E34"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Network/TM_DataCardApiManager.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "+sendOrderTcByWXWithPhoneNum:CardNo:recharge_money:type:package_id:success:failure:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

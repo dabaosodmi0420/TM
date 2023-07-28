@@ -10,16 +10,20 @@
 #import "TM_DataCardApiManager.h"
 #import "TM_DataCardUsedFlowModel.h"
 #import "TM_WeixinTool.h"
+#import "TM_DataCardTaoCanModel.h"
 
 #define K_TmpStr  @"# #"
 
 @interface TM_RechargeViewController (){
     UIButton *_selectedBtn;
     NSArray <UILabel *>*_topInfoLables;
+    NSInteger _curTaocanType;
 }
 
 /* 流量卡使用情况 */
 @property (strong, nonatomic) TM_DataCardUsedFlowModel *usedFlowModel;
+/* 套餐 */
+@property (strong, nonatomic) TM_DataCardTaoCanModel *taocanModel;
 
 
 #pragma mark - 余额充值
@@ -105,6 +109,35 @@
     recharge.backgroundColor = TM_SpecialGlobalColor;
     [self.view addSubview:recharge];
 }
+// 刷新顶部数据
+- (void)refreshUIData:(NSDictionary *)data {
+    self.usedFlowModel = [TM_DataCardUsedFlowModel mj_objectWithKeyValues:data];
+    NSArray <NSString *>*datas =  @[
+        [NSString stringWithFormat:@"%@",self.cardDetailInfoModel.package_name],
+        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.useDays],
+        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.leftDays],
+        [NSString stringWithFormat:@"%@",self.usedFlowModel.balance],
+        [NSString stringWithFormat:@"%@",self.cardDetailInfoModel.iccid],
+        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.serveValidDate]
+    ];
+    for (int i = 0; i < datas.count; i++) {
+        UILabel *l = _topInfoLables[i];
+        NSMutableString *text = [NSMutableString stringWithString:l.text];
+        [text replaceCharactersInRange:[text rangeOfString:K_TmpStr] withString:datas[i]];
+        l.text = [NSString stringWithFormat:@"%@",text];
+        [l sizeToFit];
+    }
+}
+- (void)refreshTaocanUIData {
+    NSLog(@"%@",@"刷新套餐");
+    if(_curTaocanType == 0) {
+        
+    }else if (_curTaocanType == 1) {
+        
+    }else if (_curTaocanType == 2) {
+        
+    }
+}
 // MARK: 流量充值页面
 - (void)flowRechargeView {
     _segmentMenuView = [[JT_TopSegmentMenuView alloc] initWithFrame:CGRectMake(0, 220, kScreen_Width, getAutoSize(60))];
@@ -113,16 +146,19 @@
     _segmentMenuView.btnTitleSeletColor = TM_SpecialGlobalColor;
     _segmentMenuView.btnBackNormalColor = [UIColor clearColor];
     _segmentMenuView.btnBackSeletColor = [UIColor clearColor];
-    _segmentMenuView.btnTextFont = [UIFont systemFontOfSize:15];
+    _segmentMenuView.btnTextFont = [UIFont systemFontOfSize:14];
     _segmentMenuView.isAverageWidth = YES;
     _segmentMenuView.isCorner = NO;
     @weakify(self)
     _segmentMenuView.clickGroupBtnBlock = ^(NSString *btnName, NSInteger index) {
         @strongify(self)
-        
+        self->_curTaocanType = index;
+        [self requestTaocanData:index];
     };
     [self.segmentMenuView makeSegmentUIWithSegDataArr:@[@"畅享版(单网)\n电信", @"优享版(双网)\n电信+移动", @"尊享版(三网)\n电信+移动+联通"] selectIndex:0 selectSegName:nil];
     [self.view addSubview:_segmentMenuView];
+    _curTaocanType = 0;
+    [self requestTaocanData:0];
     
     UIButton *btn = [UIView createButton:CGRectMake(20, _segmentMenuView.maxY + 20, kScreen_Width - 40, 65) title:@"测试包\n售价：1.0元" titleColoe:TM_SpecialGlobalColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeRechargeMoney:) target:self];
     [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
@@ -202,6 +238,7 @@
     
 }
 #pragma mark - 获取数据
+// 获取用户流量信息
 - (void)reloadData {
     [TM_DataCardApiManager sendQueryUserFlowWithCardNo:self.cardDetailInfoModel.iccid success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);
@@ -221,23 +258,21 @@
         TM_ShowToast(self.view, @"获取数据失败");
     }];
 }
-- (void)refreshUIData:(NSDictionary *)data {
-    self.usedFlowModel = [TM_DataCardUsedFlowModel mj_objectWithKeyValues:data];
-    NSArray <NSString *>*datas =  @[
-        [NSString stringWithFormat:@"%@",self.cardDetailInfoModel.package_name],
-        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.useDays],
-        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.leftDays],
-        [NSString stringWithFormat:@"%@",self.usedFlowModel.balance],
-        [NSString stringWithFormat:@"%@",self.cardDetailInfoModel.iccid],
-        [NSString stringWithFormat:@"%@",self.usedFlowModel.device_info.serveValidDate]
-    ];
-    for (int i = 0; i < datas.count; i++) {
-        UILabel *l = _topInfoLables[i];
-        NSMutableString *text = [NSMutableString stringWithString:l.text];
-        [text replaceCharactersInRange:[text rangeOfString:K_TmpStr] withString:datas[i]];
-        l.text = [NSString stringWithFormat:@"%@",text];
-        [l sizeToFit];
-    }
+
+// 获取套餐数据
+- (void)requestTaocanData:(NSInteger)type {
+    [TM_DataCardApiManager sendQueryTaoCanListWithCardNo:self.cardDetailInfoModel.card_define_no type:@"all" success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+            self.taocanModel = [TM_DataCardTaoCanModel mj_objectWithKeyValues:respondObject[@"data"]];
+            [self refreshTaocanUIData];
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+            TM_ShowToast(self.view, msg);
+        }
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+        TM_ShowToast(self.view, @"获取数据失败");
+    }];
 }
 
 #pragma mark - Activity
@@ -262,7 +297,24 @@
 - (void)rechargeClick {
     if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
         NSLog(@"%@",@"流量充值");
-
+        TM_DataCardTaoCanInfoModel *model = self.taocanModel.singleList[0];
+        NSString *type = @"month";
+        [TM_DataCardApiManager sendOrderTcByWXWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:model.package_price type:type package_id:model.package_id success:^(id  _Nullable respondObject) {
+            NSLog(@"%@",respondObject);
+            if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypePay data:respondObject completeBlock:^(NSDictionary * _Nonnull param) {
+                    
+                }];
+            }else {
+                NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                TM_ShowToast(self.view, msg);
+            }
+        } failure:^(NSError * _Nullable error) {
+            NSLog(@"%@",error);
+            TM_ShowToast(self.view, @"获取订单失败");
+        }];
+        
+        
     }else if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
         NSLog(@"%@",@"余额充值");
         NSString *recharge_money = @"0.1";

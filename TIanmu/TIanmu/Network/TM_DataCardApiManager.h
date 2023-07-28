@@ -42,6 +42,15 @@ NS_ASSUME_NONNULL_BEGIN
                                      success:(TMAPISuccessBlock)successBlock
                                      failure:(TMAPIFailureBlock)failureBlock;
 
+//MARK: 订购套餐- 生成预支付订单
++ (void)sendOrderTcByWXWithPhoneNum:(NSString *)phoneNum
+                             CardNo:(NSString *)cardNo              //卡号
+                     recharge_money:(NSString *)recharge_money
+                               type:(NSString *)type                //month:当月加包；next次月加包；
+                         package_id:(NSString *)package_id          //订购套餐包体编号
+                            success:(TMAPISuccessBlock)successBlock
+                            failure:(TMAPIFailureBlock)failureBlock;
+
 //MARK: 查询套餐列表
 + (void)sendQueryTaoCanListWithCardNo:(NSString *)cardNo
                                  type:(NSString *)type

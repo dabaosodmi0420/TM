@@ -28,7 +28,7 @@
         self.btnBackSeletColor = TM_ColorHex(@"#FCEFE7");
         self.btnWidth = 70.0;
         self.btnHeight = 30.0;
-        self.btnJianGe = 15.0;
+        self.btnJianGe = 10.0;
         self.btnTitleTextHeight = 20.0;
         [self addSubview:self.scrollView];
         [self addSubview:self.botLineView];
