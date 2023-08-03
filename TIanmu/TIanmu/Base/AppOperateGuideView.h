@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AppOperateGuideView : UIView
 
-+ (void)showAppGuideView:(UIView *)superView complete:(dispatch_block_t)completeBlock;
++ (void)showAppGuideViewComplete:(dispatch_block_t)completeBlock ;
 @end
 
 NS_ASSUME_NONNULL_END

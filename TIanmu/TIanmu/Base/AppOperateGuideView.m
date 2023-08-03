@@ -7,18 +7,14 @@
 
 #import "AppOperateGuideView.h"
 #import "YT_PageControl.h"
-#import "TM_AttributeTextView.h"
-#import "JTDefinitionTextView.h"
 
-@interface AppOperateGuideView ()<UIScrollViewDelegate, TM_AttributeTextViewDelegate>{
+@interface AppOperateGuideView ()<UIScrollViewDelegate>{
     BOOL    bDismiss_;         //是否已经执行过一次
     NSArray *imageNames;
 }
 @property (nonatomic ,copy) dispatch_block_t dismissBlock;
 @property (nonatomic ,strong) UIScrollView *scrollView;
 @property (nonatomic, strong) YT_PageControl *pageControl;
-/* 协议 */
-@property (strong, nonatomic) TM_AttributeTextView  *attributeTV;
 
 @end
 
@@ -26,6 +22,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor redColor];
         [self createView:frame];
     }
     return self;
@@ -74,8 +71,37 @@
             make.size.mas_equalTo(CGSizeMake(kScreen_Width, kScreen_Height));
             make.left.mas_equalTo(kScreen_Width * idx);
         }];
-    }];
-    
+    }];//跳过button
+    __block NSInteger width,height,bottom,space,left,top = 0;
+    for (int i = 0; i < imageNames.count; i++) {
+        UIButton *skipBtn = [UIButton new];
+        [skipBtn addTarget:self action:@selector(dismissAppOperateGuideBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
+        [skipBtn setImage:iPhoneX ? [UIImage imageNamed:@"skip_X"] : [UIImage imageNamed:@"skip"] forState:UIControlStateNormal];
+        skipBtn.backgroundColor = [UIColor clearColor];
+        [_scrollView addSubview:skipBtn];
+        if (iPhoneX) {
+            width = 56;
+            height = 30;
+            top = adapt375(50);
+            left = kScreen_Width - adapt375(75);
+        } else if (iPhone5) {
+            width = 45;
+            height = 25;
+            top = 15;
+            left =  kScreen_Width - adapt375(60);
+        } else {
+            width = 55;
+            height = 29;
+            top = 20;
+            left =  kScreen_Width - adapt375(75);
+        }
+        [skipBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.scrollView.mas_top).offset(top);
+            make.left.equalTo(self.scrollView.mas_left).offset(i*kScreen_Width+left);
+            make.width.mas_equalTo(width);
+            make.height.mas_equalTo(height);
+        }];
+    }
 }
 //结束减速滑动
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -101,24 +127,22 @@
         
     }
 }
-+ (void)showAppGuideView:(UIView *)superView complete:(dispatch_block_t)completeBlock {
-    if (kCurrAppVersion ) {
-        //
-        AppOperateGuideView *guideView = [[AppOperateGuideView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
-        [superView addSubview:guideView];
++ (void)showAppGuideViewComplete:(dispatch_block_t)completeBlock {
+    NSString *appV = [[NSUserDefaults standardUserDefaults] valueForKeyPath:@"TM_AppVersion"];
+    if (![kCurrAppVersion isEqualToString:appV]) {
+        AppOperateGuideView *guideView = [[AppOperateGuideView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         guideView.dismissBlock = completeBlock;
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow addSubview:guideView];
         
-//        TM_AttributeTextView *attributeTV = [[TM_AttributeTextView alloc] initWithFrame:CGRectMake(self.agreeBtn.maxX + 10, self.agreeBtn.y , contentView.width - self.agreeBtn.maxX - 10 - getAutoWidth(92), 30)];
-//        attributeTV.text = @"欢迎使用天目e生活APP，在您使用前请仔细阅读《天目e生活用户协议》和《隐私协议》,天目e生活将严格遵守您同意的各项条款使用您的信息,以便为您提供更好的服务。点击“同意”意味着您自愿遵守《天目e生活用户协议》和《隐私协议》";
-//        attributeTV.font = [UIFont systemFontOfSize:14];
-//        attributeTV.textColor = TM_ColorHex(@"#888888");
-//        attributeTV.linkColor = TM_SpecialGlobalColor;
-//        attributeTV.linkTextArr = @[@"《天目e生活用户协议》", @"《隐私协议》"];
-//        attributeTV.linkTextSchemeArr = @[@"userProtocal", @"privateProtocal"];
-//        attributeTV.delegate = self;
-//        attributeTV.isSizeToFit = YES;
-//        [contentView addSubview:attributeTV];
-//        self.attributeTV = attributeTV;
+    }else {
+        !completeBlock ? : completeBlock();
+    }
+}
+-(void)dismissAppOperateGuideBtnDidClick{
+    !_dismissBlock ? : _dismissBlock();
+    if (_dismissBlock) {
+        [self removeFromSuperview];
     }
 }
 - (YT_PageControl *)pageControl {

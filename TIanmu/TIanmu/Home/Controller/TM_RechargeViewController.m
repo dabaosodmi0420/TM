@@ -21,17 +21,23 @@
 }
 
 /* 流量卡使用情况 */
-@property (strong, nonatomic) TM_DataCardUsedFlowModel *usedFlowModel;
+@property (strong, nonatomic) TM_DataCardUsedFlowModel  *usedFlowModel;
 /* 套餐 */
-@property (strong, nonatomic) TM_DataCardTaoCanModel *taocanModel;
+@property (strong, nonatomic) TM_DataCardTaoCanModel    *taocanModel;
 
 
 #pragma mark - 余额充值
 /* customMoneyTF */
-@property (strong, nonatomic) UITextField *customMoneyTF;
+@property (strong, nonatomic) UITextField               *customMoneyTF;
 
 #pragma mark - 流量充值
-@property (nonatomic, strong) JT_TopSegmentMenuView *segmentMenuView;
+@property (nonatomic, strong) JT_TopSegmentMenuView     *segmentMenuView;
+/* 充值包 */
+@property (strong, nonatomic) UIScrollView              *taocanScrollerView;
+/* 选择的套餐 */
+@property (strong, nonatomic) UILabel                   *taocanTipL;
+/* 套餐数据 */
+@property (strong, nonatomic) NSArray                   *taocanDataArr;
 
 
 @end
@@ -92,13 +98,7 @@
     
     _topInfoLables = @[label1, label2, label3, label4, label5, label6];
     
-    if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
-        [self flowRechargeView];
-    }else if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
-        [self balanceRechargeView];
-    }
-    
-    // 登录
+    // 充值按钮
     UIButton *recharge = [UIView createButton:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44, kScreen_Width, 44)
                                         title:@"立即充值"
                                    titleColoe:TM_ColorRGB(255, 255, 255)
@@ -108,6 +108,12 @@
                                        target:self];
     recharge.backgroundColor = TM_SpecialGlobalColor;
     [self.view addSubview:recharge];
+    
+    if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
+        [self flowRechargeView];
+    }else if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
+        [self balanceRechargeView];
+    }
 }
 // 刷新顶部数据
 - (void)refreshUIData:(NSDictionary *)data {
@@ -160,18 +166,39 @@
     _curTaocanType = 0;
     [self requestTaocanData:0];
     
-    UIButton *btn = [UIView createButton:CGRectMake(20, _segmentMenuView.maxY + 20, kScreen_Width - 40, 65) title:@"测试包\n售价：1.0元" titleColoe:TM_SpecialGlobalColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeRechargeMoney:) target:self];
-    [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-    [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateHighlighted];
-    [btn setBackgroundImage:[UIImage tm_imageWithColor:TM_SpecialGlobalColor] forState:UIControlStateSelected];
-    btn.titleLabel.numberOfLines = 2;
-    btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    btn.layer.cornerRadius = 5;
-    btn.clipsToBounds = YES;
-    btn.layer.borderWidth = 1;
-    btn.layer.borderColor = TM_SpecialGlobalColor.CGColor;
+    // 下方现在选择的套餐
+    UILabel *taocanTipL = [UIView createLabelWithFrame:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44 - 30, kScreen_Width, 30) title:@"  请选择套餐" fontSize:15 color: [UIColor darkGrayColor]];
+    taocanTipL.backgroundColor = TM_SpecialGlobalColorBg;
+    [self.view addSubview:taocanTipL];
+    self.taocanTipL = taocanTipL;
     
-    [self.view addSubview:btn];
+    self.taocanScrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.segmentMenuView.maxY, kScreen_Width, taocanTipL.y - self.segmentMenuView.maxY)];
+    self.taocanScrollerView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:self.taocanScrollerView];
+    
+    self.taocanDataArr = @[@"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元" ];
+    
+    CGFloat contentSizeH = 0;
+    for (int i = 0; i < self.taocanDataArr.count; i++) {
+        CGFloat h = 65;
+        CGFloat margin_top = 10;
+        UIButton *btn = [UIView createButton:CGRectMake(20, (i + 1) * margin_top + i * h, kScreen_Width - 40, h) title:self.taocanDataArr[i] titleColoe:TM_SpecialGlobalColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeRechargeMoney:) target:self];
+        [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+//        [btn setBackgroundImage:[UIImage tm_imageWithColor:TM_SpecialGlobalColor] forState:UIControlStateHighlighted];
+        [btn setBackgroundImage:[UIImage tm_imageWithColor:TM_SpecialGlobalColor] forState:UIControlStateSelected];
+        btn.titleLabel.numberOfLines = 2;
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        btn.layer.cornerRadius = 5;
+        btn.clipsToBounds = YES;
+        btn.layer.borderWidth = 1;
+        btn.layer.borderColor = TM_SpecialGlobalColor.CGColor;
+        btn.tag = 888 + i;
+        [self.taocanScrollerView addSubview:btn];
+        
+        contentSizeH = btn.maxY;
+    }
+    self.taocanScrollerView.contentSize = CGSizeMake(kScreen_Width, contentSizeH);
+    
 }
 // // MARK: 余额充值页面
 - (void)balanceRechargeView {
@@ -198,7 +225,7 @@
         CGFloat y = gap + i / lineNum * (h + gap) + lineL.maxY + 10;
         if (i < rechargeArr.count - 1) {
             NSString *title = [NSString stringWithFormat:@"￥%0.2f", [rechargeArr[i] doubleValue]];
-            UIButton *btn = [UIView createButton:CGRectMake(x, y, w, h) title:title titleColoe:TM_SpecialGlobalColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeRechargeMoney:) target:self];
+            UIButton *btn = [UIView createButton:CGRectMake(x, y, w, h) title:title titleColoe:TM_SpecialGlobalColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeBalanceRechargeMoney:) target:self];
             [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
             [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateHighlighted];
             [btn setBackgroundImage:[UIImage tm_imageWithColor:TM_SpecialGlobalColor] forState:UIControlStateSelected];
@@ -210,7 +237,7 @@
             
             [self.view addSubview:btn];
             if (i == 0) {
-                [self changeRechargeMoney:btn];
+                [self changeBalanceRechargeMoney:btn];
             }
         }
         if (i == rechargeArr.count - 1) { // 自定义金额
@@ -286,7 +313,14 @@
     }
     
 }
-
+- (void)changeBalanceRechargeMoney:(UIButton *)btn {
+    
+    if (_selectedBtn != btn) {
+        _selectedBtn.selected = NO;
+        _selectedBtn = btn;
+        _selectedBtn.selected = YES;
+    }
+}
 - (void)customMoneyTFEdit:(UITextField *)tf {
     if(tf.text.length > 0) {
         _selectedBtn.selected = NO;

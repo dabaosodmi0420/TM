@@ -6,12 +6,10 @@
 //
 
 #import "TMAppDelegate.h"
-#import "TM_TabBarViewController.h"
-#import "TM_NavigationController.h"
-#import "TM_HomePageViewController.h"
-#import "TM_ServicePageViewController.h"
-#import "TM_PersonPageViewController.h"
+#import "TM_MainViewController.h"
 #import "TM_WeixinTool.h"
+#import "PrivacyAgreementView.h"
+#import "AppOperateGuideView.h"
 @interface TMAppDelegate ()
 
 @end
@@ -21,23 +19,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    // 创建根控制器
+    [self createRootViewController];
     // 注册SDK
     [self registerSDK];
-    
-    // 创建tabBar控制器
-    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [self createTabBarVC];
-    [self.window makeKeyAndVisible];
+    // 展示隐私协议
+    [self showPrivateProtocal];
     return YES;
 }
 
 #pragma mark - Activity
-- (UITabBarController *)createTabBarVC {
-    TM_TabBarViewController *tabBarVC = [[TM_TabBarViewController alloc] init];
-    
-    return tabBarVC;
+- (void)createRootViewController {
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.rootViewController = [TM_MainViewController new];
+    [self.window makeKeyAndVisible];
 }
-
 - (void)registerSDK {
     
     //在register之前打开log, 后续可以根据log排查问题
@@ -52,6 +48,14 @@
 //    [WXApi checkUniversalLinkReady:^(WXULCheckStep step, WXCheckULStepResult* result) {
 //        NSLog(@"%@, %u, %@, %@", @(step), result.success, result.errorInfo, result.suggestion);
 //    }];
+}
+- (void)showPrivateProtocal {
+    [PrivacyAgreementView showPrivacyAgreementComplete:^{
+            
+        [AppOperateGuideView showAppGuideViewComplete:^{
+            
+        }];
+    }];
 }
 
 #pragma mark - 微信回调

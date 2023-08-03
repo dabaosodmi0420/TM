@@ -22,4 +22,12 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
 }
+
+- (void)leftNavItemClick {
+    if (self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else {
+        [super leftNavItemClick];
+    }
+}
 @end

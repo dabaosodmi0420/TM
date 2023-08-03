@@ -31,6 +31,12 @@
 		155D38AB2A55639C00310AE2 /* JTDefinitionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D38AA2A55639C00310AE2 /* JTDefinitionTextView.m */; };
 		155D38AE2A5570D200310AE2 /* TM_RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D38AD2A5570D200310AE2 /* TM_RechargeViewController.m */; };
 		155D38B12A56B87B00310AE2 /* JT_TopSegmentMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D38AF2A56B87A00310AE2 /* JT_TopSegmentMenuView.m */; };
+		157805912A7B720100CCAC32 /* TM_MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157805902A7B720100CCAC32 /* TM_MainViewController.m */; };
+		157805962A7B82EB00CCAC32 /* skip_X@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 157805922A7B82E900CCAC32 /* skip_X@2x.png */; };
+		157805972A7B82EB00CCAC32 /* skip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 157805932A7B82EA00CCAC32 /* skip@3x.png */; };
+		157805982A7B82EB00CCAC32 /* skip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 157805942A7B82EA00CCAC32 /* skip@2x.png */; };
+		157805992A7B82EB00CCAC32 /* skip_X@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 157805952A7B82EB00CCAC32 /* skip_X@3x.png */; };
+		1578059C2A7B8E0400CCAC32 /* PrivacyAgreementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1578059B2A7B8E0400CCAC32 /* PrivacyAgreementView.m */; };
 		1586F3BA2A384DAE00B526BC /* UIColor+TM_HexToUIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1586F3B92A384DAE00B526BC /* UIColor+TM_HexToUIColor.m */; };
 		1586F3BD2A384E3500B526BC /* UIImage+TM_Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 1586F3BC2A384E3500B526BC /* UIImage+TM_Category.m */; };
 		1586F3C12A3851A900B526BC /* TM_NetworkTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1586F3C02A3851A900B526BC /* TM_NetworkTool.m */; };
@@ -138,6 +144,14 @@
 		155D38AD2A5570D200310AE2 /* TM_RechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_RechargeViewController.m; sourceTree = "<group>"; };
 		155D38AF2A56B87A00310AE2 /* JT_TopSegmentMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JT_TopSegmentMenuView.m; sourceTree = "<group>"; };
 		155D38B02A56B87B00310AE2 /* JT_TopSegmentMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JT_TopSegmentMenuView.h; sourceTree = "<group>"; };
+		1578058F2A7B720100CCAC32 /* TM_MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_MainViewController.h; sourceTree = "<group>"; };
+		157805902A7B720100CCAC32 /* TM_MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_MainViewController.m; sourceTree = "<group>"; };
+		157805922A7B82E900CCAC32 /* skip_X@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skip_X@2x.png"; sourceTree = "<group>"; };
+		157805932A7B82EA00CCAC32 /* skip@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skip@3x.png"; sourceTree = "<group>"; };
+		157805942A7B82EA00CCAC32 /* skip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skip@2x.png"; sourceTree = "<group>"; };
+		157805952A7B82EB00CCAC32 /* skip_X@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skip_X@3x.png"; sourceTree = "<group>"; };
+		1578059A2A7B8E0400CCAC32 /* PrivacyAgreementView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivacyAgreementView.h; sourceTree = "<group>"; };
+		1578059B2A7B8E0400CCAC32 /* PrivacyAgreementView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivacyAgreementView.m; sourceTree = "<group>"; };
 		1586F3B72A384CB700B526BC /* TM_BasicMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_BasicMacro.h; sourceTree = "<group>"; };
 		1586F3B82A384DAE00B526BC /* UIColor+TM_HexToUIColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+TM_HexToUIColor.h"; sourceTree = "<group>"; };
 		1586F3B92A384DAE00B526BC /* UIColor+TM_HexToUIColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TM_HexToUIColor.m"; sourceTree = "<group>"; };
@@ -355,6 +369,8 @@
 				155D38AF2A56B87A00310AE2 /* JT_TopSegmentMenuView.m */,
 				155D38A92A55639B00310AE2 /* JTDefinitionTextView.h */,
 				155D38AA2A55639C00310AE2 /* JTDefinitionTextView.m */,
+				151A284B2A4A7C5C004B33E3 /* TM_AttributeTextView.h */,
+				151A284C2A4A7C5C004B33E3 /* TM_AttributeTextView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -507,6 +523,8 @@
 				15BB8EEF2A3817AF00A66E51 /* TM_NavigationController.m */,
 				15BB8EF42A3819C800A66E51 /* TM_TabBarViewController.h */,
 				15BB8EF52A3819C800A66E51 /* TM_TabBarViewController.m */,
+				1578058F2A7B720100CCAC32 /* TM_MainViewController.h */,
+				157805902A7B720100CCAC32 /* TM_MainViewController.m */,
 				155D389B2A55524600310AE2 /* TM_WKBaseWebViewController.h */,
 				155D389C2A55524600310AE2 /* TM_WKBaseWebViewController.m */,
 				15BB8F162A383F4100A66E51 /* TM_ClassName.h */,
@@ -515,11 +533,17 @@
 				15A427B72A4D53930018A96F /* TM_Object.m */,
 				15AEDDF62A73BC2000B66557 /* AppOperateGuideView.h */,
 				15AEDDF72A73BC2000B66557 /* AppOperateGuideView.m */,
+				1578059A2A7B8E0400CCAC32 /* PrivacyAgreementView.h */,
+				1578059B2A7B8E0400CCAC32 /* PrivacyAgreementView.m */,
 				15AEDDFA2A73BCD100B66557 /* YT_PageControl.h */,
 				15AEDDF92A73BCD100B66557 /* YT_PageControl.m */,
 				15AEDDFE2A73BE7000B66557 /* operateGuide0.png */,
 				15AEDDFC2A73BE6F00B66557 /* operateGuide1.png */,
 				15AEDDFD2A73BE7000B66557 /* operateGuide2.png */,
+				157805922A7B82E900CCAC32 /* skip_X@2x.png */,
+				157805952A7B82EB00CCAC32 /* skip_X@3x.png */,
+				157805942A7B82EA00CCAC32 /* skip@2x.png */,
+				157805932A7B82EA00CCAC32 /* skip@3x.png */,
 				155D38A82A55639000310AE2 /* View */,
 				155D389E2A55566B00310AE2 /* Handle */,
 			);
@@ -626,8 +650,6 @@
 				1586F3D02A386D5200B526BC /* UIView+TM_Category.m */,
 				15CE23362A4954A400DD595E /* UIView+TM_View.h */,
 				15CE23372A4954A400DD595E /* UIView+TM_View.m */,
-				151A284B2A4A7C5C004B33E3 /* TM_AttributeTextView.h */,
-				151A284C2A4A7C5C004B33E3 /* TM_AttributeTextView.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -744,16 +766,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				15AEDDFF2A73BE7000B66557 /* operateGuide1.png in Resources */,
+				157805982A7B82EB00CCAC32 /* skip@2x.png in Resources */,
 				150751142A3C06FE0019F81A /* index.html in Resources */,
 				15BC21522A40454500323D13 /* settingDatas.plist in Resources */,
 				15BB8ED32A36A42F00A66E51 /* LaunchScreen.storyboard in Resources */,
+				157805972A7B82EB00CCAC32 /* skip@3x.png in Resources */,
 				15A427C12A4D73D20018A96F /* personalDatas.json in Resources */,
 				15AEDE012A73BE7000B66557 /* operateGuide0.png in Resources */,
 				1507511A2A3C26880019F81A /* shortMenuDatas.plist in Resources */,
 				15AEDE002A73BE7000B66557 /* operateGuide2.png in Resources */,
+				157805962A7B82EB00CCAC32 /* skip_X@2x.png in Resources */,
 				15BC215A2A414A8100323D13 /* generalDatas.json in Resources */,
 				1507511C2A3C26A10019F81A /* productListDatas.plist in Resources */,
 				15BB8ED02A36A42F00A66E51 /* Assets.xcassets in Resources */,
+				157805992A7B82EB00CCAC32 /* skip_X@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -828,12 +854,14 @@
 				154FF7772A42CD9600FAEE73 /* TM_NetworkTool+TM_Extension.m in Sources */,
 				1586F3BD2A384E3500B526BC /* UIImage+TM_Category.m in Sources */,
 				15A427A22A4D27A90018A96F /* TM_DeviceDetailViewController.m in Sources */,
+				157805912A7B720100CCAC32 /* TM_MainViewController.m in Sources */,
 				1586F3F42A395C0000B526BC /* TM_imgLabelButton.m in Sources */,
 				15A427AF2A4D2EEB0018A96F /* TM_SettingManager.m in Sources */,
 				155D38B12A56B87B00310AE2 /* JT_TopSegmentMenuView.m in Sources */,
 				1586F3D12A386D5200B526BC /* UIView+TM_Category.m in Sources */,
 				15A427B52A4D4FA90018A96F /* TM_KeyChainDataDIc.m in Sources */,
 				15C9B7A72A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m in Sources */,
+				1578059C2A7B8E0400CCAC32 /* PrivacyAgreementView.m in Sources */,
 				15C9B7AD2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.m in Sources */,
 				159E47702A4C280400810719 /* TM_DataCardInfoModel.m in Sources */,
 				155D38A72A555F9800310AE2 /* TM_ProtocolViewController.m in Sources */,
@@ -1021,7 +1049,7 @@
 				INFOPLIST_FILE = TIanmu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "天目e生活";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
@@ -1059,7 +1087,7 @@
 				INFOPLIST_FILE = TIanmu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "天目e生活";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";

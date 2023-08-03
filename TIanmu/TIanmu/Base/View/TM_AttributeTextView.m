@@ -33,7 +33,10 @@
     _textView.textContainerInset    = UIEdgeInsetsZero;
     _textView.editable              = YES;
     _textView.delegate              = self;
-    _textView.scrollEnabled         = NO;
+    _textView.scrollEnabled         = YES;
+    _textView.bounces               = NO;
+    _textView.showsVerticalScrollIndicator      = NO;
+    _textView.showsHorizontalScrollIndicator    = NO;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick)];
     [self addGestureRecognizer:tap];
     [self addSubview:_textView];
@@ -74,9 +77,9 @@
     _textView.attributedText = attributeString;
     
     if (_isSizeToFit) {
-        CGSize size = [attributeString boundingRectWithSize:CGSizeMake(self.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-        self.size = size;
-        _textView.size = size;
+//        CGSize size = [attributeString boundingRectWithSize:CGSizeMake(self.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+        self.height = _textView.contentSize.height;
+        _textView.height = _textView.contentSize.height;
     }
 }
 
