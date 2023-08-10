@@ -11,24 +11,28 @@
 #import "TM_DataCardUsedFlowModel.h"
 #import "TM_WeixinTool.h"
 #import "TM_DataCardTaoCanModel.h"
-
+#import "TM_PayViewController.h"
 #define K_TmpStr  @"# #"
 
 @interface TM_RechargeViewController (){
     UIButton *_selectedBtn;
     NSArray <UILabel *>*_topInfoLables;
     NSInteger _curTaocanType;
+    
 }
 
 /* 流量卡使用情况 */
 @property (strong, nonatomic) TM_DataCardUsedFlowModel  *usedFlowModel;
-/* 套餐 */
-@property (strong, nonatomic) TM_DataCardTaoCanModel    *taocanModel;
+/* 套餐整体数据 */
+@property (strong, nonatomic) TM_DataCardTaoCanModel    *taocanData;
 
 
 #pragma mark - 余额充值
 /* customMoneyTF */
 @property (strong, nonatomic) UITextField               *customMoneyTF;
+/* 流量卡卡号 */
+@property (strong, nonatomic) UILabel                   *balanceCardNumL;
+
 
 #pragma mark - 流量充值
 @property (nonatomic, strong) JT_TopSegmentMenuView     *segmentMenuView;
@@ -38,6 +42,9 @@
 @property (strong, nonatomic) UILabel                   *taocanTipL;
 /* 套餐数据 */
 @property (strong, nonatomic) NSArray                   *taocanDataArr;
+/* 当前选择套餐 */
+@property (strong, nonatomic) TM_DataCardTaoCanInfoModel *taocanModel;
+
 
 
 @end
@@ -133,16 +140,55 @@
         l.text = [NSString stringWithFormat:@"%@",text];
         [l sizeToFit];
     }
+    
+    self.balanceCardNumL.text = [NSString stringWithFormat:@"%@",self.cardDetailInfoModel.iccid];
+    
+    
 }
 - (void)refreshTaocanUIData {
     NSLog(@"%@",@"刷新套餐");
+    self.taocanDataArr = @[];
     if(_curTaocanType == 0) {
-        
+        self.taocanDataArr = [NSArray arrayWithArray:self.taocanData.singleList];
     }else if (_curTaocanType == 1) {
-        
+        self.taocanDataArr = [NSArray arrayWithArray:self.taocanData.doubleList];
     }else if (_curTaocanType == 2) {
-        
+        self.taocanDataArr = [NSArray arrayWithArray:self.taocanData.tripleList];
     }
+    
+    self.taocanTipL.text = @"   请选择套餐";
+    self.taocanModel = nil;
+    
+    CGFloat contentSizeH = 0;
+    [self.taocanScrollerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    for (int i = 0; i < self.taocanDataArr.count; i++) {
+        TM_DataCardTaoCanInfoModel *model = self.taocanDataArr[i];
+        CGFloat h = 65;
+        CGFloat margin_top = 10;
+        UIButton *btn = [UIView createButton:CGRectMake(20, (i + 1) * margin_top + i * h, kScreen_Width - 40, h) title:@"" titleColoe:TM_SpecialGlobalColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeRechargeMoney:) target:self];
+        NSString *price = [NSString stringWithFormat:@"售价:￥%0.1f元", [self.taocanModel.package_price doubleValue]];
+        NSString *str = [NSString stringWithFormat:@"%@\n%@", model.package_name, price];
+        NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc] initWithString:str attributes:@{
+            NSFontAttributeName : self.taocanTipL.font
+        }];
+        [attribute addAttributes:@{
+            NSForegroundColorAttributeName : [UIColor redColor]} range:NSMakeRange([str rangeOfString:price].location, price.length)];
+        [btn setAttributedTitle:attribute forState:UIControlStateNormal];
+        [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+//        [btn setBackgroundImage:[UIImage tm_imageWithColor:TM_SpecialGlobalColor] forState:UIControlStateHighlighted];
+        [btn setBackgroundImage:[UIImage tm_imageWithColor:TM_SpecialGlobalColor] forState:UIControlStateSelected];
+        btn.titleLabel.numberOfLines = 2;
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        btn.layer.cornerRadius = 5;
+        btn.clipsToBounds = YES;
+        btn.layer.borderWidth = 1;
+        btn.layer.borderColor = TM_SpecialGlobalColor.CGColor;
+        btn.tag = 888 + i;
+        [self.taocanScrollerView addSubview:btn];
+        
+        contentSizeH = btn.maxY;
+    }
+    self.taocanScrollerView.contentSize = CGSizeMake(kScreen_Width, contentSizeH);
 }
 // MARK: 流量充值页面
 - (void)flowRechargeView {
@@ -167,7 +213,7 @@
     [self requestTaocanData:0];
     
     // 下方现在选择的套餐
-    UILabel *taocanTipL = [UIView createLabelWithFrame:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44 - 30, kScreen_Width, 30) title:@"  请选择套餐" fontSize:15 color: [UIColor darkGrayColor]];
+    UILabel *taocanTipL = [UIView createLabelWithFrame:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44 - 30, kScreen_Width, 30) title:@"   请选择套餐" fontSize:15 color: [UIColor darkGrayColor]];
     taocanTipL.backgroundColor = TM_SpecialGlobalColorBg;
     [self.view addSubview:taocanTipL];
     self.taocanTipL = taocanTipL;
@@ -176,28 +222,7 @@
     self.taocanScrollerView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:self.taocanScrollerView];
     
-    self.taocanDataArr = @[@"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元", @"测试包\n售价：1.0元" ];
     
-    CGFloat contentSizeH = 0;
-    for (int i = 0; i < self.taocanDataArr.count; i++) {
-        CGFloat h = 65;
-        CGFloat margin_top = 10;
-        UIButton *btn = [UIView createButton:CGRectMake(20, (i + 1) * margin_top + i * h, kScreen_Width - 40, h) title:self.taocanDataArr[i] titleColoe:TM_SpecialGlobalColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeRechargeMoney:) target:self];
-        [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-//        [btn setBackgroundImage:[UIImage tm_imageWithColor:TM_SpecialGlobalColor] forState:UIControlStateHighlighted];
-        [btn setBackgroundImage:[UIImage tm_imageWithColor:TM_SpecialGlobalColor] forState:UIControlStateSelected];
-        btn.titleLabel.numberOfLines = 2;
-        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        btn.layer.cornerRadius = 5;
-        btn.clipsToBounds = YES;
-        btn.layer.borderWidth = 1;
-        btn.layer.borderColor = TM_SpecialGlobalColor.CGColor;
-        btn.tag = 888 + i;
-        [self.taocanScrollerView addSubview:btn];
-        
-        contentSizeH = btn.maxY;
-    }
-    self.taocanScrollerView.contentSize = CGSizeMake(kScreen_Width, contentSizeH);
     
 }
 // // MARK: 余额充值页面
@@ -207,9 +232,10 @@
     [label1 sizeToFit];
     [self.view addSubview:label1];
     // 卡号
-    UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:@"71256132" fontSize:16 color:[UIColor blackColor]];
+    UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:@"" fontSize:16 color:[UIColor blackColor]];
     [label2 sizeToFit];
     [self.view addSubview:label2];
+    self.balanceCardNumL = label2;
     
     UIView *lineL = [[UIView alloc]initWithFrame:CGRectMake(label2.x, label2.maxY + 8, kScreen_Width - 2 * label2.x, 0.5)];
     lineL.backgroundColor = TM_ColorRGB(174, 174, 174);
@@ -234,7 +260,7 @@
             btn.clipsToBounds = YES;
             btn.layer.borderWidth = 1;
             btn.layer.borderColor = TM_SpecialGlobalColor.CGColor;
-            
+            btn.tag = 888 + i;
             [self.view addSubview:btn];
             if (i == 0) {
                 [self changeBalanceRechargeMoney:btn];
@@ -290,7 +316,7 @@
 - (void)requestTaocanData:(NSInteger)type {
     [TM_DataCardApiManager sendQueryTaoCanListWithCardNo:self.cardDetailInfoModel.card_define_no type:@"all" success:^(id  _Nullable respondObject) {
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
-            self.taocanModel = [TM_DataCardTaoCanModel mj_objectWithKeyValues:respondObject[@"data"]];
+            self.taocanData = [TM_DataCardTaoCanModel mj_objectWithKeyValues:respondObject[@"data"]];
             [self refreshTaocanUIData];
         }else {
             NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
@@ -303,16 +329,28 @@
 }
 
 #pragma mark - Activity
+// 流量套餐选择
 - (void)changeRechargeMoney:(UIButton *)btn {
-    self.customMoneyTF.text = @"";
-    [self.customMoneyTF resignFirstResponder];;
     if (_selectedBtn != btn) {
         _selectedBtn.selected = NO;
         _selectedBtn = btn;
         _selectedBtn.selected = YES;
     }
+    NSInteger index = _selectedBtn.tag - 888;
+    if (index < self.taocanDataArr.count) {
+        self.taocanModel = self.taocanDataArr[index];
+        NSString *price = [NSString stringWithFormat:@"￥%0.2f", [self.taocanModel.package_price doubleValue]];
+        NSString *str = [NSString stringWithFormat:@"   已选择套餐：%@ %@", self.taocanModel.package_name, price];
+        NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc] initWithString:str attributes:@{
+            NSFontAttributeName : self.taocanTipL.font
+        }];
+        [attribute addAttributes:@{
+            NSForegroundColorAttributeName : [UIColor redColor]} range:NSMakeRange([str rangeOfString:price].location, price.length)];
+        self.taocanTipL.attributedText = attribute;
+    }
     
 }
+// 余额充值选择
 - (void)changeBalanceRechargeMoney:(UIButton *)btn {
     
     if (_selectedBtn != btn) {
@@ -331,22 +369,26 @@
 - (void)rechargeClick {
     if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
         NSLog(@"%@",@"流量充值");
-        TM_DataCardTaoCanInfoModel *model = self.taocanModel.singleList[0];
-        NSString *type = @"month";
-        [TM_DataCardApiManager sendOrderTcByWXWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:model.package_price type:type package_id:model.package_id success:^(id  _Nullable respondObject) {
-            NSLog(@"%@",respondObject);
-            if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
-                [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypePay data:respondObject completeBlock:^(NSDictionary * _Nonnull param) {
-                    
-                }];
-            }else {
-                NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
-                TM_ShowToast(self.view, msg);
-            }
-        } failure:^(NSError * _Nullable error) {
-            NSLog(@"%@",error);
-            TM_ShowToast(self.view, @"获取订单失败");
-        }];
+        if (self.taocanModel) {
+            NSString *type = @"month";
+            [TM_DataCardApiManager sendOrderTcByWXWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:self.taocanModel.package_price type:type package_id:self.taocanModel.package_id success:^(id  _Nullable respondObject) {
+                NSLog(@"%@",respondObject);
+                if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                    TM_PayViewController *payVC = [TM_PayViewController new];
+                    payVC.wxPayData = respondObject;
+                    payVC.money = self.taocanModel.package_price;
+                    [self.navigationController pushViewController:payVC animated:YES];
+                }else {
+                    NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                    TM_ShowToast(self.view, msg);
+                }
+            } failure:^(NSError * _Nullable error) {
+                NSLog(@"%@",error);
+                TM_ShowToast(self.view, @"获取订单失败");
+            }];
+        }else {
+            TM_ShowToast(self.view, @"请选择套餐");
+        }
         
         
     }else if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {// 余额充值
@@ -355,9 +397,10 @@
         [TM_DataCardApiManager sendGetWechatRechargePreWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:recharge_money success:^(id  _Nullable respondObject) {
             NSLog(@"%@",respondObject);
             if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
-                [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypePay data:respondObject completeBlock:^(NSDictionary * _Nonnull param) {
-                                    
-                }];
+                TM_PayViewController *payVC = [TM_PayViewController new];
+                payVC.wxPayData = respondObject;
+                payVC.money = recharge_money;
+                [self.navigationController pushViewController:payVC animated:YES];
             }else {
                 NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
                 TM_ShowToast(self.view, msg);

@@ -85,6 +85,7 @@
 		15BC21522A40454500323D13 /* settingDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15BC21512A40454500323D13 /* settingDatas.plist */; };
 		15BC215A2A414A8100323D13 /* generalDatas.json in Resources */ = {isa = PBXBuildFile; fileRef = 15BC21572A4144BA00323D13 /* generalDatas.json */; };
 		15BC215F2A41711E00323D13 /* TM_LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC215E2A41711E00323D13 /* TM_LoginViewController.m */; };
+		15BED1F92A7CE10900C125F6 /* TM_PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BED1F82A7CE10900C125F6 /* TM_PayViewController.m */; };
 		15C1BADD2A5BA885008063F5 /* TM_WeixinTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1BADC2A5BA885008063F5 /* TM_WeixinTool.m */; };
 		15C1BAE02A5BDF54008063F5 /* TM_DataCardUsedFlowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C1BADF2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.m */; };
 		15C9B7A42A5E913A003A8EE7 /* TM_AddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C9B7A32A5E913A003A8EE7 /* TM_AddDeviceViewController.m */; };
@@ -243,6 +244,8 @@
 		15BC21572A4144BA00323D13 /* generalDatas.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = generalDatas.json; sourceTree = "<group>"; };
 		15BC215D2A41711E00323D13 /* TM_LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_LoginViewController.h; sourceTree = "<group>"; };
 		15BC215E2A41711E00323D13 /* TM_LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_LoginViewController.m; sourceTree = "<group>"; };
+		15BED1F72A7CE10900C125F6 /* TM_PayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_PayViewController.h; sourceTree = "<group>"; };
+		15BED1F82A7CE10900C125F6 /* TM_PayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_PayViewController.m; sourceTree = "<group>"; };
 		15C1BADB2A5BA885008063F5 /* TM_WeixinTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_WeixinTool.h; sourceTree = "<group>"; };
 		15C1BADC2A5BA885008063F5 /* TM_WeixinTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_WeixinTool.m; sourceTree = "<group>"; };
 		15C1BADE2A5BDF53008063F5 /* TM_DataCardUsedFlowModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_DataCardUsedFlowModel.h; sourceTree = "<group>"; };
@@ -604,6 +607,8 @@
 				15F172492A5CFFED00D6A1AA /* TM_CardDetailViewController.m */,
 				155D38AC2A5570D200310AE2 /* TM_RechargeViewController.h */,
 				155D38AD2A5570D200310AE2 /* TM_RechargeViewController.m */,
+				15BED1F72A7CE10900C125F6 /* TM_PayViewController.h */,
+				15BED1F82A7CE10900C125F6 /* TM_PayViewController.m */,
 				15C9B7A52A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.h */,
 				15C9B7A62A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m */,
 				15C9B7A82A5E9D80003A8EE7 /* TM_RealNameAuthViewController.h */,
@@ -858,6 +863,7 @@
 				1586F3F42A395C0000B526BC /* TM_imgLabelButton.m in Sources */,
 				15A427AF2A4D2EEB0018A96F /* TM_SettingManager.m in Sources */,
 				155D38B12A56B87B00310AE2 /* JT_TopSegmentMenuView.m in Sources */,
+				15BED1F92A7CE10900C125F6 /* TM_PayViewController.m in Sources */,
 				1586F3D12A386D5200B526BC /* UIView+TM_Category.m in Sources */,
 				15A427B52A4D4FA90018A96F /* TM_KeyChainDataDIc.m in Sources */,
 				15C9B7A72A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m in Sources */,

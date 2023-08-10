@@ -30,6 +30,15 @@
     self.title = @"购买记录";
     [self.view addSubview:self.tableView];
     
+    UIDatePicker *datePickerView = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, kScreen_Height - 400, kScreen_Width, 400)];
+    datePickerView.datePickerMode = UIDatePickerModeDate;
+    if (@available(iOS 13.4, *)) {
+        datePickerView.preferredDatePickerStyle = UIDatePickerStyleWheels;
+    } else {
+        // Fallback on earlier versions
+    }
+    [self.view addSubview:datePickerView];
+    
 }
 #pragma mark - 获取数据
 - (void)getDatas {

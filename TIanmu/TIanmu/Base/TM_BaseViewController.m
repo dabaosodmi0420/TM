@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = TM_SpecialGlobalColorBg;
     [self initNavBarSetting];
     [self createView];
     

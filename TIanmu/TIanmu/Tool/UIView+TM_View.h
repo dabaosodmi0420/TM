@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setHorGradualChangingColor:(UIView *)view colorArr:(NSArray *)colorArr;
 // 纵向渐变
 + (void)setVerGradualChangingColor:(UIView *)view colorArr:(NSArray *)colorArr;
+
+- (void)setCornerRadius:(CGFloat)radius;
+- (void)setCornerRadius:(CGFloat)radius borderColor:(UIColor *)borderColor borderLineW:(CGFloat)borderLineW;
 @end
 
 NS_ASSUME_NONNULL_END

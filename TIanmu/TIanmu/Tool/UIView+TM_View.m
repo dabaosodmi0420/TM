@@ -96,6 +96,7 @@
     t.text = title;
     t.textColor = color;
     t.font = [UIFont systemFontOfSize:fontSize];
+    t.adjustsFontSizeToFitWidth = YES;
     return t;
 }
 
@@ -132,4 +133,14 @@
     
     [view.layer addSublayer:gradientLayer];
 }
+- (void)setCornerRadius:(CGFloat)radius {
+    self.layer.cornerRadius = radius;
+    self.clipsToBounds = YES;
+}
+- (void)setCornerRadius:(CGFloat)radius borderColor:(UIColor *)borderColor borderLineW:(CGFloat)borderLineW {
+    [self setCornerRadius:radius];
+    self.layer.borderColor = borderColor.CGColor;
+    self.layer.borderWidth = borderLineW;
+}
+
 @end

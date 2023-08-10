@@ -954,8 +954,8 @@
             filePath = "TIanmu/Home/Controller/TM_RechargeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
             landmarkName = "-requestTaocanData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1033,6 +1033,22 @@
             startingLineNumber = "210"
             endingLineNumber = "210"
             landmarkName = "+jt_showWithTitle:text:linkTextArr:linkTextSchemeArr:actionTextArr:handler:linkTextClickHandler:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0E0D467C-BA89-4902-82A2-C50FD0874756"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Home/Controller/TM_RechargeViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-refreshUIData:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
