@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setCornerRadius:(CGFloat)radius;
 - (void)setCornerRadius:(CGFloat)radius borderColor:(UIColor *)borderColor borderLineW:(CGFloat)borderLineW;
+- (void)setCornerRadius:(CGFloat)radius rectCorner:(UIRectCorner)rectCorner;
 @end
 
 NS_ASSUME_NONNULL_END

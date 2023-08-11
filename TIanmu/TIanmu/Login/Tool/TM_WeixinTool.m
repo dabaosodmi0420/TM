@@ -338,8 +338,10 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
             dic[KWeixin_AccessToken_Key] = accessToken;
             dic[@"code"] = code;
             dic[@"appid"] = kWeixin_AppID;
+            dic[@"errCode"] = @(0);
+            dic[@"errMsg"] = @"成功";
             if (self.completeBlock) {
-                self.completeBlock(dic);
+                self.completeBlock(TM_WeixinToolTypeLogin, dic);
             }
         }
     } failure:^(NSError * _Nullable error) {
@@ -375,43 +377,48 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
         if (response.errCode == 0) { // 用户同意
             NSString *code = response.code;
             [self getAccess_tokenWithCode:code];
-        }else if (response.errCode == -4) { // 用户拒绝授权
-            NSLog(@"%@",@"用户拒绝授权");
-        }else if (response.errCode == -2) { // 用户取消
-            NSLog(@"%@",@"用户取消");
-        }else { // 其他错误
-            NSLog(@"错误码：%d", response.errCode);
+        }else {
+            NSMutableDictionary *dic =  [NSMutableDictionary dictionaryWithDictionary:@{}];
+            dic[@"errCode"] = @(response.errCode);
+            if (response.errCode == -4) { // 用户拒绝授权
+                NSLog(@"%@",@"用户拒绝授权");
+                dic[@"errMsg"] = @"用户拒绝授权";
+                
+            }else if (response.errCode == -2) { // 用户取消
+                NSLog(@"%@",@"用户取消");
+                dic[@"errMsg"] = @"用户取消";
+            }else { // 其他错误
+                NSLog(@"错误码：%d", response.errCode);
+                dic[@"errMsg"] = @"其他错误";
+            }
+            if (self.completeBlock) {
+                self.completeBlock(TM_WeixinToolTypeLogin, dic);
+            }
         }
         
     }else if ([resp isKindOfClass:[PayResp class]]){
         PayResp *response = (PayResp *)resp;
-
+        NSMutableDictionary *dic =  [NSMutableDictionary dictionaryWithDictionary:@{}];
+        dic[@"errCode"] = @(response.errCode);
         switch(response.errCode){
             case WXSuccess:{                //服务器端查询支付通知或查询API返回的结果再提示成功
                 NSLog(@"支付成功");
-            }
-                break;
-            case WXErrCodeCommon:{          // 普通错误类型
-                NSLog(@"普通错误类型");
+                dic[@"errMsg"] = @"支付成功";
             }
                 break;
             case WXErrCodeUserCancel:{      // 用户点击取消并返回
                 NSLog(@"用户点击取消并返回");
-            }
-                break;
-            case WXErrCodeSentFail:{        // 发送失败
-                NSLog(@"发送失败");
-            }
-                break;
-            case WXErrCodeAuthDeny:{        // 授权失败
-                NSLog(@"授权失败");
+                dic[@"errMsg"] = @"用户取消支付";
             }
                 break;
             default:
                 NSLog(@"支付失败，retcode=%d",response.errCode);
+                dic[@"errMsg"] = @"支付失败";
                 break;
-
-          }
+        }
+        if (self.completeBlock) {
+            self.completeBlock(TM_WeixinToolTypePay, dic);
+        }
     }
 }
 

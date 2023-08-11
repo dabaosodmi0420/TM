@@ -44,6 +44,12 @@ hud.removeFromSuperViewOnHide = YES; \
 [v addSubview:hud];\
 })
 
+#define TM_ShowWindowToast(m) \
+({\
+UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;\
+TM_ShowToast(keyWindow, m) \
+})
+
 #define TM_ShowFuncNoOpenToast \
 ({\
 MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:[UIApplication sharedApplication].keyWindow];\

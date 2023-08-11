@@ -57,11 +57,32 @@ NS_ASSUME_NONNULL_BEGIN
                               success:(TMAPISuccessBlock)successBlock
                               failure:(TMAPIFailureBlock)failureBlock;
 
+//MARK: 查询充值金额列表数据
++ (void)sendQueryMoneyListWithSuccess:(TMAPISuccessBlock)successBlock
+                              failure:(TMAPIFailureBlock)failureBlock;
+
 //MARK: 查询购买记录
 + (void)sendGetCardTradeWithCardNo:(NSString *)cardNo
                              month:(NSString *)month
                            success:(TMAPISuccessBlock)successBlock
                            failure:(TMAPIFailureBlock)failureBlock;
+
+//MARK: 查询分身卡信息
++ (void)sendQueryTmfskInfoWithCardNo:(NSString *)cardNo
+                             success:(TMAPISuccessBlock)successBlock
+                             failure:(TMAPIFailureBlock)failureBlock;
+//MARK: 电信内贴卡实名同步接口
++ (void)sendUpdateTmfskAuthWithCardNo:(NSString *)cardNo
+                              success:(TMAPISuccessBlock)successBlock
+                              failure:(TMAPIFailureBlock)failureBlock;
+//MARK: 内贴卡查询实名链接
++ (void)sendSetTmfskAuthWithCardNo:(NSString *)cardNo
+                             iccid:(NSString *)iccid
+                            msisdn:(NSString *)msisdn
+                           netType:(NSString *)netType
+                           success:(TMAPISuccessBlock)successBlock
+                           failure:(TMAPIFailureBlock)failureBlock ;
+
 @end
 
 NS_ASSUME_NONNULL_END

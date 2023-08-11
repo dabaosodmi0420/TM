@@ -77,10 +77,12 @@
                         headers:(NSDictionary *)headers
                         success:(TMAPISuccessBlock)successBlock
                         failure:(TMAPIFailureBlock)failureBlock{
+    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     [self.sessionManager POST:path parameters:params headers:headers progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         successBlock(responseObject);
+        [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if(failureBlock && error){
             NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
@@ -88,6 +90,7 @@
             error = [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
             failureBlock(error);
         }
+        [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
     }];
 }
 - (void)sendRequestPath:(NSString *)path

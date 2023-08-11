@@ -143,4 +143,12 @@
     self.layer.borderWidth = borderLineW;
 }
 
+- (void)setCornerRadius:(CGFloat)radius rectCorner:(UIRectCorner)rectCorner {
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:rectCorner cornerRadii:CGSizeMake(radius, radius)];
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = self.bounds;
+    maskLayer.path = maskPath.CGPath;
+    self.layer.mask = maskLayer;
+}
+
 @end

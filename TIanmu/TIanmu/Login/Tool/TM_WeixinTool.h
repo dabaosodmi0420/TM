@@ -27,7 +27,7 @@ typedef enum : NSInteger {
 } TM_WeixinToolType;
 
 NS_ASSUME_NONNULL_BEGIN
-typedef void(^TMWeixinToolCompleteBlock)(NSDictionary *param);
+typedef void(^TMWeixinToolCompleteBlock)(TM_WeixinToolType type, NSDictionary *param);
 
 @interface TM_WeixinTool : NSObject<WXApiDelegate>
 @property (nonatomic, copy) NSString *wxAccessToken;                    // 微信获取token

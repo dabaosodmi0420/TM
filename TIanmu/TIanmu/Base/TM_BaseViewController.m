@@ -19,7 +19,7 @@
     self.view.backgroundColor = TM_SpecialGlobalColorBg;
     [self initNavBarSetting];
     [self createView];
-    
+    [self reloadData];
     self.navigationItem.hidesBackButton = YES;
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -52,7 +52,9 @@
 - (void)createView {
     
 }
-
+- (void)reloadData {
+    
+}
 - (void)showNotOpenAlert {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
     hud.mode = MBProgressHUDModeText;

@@ -306,7 +306,7 @@
 - (void)wechatLoginClick {
 //    TM_ShowFuncNoOpenToast;
     if(![TM_SettingManager shareInstance].hasPhoneLogged) {
-        [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin data:@{} completeBlock:^(NSDictionary * _Nonnull param) {
+        [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType: TM_WeixinToolTypeLogin data:@{} completeBlock:^(TM_WeixinToolType type, NSDictionary * _Nonnull param) {
             NSLog(@"%@", param);
             [TM_LoginApiManger sendQueryBindWXLoginWithwxData:param success:^(id  _Nullable respondObject) {
                 if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {

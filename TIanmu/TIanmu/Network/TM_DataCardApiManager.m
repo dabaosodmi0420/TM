@@ -161,7 +161,20 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
-
+//MARK: 查询充值金额列表数据
++ (void)sendQueryMoneyListWithSuccess:(TMAPISuccessBlock)successBlock
+                              failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryMoneyList";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 //MARK: 查询购买记录
 + (void)sendGetCardTradeWithCardNo:(NSString *)cardNo
                              month:(NSString *)month
@@ -180,6 +193,60 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
+//MARK: 查询分身卡信息
++ (void)sendQueryTmfskInfoWithCardNo:(NSString *)cardNo
+                             success:(TMAPISuccessBlock)successBlock
+                             failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryTmfskInfo";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 
+//MARK: 电信内贴卡实名同步接口
++ (void)sendUpdateTmfskAuthWithCardNo:(NSString *)cardNo
+                              success:(TMAPISuccessBlock)successBlock
+                              failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/updateTmfskAuth";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 
+//MARK: 内贴卡查询实名链接
++ (void)sendSetTmfskAuthWithCardNo:(NSString *)cardNo
+                             iccid:(NSString *)iccid
+                            msisdn:(NSString *)msisdn
+                           netType:(NSString *)netType
+                           success:(TMAPISuccessBlock)successBlock
+                           failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/setTmfskAuth";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = cardNo;
+    params[@"iccid"]            = iccid;
+    params[@"msisdn"]           = msisdn;
+    params[@"netType"]          = netType;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 @end

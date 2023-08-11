@@ -71,8 +71,15 @@
 
 - (void)rechargeClick {
     if (self.wxPayData) {
-        [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypePay data:self.wxPayData completeBlock:^(NSDictionary * _Nonnull param) {
+        [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypePay data:self.wxPayData completeBlock:^(TM_WeixinToolType type, NSDictionary * _Nonnull param) {
             NSLog(@"%@",param);
+            if (param && [[NSString stringWithFormat:@"%@", param[@"errCode"]] isEqualToString:@"0"]) {
+                [JTDefinitionTextView jt_showWithTitle:@"" Text:@"支付成功" type:JTAlertTypeNot actionTextArr:@[@"确定"] handler:^(NSInteger index) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+            }else {
+                TM_ShowToast(self.view, param[@"errMsg"]);
+            }
         }];
     }
 }

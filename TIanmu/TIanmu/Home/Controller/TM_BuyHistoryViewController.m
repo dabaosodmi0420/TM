@@ -8,14 +8,17 @@
 #import "TM_BuyHistoryViewController.h"
 #import "TM_DataCardApiManager.h"
 #import "TM_CardTradeModel.h"
-@interface TM_BuyHistoryViewController ()<UITableViewDelegate, UITableViewDataSource> {
+#import "DatePickerView.h"
+@interface TM_BuyHistoryViewController ()<UITableViewDelegate, UITableViewDataSource, DatePickerViewDelegate> {
     CGFloat _cellHeight;
 }
 
+/* 当前查询时间 */
+@property (strong, nonatomic) UILabel                           *curQuertTimeL;
+
 /* uitableView */
 @property (strong, nonatomic) UITableView                       *tableView;
-@property (nonatomic, strong) NSArray<TM_CardTradeModel *>   *dataArray;
-
+@property (nonatomic, strong) NSArray<TM_CardTradeModel *>      *dataArray;
 @end
 
 @implementation TM_BuyHistoryViewController
@@ -23,26 +26,67 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self getDatas];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *date = [NSDate date];
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
+    NSDateComponents *comp = [calendar components:unitFlags fromDate:date];
+    [self getDatas:[NSString stringWithFormat:@"%d-%d", comp.year, comp.month]];
 }
+
 #pragma mark - 创建UI
 - (void)createView {
     self.title = @"购买记录";
-    [self.view addSubview:self.tableView];
     
-    UIDatePicker *datePickerView = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, kScreen_Height - 400, kScreen_Width, 400)];
-    datePickerView.datePickerMode = UIDatePickerModeDate;
-    if (@available(iOS 13.4, *)) {
-        datePickerView.preferredDatePickerStyle = UIDatePickerStyleWheels;
-    } else {
-        // Fallback on earlier versions
-    }
-    [self.view addSubview:datePickerView];
+    UILabel *curQuertTimeL = [UIView createLabelWithFrame:CGRectMake(0, 0, kScreen_Width, 40) title:@"       当前查询范围：当月" fontSize:15 color: TM_SpecialGlobalColor];
+    curQuertTimeL.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:curQuertTimeL];
+    self.curQuertTimeL = curQuertTimeL;
+    
+    [self.view addSubview:self.tableView];
+    self.tableView.y = curQuertTimeL.maxY;
+    self.tableView.height = kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 40 - curQuertTimeL.height;
+    
+    UIButton *changeTime = [UIView createButton:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 40, kScreen_Width, 40)
+                                        title:@"选择时间"
+                                   titleColoe:TM_ColorRGB(255, 255, 255)
+                                selectedColor:TM_ColorRGB(255, 255, 255)
+                                     fontSize:17
+                                          sel:@selector(changeTimeClick)
+                                       target:self];
+    changeTime.backgroundColor = TM_SpecialGlobalColor;
+    [self.view addSubview:changeTime];
+    
     
 }
+
+#pragma mark - Activety
+- (void)changeTimeClick {
+    [self pickViewSelect];
+}
+- (void)pickViewSelect {
+    DatePickerView* datePickerView = [[DatePickerView alloc] init];
+    datePickerView.delegate = self;
+    [datePickerView show];
+}
+
+- (void)pickerDateView:(BasePickerView *)pickerDateView selectYear:(NSInteger)year selectMonth:(NSInteger)month selectDay:(NSInteger)day {
+    NSString *dateStr = [NSString stringWithFormat:@"%d-%d", year, month];
+    [self getDatas: dateStr];
+    self.curQuertTimeL.text = [NSString stringWithFormat:@"       当前查询范围：%@", dateStr];
+}
+
+- (void)copyOrderNum:(UIButton *)btn {
+    if (btn.tag - 666 < self.dataArray.count) {
+        TM_CardTradeModel *model = self.dataArray[btn.tag - 666];
+        NSLog(@"%@", model.ord_no);
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = model.ord_no;
+        TM_ShowToast(self.view, @"复制成功");
+    }
+}
 #pragma mark - 获取数据
-- (void)getDatas {
-    [TM_DataCardApiManager sendGetCardTradeWithCardNo:self.cardDetailInfoModel.card_define_no month:@"2023-06" success:^(id  _Nullable respondObject) {
+- (void)getDatas:(NSString *)date {
+    [TM_DataCardApiManager sendGetCardTradeWithCardNo:self.cardDetailInfoModel.card_define_no month:date success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             id data = respondObject[@"data"];
@@ -86,16 +130,44 @@
     TM_CardTradeModel *model = self.dataArray[indexPath.row];
     CGFloat margin = 25;
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(margin, 7, contentView.width - 2 * margin, 20)];
-    label.text = [NSString stringWithFormat:@"账户充值  %0.2f",model.sum];
-    label.textColor = [UIColor darkGrayColor];
-    label.font = [UIFont systemFontOfSize:15];
-    [label adjustsFontSizeToFitWidth];
-    [contentView addSubview:label];
+    UILabel *priceL = [[UILabel alloc] initWithFrame:CGRectMake(margin, 7, contentView.width - 2 * margin, 20)];
+    priceL.textColor = [UIColor darkGrayColor];
+    priceL.font = [UIFont systemFontOfSize:15];
+    NSString *price = [NSString stringWithFormat:@"￥%0.2f", model.sum];
+    NSString *str = [NSString stringWithFormat:@"账户充值  %@", price];
+    NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc] initWithString:str attributes:@{
+        NSFontAttributeName : priceL.font
+    }];
+    [attribute addAttributes:@{
+        NSForegroundColorAttributeName : [UIColor redColor]} range:NSMakeRange([str rangeOfString:price].location, price.length)];
+    priceL.attributedText = attribute;
+    [contentView addSubview:priceL];
     
+    UILabel *orderL = [[UILabel alloc] initWithFrame:CGRectMake(margin, 0, contentView.width - 2 * margin, 20)];
+    orderL.centerY = contentView.height * 0.5;
+    orderL.textColor = [UIColor darkGrayColor];
+    orderL.font = [UIFont systemFontOfSize:15];
+    orderL.text = [NSString stringWithFormat:@"订单号：%@", model.ord_no];
+    [contentView addSubview:orderL];
+    [orderL sizeToFit];
     
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = @"Paste me!";
+    UIButton *copyBtn = [UIView createButton:CGRectMake(orderL.maxX, 0, 50, 20)
+                                       title:@"复制"
+                                  titleColoe:TM_SpecialGlobalColor
+                               selectedColor:TM_SpecialGlobalColor
+                                    fontSize:17
+                                         sel:@selector(copyOrderNum:)
+                                      target:self];
+    copyBtn.centerY = orderL.centerY;
+    copyBtn.tag = 666 + indexPath.row;
+    [contentView addSubview:copyBtn];
+    
+    UILabel *orderTimeL = [[UILabel alloc] initWithFrame:CGRectMake(margin, contentView.height - 7 - 20, contentView.width - 2 * margin, 20)];
+    orderTimeL.textColor = TM_ColorHex(@"#AAAAAA");
+    orderTimeL.font = [UIFont systemFontOfSize:15];
+    orderTimeL.text = [NSString stringWithFormat:@"%@", model.cre_time];
+    [contentView addSubview:orderTimeL];
+    
     return cell;
 }
 
@@ -106,7 +178,7 @@
 #pragma mark - setting && getting
 - (UITableView *)tableView {
     if (!_tableView) {
-        _cellHeight = 80;
+        _cellHeight = 100;
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 45) style:UITableViewStylePlain];
         _tableView.backgroundColor = TM_SpecialGlobalColorBg;
         _tableView.dataSource = self;

@@ -59,7 +59,7 @@
         [button setTitle:goupName forState:UIControlStateNormal];
         button.titleLabel.font = self.btnTextFont;
         button.titleLabel.numberOfLines = 2;
-        [button.titleLabel adjustsFontSizeToFitWidth];
+        button.titleLabel.adjustsFontSizeToFitWidth = YES;
         button.titleLabel.textAlignment = NSTextAlignmentCenter;
         [button setTitleColor:self.btnTitleNormalColor forState:UIControlStateNormal];
         [button setTitleColor:self.btnTitleSeletColor forState:UIControlStateSelected];

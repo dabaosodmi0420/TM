@@ -184,7 +184,7 @@
     label.text = [NSString stringWithFormat:@"%@",model.iccid];
     label.textColor = [UIColor darkGrayColor];
     label.font = [UIFont systemFontOfSize:17];
-    [label adjustsFontSizeToFitWidth];
+    label.adjustsFontSizeToFitWidth = YES;
     [contentView addSubview:label];
     
     UIImageView *accessoryView = [UIImageView new];
