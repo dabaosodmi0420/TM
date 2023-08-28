@@ -8,6 +8,7 @@
 #import "TM_RealNameAuthViewController.h"
 #import "TM_DataCardApiManager.h"
 #import "TM_TmfskInfoModel.h"
+#import "TM_WeixinTool.h"
 @interface TM_RealNameAuthViewController ()
 /* data */
 @property (strong, nonatomic) TM_TmfskInfoModel *tmfskInfoData;
@@ -65,11 +66,17 @@
         icon.contentMode = UIViewContentModeScaleAspectFit;
         [contentView1 addSubview:icon];
         
+        UIView *realNameV = [[UIView alloc] initWithFrame:CGRectMake(contentView1.width - 60, 0, 60, 30)];
+        realNameV.tag = 110 + i;
+        realNameV.centerY = contentView1.height * 0.5;
+        [realNameV setCornerRadius:realNameV.height * 0.5 rectCorner:(UIRectCornerTopLeft | UIRectCornerBottomLeft)];
+        [contentView1 addSubview:realNameV];
+        
         UILabel *realNameL = [UIView createLabelWithFrame:CGRectMake(contentView1.width - 60, 0, 60, 30) title:@"未实名" fontSize:15 color:[UIColor darkTextColor]];
         realNameL.tag = 120 + i;
-        
+        realNameL.textAlignment = NSTextAlignmentRight;
         realNameL.centerY = contentView1.height * 0.5;
-        realNameL.backgroundColor = TM_SpecialGlobalColorBg;
+        realNameL.backgroundColor = [UIColor clearColor];
         [realNameL setCornerRadius:realNameL.height * 0.5 rectCorner:(UIRectCornerTopLeft | UIRectCornerBottomLeft)];
         [contentView1 addSubview:realNameL];
     }
@@ -84,11 +91,14 @@
         }else if ([model.isp isEqualToString:@"unicom"]) {  // 移动
             i = 2;
         }
+        UILabel *realNameV = (UILabel *)[self.view viewWithTag:110 + i];
         UILabel *realNameL = (UILabel *)[self.view viewWithTag:120 + i];
         if ([model.is_identity intValue] == 1) {
-            [UIView setHorGradualChangingColor:realNameL colorArr:@[TM_ColorHex(@"#FFFEAD"), TM_ColorHex(@"#FFA500")]];
+            [UIView setHorGradualChangingColor:realNameV colorArr:@[TM_ColorHex(@"#FFFEAD"), TM_ColorHex(@"#FFA500")]];
+            realNameL.text = @"已实名";
         }else {
-            [UIView setHorGradualChangingColor:realNameL colorArr:@[TM_ColorHex(@"#f1f1f1"), TM_ColorHex(@"#dbdbdb")]];
+            [UIView setHorGradualChangingColor:realNameV colorArr:@[TM_ColorHex(@"#f1f1f1"), TM_ColorHex(@"#dbdbdb")]];
+            realNameL.text = @"未实名";
         }
     }
 }
@@ -112,23 +122,7 @@
         TM_ShowToast(self.view, @"获取数据失败");
     }];
     
-//    [TM_DataCardApiManager sendUpdateTmfskAuthWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
-//        NSLog(@"%@",respondObject);
-//        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
-//            id data = respondObject[@"data"];
-//            if ([data isKindOfClass:[NSDictionary class]]) {
-//
-//            }else {
-//                TM_ShowToast(self.view, @"获取数据失败");
-//            }
-//        }else {
-//            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
-//            TM_ShowToast(self.view, msg);
-//        }
-//    } failure:^(NSError * _Nullable error) {
-//        NSLog(@"%@",error);
-//        TM_ShowToast(self.view, @"获取数据失败");
-//    }];
+    
 }
 
 - (void)realNameClick:(UIGestureRecognizer *)ges {
@@ -159,27 +153,51 @@
     if ([model.is_identity intValue] == 1) {
         TM_ShowToast(self.view, @"已实名");
     }else {
-        [TM_DataCardApiManager sendSetTmfskAuthWithCardNo:self.cardDetailInfoModel.card_no
-                                                    iccid:model.iccid
-                                                   msisdn:model.msisdn
-                                                  netType:netType
-                                                  success:^(id  _Nullable respondObject) {
-            NSLog(@"%@",respondObject);
-            if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
-                id data = respondObject[@"data"];
-                if ([data isKindOfClass:[NSDictionary class]]) {
-                    
+        if (tag == 1) { // 联通拉起小程序
+            [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypeMiniProgram data:@{} completeBlock:^(TM_WeixinToolType type, NSDictionary * _Nonnull param) {
+                
+            }];
+        }else {
+            [TM_DataCardApiManager sendSetTmfskAuthWithCardNo:self.cardDetailInfoModel.card_no
+                                                        iccid:model.iccid
+                                                       msisdn:model.msisdn
+                                                      netType:netType
+                                                      success:^(id  _Nullable respondObject) {
+                NSLog(@"%@",respondObject);
+                if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                    id data = respondObject[@"data"];
+                    if ([data isKindOfClass:[NSDictionary class]]) {
+                        
+                    }else {
+                        TM_ShowToast(self.view, @"获取数据失败");
+                    }
                 }else {
-                    TM_ShowToast(self.view, @"获取数据失败");
+                    NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                    TM_ShowToast(self.view, msg);
                 }
-            }else {
-                NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
-                TM_ShowToast(self.view, msg);
-            }
-        } failure:^(NSError * _Nullable error) {
-            NSLog(@"%@",error);
-            TM_ShowToast(self.view, @"获取数据失败");
-        }];
+            } failure:^(NSError * _Nullable error) {
+                NSLog(@"%@",error);
+                TM_ShowToast(self.view, @"获取数据失败");
+            }];
+            
+            [TM_DataCardApiManager sendUpdateTmfskAuthWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
+                NSLog(@"%@",respondObject);
+                if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                    id data = respondObject[@"data"];
+                    if ([data isKindOfClass:[NSDictionary class]]) {
+                        
+                    }else {
+                        TM_ShowToast(self.view, @"获取数据失败");
+                    }
+                }else {
+                    NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                    TM_ShowToast(self.view, msg);
+                }
+            } failure:^(NSError * _Nullable error) {
+                NSLog(@"%@",error);
+                TM_ShowToast(self.view, @"获取数据失败");
+            }];
+        }
     }
     
 }

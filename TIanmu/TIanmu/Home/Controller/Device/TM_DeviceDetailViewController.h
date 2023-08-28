@@ -7,6 +7,7 @@
 
 #import "TM_BaseViewController.h"
 #import "TM_DataCardInfoModel.h"
+#import "TM_DataCardDetalInfoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* 卡片 */
 @property (strong, nonatomic) TM_DataCardInfoModel *cardInfoModel;
-
+/* model 暂不用 用TM_DeviceIndexInfo 中的数据替换 */
+@property (strong, nonatomic) TM_DataCardDetalInfoModel *model;
 
 @end
 

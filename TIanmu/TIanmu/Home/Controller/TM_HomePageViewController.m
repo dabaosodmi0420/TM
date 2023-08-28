@@ -21,6 +21,9 @@
 #import "TM_NavigationController.h"
 #import "TM_LoginViewController.h"
 #import "TM_DeviceDetailViewController.h"
+#import "TM_ProductInfoViewController.h"
+#import "TM_DataCardApiManager.h"
+#import "TM_CardDetailViewController.h"
 
 #define KProductListCellId  @"KProductListCellId"
 #define KBannerCellId       @"KBannerCellId"
@@ -71,7 +74,7 @@
                              @"http://jdwlwm2m.com/excel/appImg/banner3.png"];
     self.cycleScrollView.imageURLStringsGroup = cycleImages;
     
-    self.shortMenuDatas = [TM_ShortMenuModel mj_objectArrayWithKeyValuesArray:[TM_ConfigTool getShortMenuListDatas]];
+    self.shortMenuDatas = (NSMutableArray *)[[TM_ShortMenuModel mj_objectArrayWithKeyValuesArray:[TM_ConfigTool getDeviceShortMenuListDatas]] subarrayWithRange:NSMakeRange(0, 8)];
     self.shortcutMenuView.dataArray = self.shortMenuDatas;
     
     self.productDatas = [TM_ProductListModel mj_objectArrayWithKeyValuesArray:[TM_ConfigTool getProductListDatas]];
@@ -144,11 +147,24 @@
         case TM_ShortMenuTypeNetChange:
         case TM_ShortMenuTypeRemoteControl: {
             if ([TM_SettingManager shareInstance].hasPhoneLogged){
-                TM_DataCardInfoModel *model = [TM_SettingManager shareInstance].dataCardInfoModel;
-                if (model) {
-                    TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
-                    vc.cardInfoModel = model;
-                    [self.navigationController pushViewController:vc animated:YES];
+                TM_DataCardInfoModel *cardInfoModel = [TM_SettingManager shareInstance].dataCardInfoModel;
+                if (cardInfoModel) {
+                    [TM_DataCardApiManager sendQueryUserAllCardWithCardNo:cardInfoModel.iccid success:^(TM_DataCardDetalInfoModel * _Nonnull model) {
+                        if([[NSString stringWithFormat:@"%@",model.card_or_device] isEqualToString:@"0"]) { // 卡
+                            TM_CardDetailViewController *vc = [[TM_CardDetailViewController alloc] init];
+                            vc.cardInfoModel = cardInfoModel;
+                            vc.model = model;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }else if ([[NSString stringWithFormat:@"%@", model.card_or_device] isEqualToString:@"1"]) { // 设备
+                            TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
+                            vc.cardInfoModel = cardInfoModel;
+                            vc.model = model;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }
+                    } failure:^(NSError * _Nullable error) {
+                        
+                    }];
+                    
                 }else{
                     TM_DataCardManagerViewController *vc = [[TM_DataCardManagerViewController alloc] init];
                     [self.navigationController pushViewController:vc animated:YES];
@@ -202,7 +218,11 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.section > 1) {
+        TM_ProductInfoViewController *vc = [[TM_ProductInfoViewController alloc] init];
+        vc.productModel = self.productDatas[indexPath.row];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 // 动态设置每个Item的尺寸大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{

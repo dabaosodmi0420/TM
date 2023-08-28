@@ -12,6 +12,7 @@
 #import "TM_DeviceDetailViewController.h"
 #import "TM_StorageData.h"
 #import "TM_AddDeviceViewController.h"
+#import "TM_CardDetailViewController.h"
 
 #define kDeleteBtn_Tag 111
 
@@ -209,13 +210,25 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TM_DataCardInfoModel *model = self.dataArray[indexPath.row];
+    TM_DataCardInfoModel *cardInfoModel = self.dataArray[indexPath.row];
     
-    [[TM_SettingManager shareInstance] updateCurrentDataCardInfoModel:model];
+    [[TM_SettingManager shareInstance] updateCurrentDataCardInfoModel:cardInfoModel];
+    [TM_DataCardApiManager sendQueryUserAllCardWithCardNo:cardInfoModel.iccid success:^(TM_DataCardDetalInfoModel * _Nonnull model) {
+        if([[NSString stringWithFormat:@"%@",model.card_or_device] isEqualToString:@"0"]) { // 卡
+            TM_CardDetailViewController *vc = [[TM_CardDetailViewController alloc] init];
+            vc.cardInfoModel = cardInfoModel;
+            vc.model = model;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if ([[NSString stringWithFormat:@"%@", model.card_or_device] isEqualToString:@"1"]) { // 设备
+            TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
+            vc.cardInfoModel = cardInfoModel;
+            vc.model = model;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    } failure:^(NSError * _Nullable error) {
+        
+    }];
     
-    TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
-    vc.cardInfoModel = model;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - setting && getting

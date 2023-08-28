@@ -6,6 +6,8 @@
 //
 
 #import "TM_NetworkTool.h"
+#import "TM_DataCardDetalInfoModel.h"
+#import "TM_DeviceIndexInfo.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,8 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
                                  failure:(TMAPIFailureBlock)failureBlock;
 //MARK: 查询单卡信息
 + (void)sendQueryUserAllCardWithCardNo:(NSString *)cardNo
-                               success:(TMAPISuccessBlock)successBlock
+                               success:(void (^)(TM_DataCardDetalInfoModel *model))successBlock
                                failure:(TMAPIFailureBlock)failureBlock;
+//MARK: 查询设备索引页信息 
++ (void)sendQueryDeviceIndexInfoWithCardNo:(NSString *)cardNo
+                                   success:(void (^)(TM_DeviceIndexInfo *model))successBlock
+                                   failure:(TMAPIFailureBlock)failureBlock;
 //MARK: 查询流量使用情况
 + (void)sendQueryUserFlowWithCardNo:(NSString *)cardNo
                             success:(TMAPISuccessBlock)successBlock
@@ -50,6 +56,15 @@ NS_ASSUME_NONNULL_BEGIN
                          package_id:(NSString *)package_id          //订购套餐包体编号
                             success:(TMAPISuccessBlock)successBlock
                             failure:(TMAPIFailureBlock)failureBlock;
+
+//MARK: 订购套餐- 余额支付 生成预支付订单
++ (void)sendOrderTcByBalanceWithOpenId:(NSString *)openId
+                                CardNo:(NSString *)cardNo              //卡号
+                        recharge_money:(NSString *)recharge_money
+                                  type:(NSString *)type                //month:当月加包；next次月加包；
+                            package_id:(NSString *)package_id          //订购套餐包体编号
+                               success:(TMAPISuccessBlock)successBlock
+                               failure:(TMAPIFailureBlock)failureBlock;
 
 //MARK: 查询套餐列表
 + (void)sendQueryTaoCanListWithCardNo:(NSString *)cardNo

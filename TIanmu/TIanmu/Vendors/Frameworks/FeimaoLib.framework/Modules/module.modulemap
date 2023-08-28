@@ -1,0 +1,11 @@
+framework module FeimaoLib {
+  umbrella header "FeimaoLib.h"
+
+  export *
+  module * { export * }
+}
+
+module FeimaoLib.Swift {
+  header "FeimaoLib-Swift.h"
+  requires objc
+}

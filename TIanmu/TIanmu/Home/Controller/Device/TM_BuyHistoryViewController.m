@@ -30,7 +30,7 @@
     NSDate *date = [NSDate date];
     unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth;
     NSDateComponents *comp = [calendar components:unitFlags fromDate:date];
-    [self getDatas:[NSString stringWithFormat:@"%d-%d", comp.year, comp.month]];
+    [self getDatas:[NSString stringWithFormat:@"%ld-%ld", (long)comp.year, (long)comp.month]];
 }
 
 #pragma mark - 创建UI
@@ -70,7 +70,7 @@
 }
 
 - (void)pickerDateView:(BasePickerView *)pickerDateView selectYear:(NSInteger)year selectMonth:(NSInteger)month selectDay:(NSInteger)day {
-    NSString *dateStr = [NSString stringWithFormat:@"%d-%d", year, month];
+    NSString *dateStr = [NSString stringWithFormat:@"%ld-%ld", (long)year, (long)month];
     [self getDatas: dateStr];
     self.curQuertTimeL.text = [NSString stringWithFormat:@"       当前查询范围：%@", dateStr];
 }

@@ -47,7 +47,7 @@ hud.removeFromSuperViewOnHide = YES; \
 #define TM_ShowWindowToast(m) \
 ({\
 UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;\
-TM_ShowToast(keyWindow, m) \
+TM_ShowToast(keyWindow, m); \
 })
 
 #define TM_ShowFuncNoOpenToast \
@@ -60,5 +60,8 @@ hud.removeFromSuperViewOnHide = YES;\
 [hud hideAnimated:YES afterDelay:1.5];\
 [[UIApplication sharedApplication].keyWindow addSubview:hud];\
 })
+
+#define TM_ShowProgress [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+#define TM_HideProgress [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
 
 #endif /* Tianmu_Prefix_h */

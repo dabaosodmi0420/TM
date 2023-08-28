@@ -15,6 +15,8 @@
 #define kWeixin_AppSecret       @"a62eaf35ef9f80d61a44a82b9dafca7a"
 /** UniversalLink */
 #define kWeixin_UniversalLink   @"https://tianmulife.com/"
+/** 微信客服ID */
+#define kWeixin_ServiceChatId   @"ww1878a9c0606e889b"
 
 #define KWeixin_AccessToken_Key     @"access_token"
 #define KWeixin_RefreshToken_Key    @"refresh_token"
@@ -24,6 +26,8 @@ typedef enum : NSInteger {
     TM_WeixinToolTypeDefault = -1,
     TM_WeixinToolTypeLogin,         // 微信登录
     TM_WeixinToolTypePay,           // 微信支付
+    TM_WeixinToolTypeMiniProgram,   // 微信小程序
+    TM_WeixinToolTypeWXServiceChat, // 拉起微信客服
 } TM_WeixinToolType;
 
 NS_ASSUME_NONNULL_BEGIN

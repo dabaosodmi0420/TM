@@ -119,7 +119,7 @@
     _maskLayer = [self drawLayer:color :showLineNums];
     [self.layer addSublayer:_maskLayer];
     if (_isShowMsgPopView) {
-        _msg = [NSString stringWithFormat:@" 网络状态：%@  %@",msg,videoBitrate];
+        _msg = [NSString stringWithFormat:@" 状态：%@  %@",msg,videoBitrate];
         [self reloadMsg];
     }
 }

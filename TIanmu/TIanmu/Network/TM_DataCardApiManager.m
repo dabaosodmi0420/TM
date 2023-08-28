@@ -25,7 +25,9 @@
                                                          failure:failureBlock];
 }
 //MARK: 查询单卡信息
-+ (void)sendQueryUserAllCardWithCardNo:(NSString *)cardNo success:(TMAPISuccessBlock)successBlock failure:(TMAPIFailureBlock)failureBlock {
++ (void)sendQueryUserAllCardWithCardNo:(NSString *)cardNo
+                               success:(void (^)(TM_DataCardDetalInfoModel *model))successBlock
+                               failure:(TMAPIFailureBlock)failureBlock {
     
     NSString *url = @"/queryCardDetail";
     
@@ -35,10 +37,49 @@
     [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
                                                       parameters:params
                                                          headers:@{}
-                                                         success:successBlock
-                                                         failure:failureBlock];
+                                                         success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+            id data = respondObject[@"data"];
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                TM_DataCardDetalInfoModel *model = [TM_DataCardDetalInfoModel mj_objectWithKeyValues:data];
+                successBlock(model);
+            }else {
+                TM_ShowWindowToast(@"获取数据失败");
+            }
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"msg"]];
+            TM_ShowWindowToast(msg);
+        }
+    } failure:failureBlock];
 }
+//MARK: 查询设备索引页信息
++ (void)sendQueryDeviceIndexInfoWithCardNo:(NSString *)cardNo
+                                   success:(void (^)(TM_DeviceIndexInfo *model))successBlock
+                                   failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryDeviceIndexInfo";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"] = cardNo;
 
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+            id data = respondObject[@"data"];
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                TM_DeviceIndexInfo *model = [TM_DeviceIndexInfo mj_objectWithKeyValues:data];
+                successBlock(model);
+            }else {
+                TM_ShowWindowToast(@"获取数据失败");
+            }
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"msg"]];
+            TM_ShowWindowToast(msg);
+        }
+    } failure:failureBlock];
+}
 //MARK: 查询流量使用情况
 + (void)sendQueryUserFlowWithCardNo:(NSString *)cardNo success:(TMAPISuccessBlock)successBlock failure:(TMAPIFailureBlock)failureBlock {
     
@@ -139,6 +180,34 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
+
+//MARK: 订购套餐- 余额支付 生成预支付订单
++ (void)sendOrderTcByBalanceWithOpenId:(NSString *)openId
+                                CardNo:(NSString *)cardNo              //卡号
+                        recharge_money:(NSString *)recharge_money
+                                type:(NSString *)type                //month:当月加包；next次月加包；
+                            package_id:(NSString *)package_id          //订购套餐包体编号
+                                success:(TMAPISuccessBlock)successBlock
+                                failure:(TMAPIFailureBlock)failureBlock {
+
+    if (!recharge_money || recharge_money.length == 0) return;
+    
+    NSString *url = @"/orderTcByBalance";
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"openId"]        = openId;
+    params[@"card_define_no"]   = cardNo;
+    params[@"package_id"]       = package_id;
+    params[@"type"]             = type;
+    params[@"package_price"]   = recharge_money;
+
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+
 //MARK: 查询订购套餐列表
 
 /// - Parameters:

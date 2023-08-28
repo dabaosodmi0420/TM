@@ -417,22 +417,46 @@
     if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
         NSLog(@"%@",@"流量充值");
         if (self.taocanModel) {
-            NSString *type = @"month";
-            [TM_DataCardApiManager sendOrderTcByWXWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:self.taocanModel.package_price type:type package_id:self.taocanModel.package_id success:^(id  _Nullable respondObject) {
-                NSLog(@"%@",respondObject);
-                if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
-                    TM_PayViewController *payVC = [TM_PayViewController new];
-                    payVC.wxPayData = respondObject;
-                    payVC.money = self.taocanModel.package_price;
-                    [self.navigationController pushViewController:payVC animated:YES];
+            [JTDefinitionTextView jt_showWithTitle:@"提示" Text:@"请选择充值流量包支付方式" type:JTAlertTypeNot actionTextArr:@[@"余额支付", @"微信支付"] handler:^(NSInteger index) {
+                if (index == 0) {
+                    if ([self.usedFlowModel.balance doubleValue] >= [self.taocanModel.package_price doubleValue]) {
+                        [TM_DataCardApiManager sendOrderTcByBalanceWithOpenId:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:self.taocanModel.package_price type:@"month" package_id:self.taocanModel.package_id success:^(id  _Nullable respondObject) {
+                            NSLog(@"%@",respondObject);
+                            if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                                TM_PayViewController *payVC = [TM_PayViewController new];
+                                payVC.wxPayData = respondObject;
+                                payVC.money = self.taocanModel.package_price;
+                                [self.navigationController pushViewController:payVC animated:YES];
+                            }else {
+                                NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                                TM_ShowToast(self.view, msg);
+                            }
+                        } failure:^(NSError * _Nullable error) {
+                            NSLog(@"%@",error);
+                            TM_ShowToast(self.view, @"获取订单失败");
+                        }];
+                    }
                 }else {
-                    NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
-                    TM_ShowToast(self.view, msg);
+                    // 微信支付
+                    NSString *type = @"month";
+                    [TM_DataCardApiManager sendOrderTcByWXWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId CardNo:self.cardDetailInfoModel.card_define_no recharge_money:self.taocanModel.package_price type:type package_id:self.taocanModel.package_id success:^(id  _Nullable respondObject) {
+                        NSLog(@"%@",respondObject);
+                        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                            TM_PayViewController *payVC = [TM_PayViewController new];
+                            payVC.wxPayData = respondObject;
+                            payVC.money = self.taocanModel.package_price;
+                            [self.navigationController pushViewController:payVC animated:YES];
+                        }else {
+                            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                            TM_ShowToast(self.view, msg);
+                        }
+                    } failure:^(NSError * _Nullable error) {
+                        NSLog(@"%@",error);
+                        TM_ShowToast(self.view, @"获取订单失败");
+                    }];
                 }
-            } failure:^(NSError * _Nullable error) {
-                NSLog(@"%@",error);
-                TM_ShowToast(self.view, @"获取订单失败");
             }];
+            
         }else {
             TM_ShowToast(self.view, @"请选择套餐");
         }

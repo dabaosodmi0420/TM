@@ -15,7 +15,14 @@ typedef NS_ENUM(NSInteger, TM_ShortMenuType){
     TM_ShortMenuTypeNetChange,              // 网络切换
     TM_ShortMenuTypeRealNameAuth,           // 实名认证
     TM_ShortMenuTypeTransactionRecord,      // 交易记录
-    TM_ShortMenuTypeElectronicWaste         // 电子垃圾
+    TM_ShortMenuTypeElectronicWaste,        // 电子垃圾
+    TM_ShortMenuTypeNewGuide,               // 新手指导
+    TM_ShortMenuTypeService,                // 在线客服
+    TM_ShortMenuTypeUpdate,                 // 软件更新
+    TM_ShortMenuTypeTaocanUsed,             // 套餐用量
+    TM_ShortMenuTypeGuzhang,                // 故障修改
+    TM_ShortMenuTypeQuestion,               // 常见问题
+    TM_ShortMenuTypeCancelCard,             // 销卡
 };
 
 NS_ASSUME_NONNULL_BEGIN
@@ -29,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *funcCode;
 /* 功能好编码 */
 @property (assign, nonatomic) NSInteger funcNo;
+/* icon图片 */
+@property (strong, nonatomic) NSString *iconImgName;
 /* 功能枚举 */
 @property (assign, nonatomic) TM_ShortMenuType funcType;
 @end

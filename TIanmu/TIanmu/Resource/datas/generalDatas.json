@@ -18,5 +18,145 @@
             "imageNormal" : "foot_personal_default_icon",
             "imageSelected" : "foot_personal_highlight_icon"
         },
+    ],
+    "shortMenus" : [
+        {
+            "picpath"           : "",
+            "funcCode"          : "rechargeBalance",
+            "menuname"          : "余额充值",
+            "funcNo"            : "",
+            "iconImgName"       : "home_yue",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "orderFlow",
+            "menuname"          : "流量充值",
+            "funcNo"            : "",
+            "iconImgName"       : "home_flow",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "control",
+            "menuname"          : "远程控制",
+            "funcNo"            : "",
+            "iconImgName"       : "home_remote",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "changeNet",
+            "menuname"          : "网络切换",
+            "funcNo"            : "",
+            "iconImgName"       : "home_changeNet",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "auth",
+            "menuname"          : "实名认证",
+            "funcNo"            : "",
+            "iconImgName"       : "home_realNme",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "tradeRecord",
+            "menuname"          : "交易记录",
+            "funcNo"            : "",
+            "iconImgName"       : "home_jilu",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "updateApp",
+            "menuname"          : "转件更新",
+            "funcNo"            : "",
+            "iconImgName"       : "home_update",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "newGuide",
+            "menuname"          : "新手指导",
+            "funcNo"            : "",
+            "iconImgName"       : "home_new",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "weChatService",
+            "menuname"          : "在线客服",
+            "funcNo"            : "7",
+            "iconImgName"       : "",
+            
+        },
+    ],
+    "shortMenusCard" : [
+        {
+            "picpath"           : "",
+            "funcCode"          : "rechargeBalance",
+            "menuname"          : "账户储值",
+            "funcNo"            : "",
+            "iconImgName"       : "card_yuechongzhi",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "orderFlow",
+            "menuname"          : "流量充值",
+            "funcNo"            : "",
+            "iconImgName"       : "card_liuliangchongzhi",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "taocanUsed",
+            "menuname"          : "套餐用量",
+            "funcNo"            : "",
+            "iconImgName"       : "card_taocanUsed",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "tradeRecord",
+            "menuname"          : "交易记录",
+            "funcNo"            : "",
+            "iconImgName"       : "card_jilu",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "weChatService",
+            "menuname"          : "在线客服",
+            "funcNo"            : "",
+            "iconImgName"       : "card_kefu",
+            
+        },
+        {
+            "picpath"           : "",
+            "funcCode"          : "guzhangFix",
+            "menuname"          : "故障修复",
+            "funcNo"            : "",
+            "iconImgName"       : "card_guzhang",
+            
+        },
+        {
+            "picpath"           : "cancelCard",
+            "funcCode"          : "weChatService",
+            "menuname"          : "销卡",
+            "funcNo"            : "",
+            "iconImgName"       : "card_xiaoka",
+            
+        },
+        {
+            "picpath"           : "question",
+            "funcCode"          : "weChatService",
+            "menuname"          : "常见问题",
+            "funcNo"            : "",
+            "iconImgName"       : "card_wenti",
+            
+        },
     ]
 }

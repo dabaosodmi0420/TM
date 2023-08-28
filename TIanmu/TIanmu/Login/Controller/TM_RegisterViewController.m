@@ -311,6 +311,7 @@
         title = @"隐私协议";
     }
     TM_ProtocolViewController *vc = [TM_ProtocolViewController new];
+    vc.requestHandle.requestType = WKRequestType_Remote;
     vc.requestHandle.remoteUrl = urlString;
     vc.title = title;
     [self.navigationController pushViewController:vc animated:YES];

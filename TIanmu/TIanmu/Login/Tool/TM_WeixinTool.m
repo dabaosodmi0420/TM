@@ -13,7 +13,7 @@
 // 刷新 access_token 有效期
 #define TM_weixinApi_refreshToken_url   @"https://api.weixin.qq.com/sns/oauth2/refresh_token"
 // 刷新 access_token 有效期
-#define TM_weixinApi_getUserInfo_url @"https://api.weixin.qq.com/sns/userinfo"
+#define TM_weixinApi_getUserInfo_url    @"https://api.weixin.qq.com/sns/userinfo"
 
 #pragma mark - 微信网络请求类
 #define TM_AFTIMEOUTINTERVAL 15
@@ -196,6 +196,14 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
                 [self tm_weixinPayActvity];
             }
                 break;
+            case  TM_WeixinToolTypeMiniProgram: {
+                [self tm_weixinMiniProgram];
+            }
+                break;
+            case  TM_WeixinToolTypeWXServiceChat: {
+                [self tm_weixinServiceChat];
+            }
+                break;
             default:{
                 
             }
@@ -283,7 +291,28 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
         NSLog(@"%@",success ? @"成功" : @"失败");
     }];
 }
-
+// 微信小程序
+- (void)tm_weixinMiniProgram {
+    WXLaunchMiniProgramReq *launchMiniProgramReq = [WXLaunchMiniProgramReq object];
+    //拉起的小程序的username gh_5eac63f4d504
+    launchMiniProgramReq.userName = @"gh_5eac63f4d504";
+    //拉起小程序页面的可带参路径，不填默认拉起小程序首页，对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
+    launchMiniProgramReq.path = @"";
+    //拉起小程序的类型
+    launchMiniProgramReq.miniProgramType = WXMiniProgramTypeRelease;
+    [WXApi sendReq:launchMiniProgramReq completion:^(BOOL success) {
+        NSLog(@"%@",success ? @"成功" : @"失败");
+    }];
+}
+// 微信客服
+- (void)tm_weixinServiceChat {
+    WXOpenCustomerServiceReq *req = [[WXOpenCustomerServiceReq alloc] init];
+    req.corpid = kWeixin_ServiceChatId;     //企业ID
+    req.url = @"";                           //客服URL
+    [WXApi sendReq:req completion:^(BOOL success) {
+        NSLog(@"%@",success ? @"成功" : @"失败");
+    }];
+}
 // 由于 access_token 有效期（目前为 2 个小时）较短， 使用 refresh_token 刷新 access_token 有效期
 - (void)refreshAccessTokenWithRefreshToken:(NSString *)refresh_token cmpBlock:(void (^)(void))cmp {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -368,6 +397,7 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
     [[NSUserDefaults standardUserDefaults] setValue:@{} forKeyPath:kWeixin_AccessTokenPath];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
 #pragma mark - 回调函数
 - (void)tm_weixinOnReq:(BaseReq *)req {}
 
@@ -396,7 +426,7 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
             }
         }
         
-    }else if ([resp isKindOfClass:[PayResp class]]){
+    }else if ([resp isKindOfClass:[PayResp class]]){ // 微信支付
         PayResp *response = (PayResp *)resp;
         NSMutableDictionary *dic =  [NSMutableDictionary dictionaryWithDictionary:@{}];
         dic[@"errCode"] = @(response.errCode);
@@ -419,6 +449,8 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
         if (self.completeBlock) {
             self.completeBlock(TM_WeixinToolTypePay, dic);
         }
+    }else if ([resp isKindOfClass:[WXLaunchMiniProgramResp class]]) {
+        
     }
 }
 

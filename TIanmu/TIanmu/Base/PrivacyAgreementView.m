@@ -72,6 +72,7 @@
             }
             TM_ProtocolViewController *vc = [TM_ProtocolViewController new];
             vc.modalPresentationStyle = UIModalPresentationFullScreen;
+            vc.requestHandle.requestType = WKRequestType_Remote;
             vc.requestHandle.remoteUrl = urlString;
             vc.title = title;
             TM_NavigationController *nav = [[TM_NavigationController alloc] initWithRootViewController:vc];

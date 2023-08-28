@@ -10,8 +10,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TM_ConfigTool : NSObject
-// 获取首页按钮菜单栏数据
-+ (NSArray *)getShortMenuListDatas;
 // 获取首页产品列表数据
 + (NSArray *)getProductListDatas;
 // 获取我的页面下的设置数据
@@ -20,7 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray *)getTabbarDatas;
 // 获取设置中心数据
 + (NSArray *)getSettingDatasCenter;
-
+// 获取首页按钮菜单栏数据
++ (NSArray *)getDeviceShortMenuListDatas;
+// 获取流量卡页面菜单按钮
++ (NSArray *)getCardShortMenuListDatas;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,10 +12,6 @@
 
 #pragma mark - 获取plist数据
 
-+ (NSArray *)getShortMenuListDatas {
-    
-    return [TM_ConfigTool loadLocalPlistDataWithName:@"shortMenuDatas"][@"datas"] ;
-}
 + (NSArray *)getProductListDatas {
     
     return [TM_ConfigTool loadLocalPlistDataWithName:@"productListDatas"][@"datas"];
@@ -43,7 +39,13 @@
 + (NSArray *)getTabbarDatas {
     return [TM_ConfigTool getPrepareData:@"generalDatas"][@"tabbar"];
 }
-
++ (NSArray *)getDeviceShortMenuListDatas {
+    
+    return [TM_ConfigTool getPrepareData:@"generalDatas"][@"shortMenus"] ;
+}
++ (NSArray *)getCardShortMenuListDatas {
+    return [TM_ConfigTool getPrepareData:@"generalDatas"][@"shortMenusCard"] ;
+}
 + (NSDictionary *)getPrepareData:(NSString *)fileName {
     NSString *jsonPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
     NSData *jsonData = [[NSData alloc] initWithContentsOfFile:jsonPath];
