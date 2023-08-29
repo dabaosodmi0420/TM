@@ -31,6 +31,10 @@
 		155D38AB2A55639C00310AE2 /* JTDefinitionTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D38AA2A55639C00310AE2 /* JTDefinitionTextView.m */; };
 		155D38AE2A5570D200310AE2 /* TM_RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D38AD2A5570D200310AE2 /* TM_RechargeViewController.m */; };
 		155D38B12A56B87B00310AE2 /* JT_TopSegmentMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D38AF2A56B87A00310AE2 /* JT_TopSegmentMenuView.m */; };
+		1569CE132A9DF85500FEF252 /* TM_QuestionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1569CE122A9DF85500FEF252 /* TM_QuestionModel.m */; };
+		1569CE162A9DF86800FEF252 /* TM_QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1569CE152A9DF86800FEF252 /* TM_QuestionCell.m */; };
+		1569CE192A9E298B00FEF252 /* TM_NewHandGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1569CE182A9E298B00FEF252 /* TM_NewHandGuideViewController.m */; };
+		1569CE1C2A9E330000FEF252 /* TM_NoticeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1569CE1B2A9E330000FEF252 /* TM_NoticeView.m */; };
 		157805912A7B720100CCAC32 /* TM_MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 157805902A7B720100CCAC32 /* TM_MainViewController.m */; };
 		157805962A7B82EB00CCAC32 /* skip_X@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 157805922A7B82E900CCAC32 /* skip_X@2x.png */; };
 		157805972A7B82EB00CCAC32 /* skip@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 157805932A7B82EA00CCAC32 /* skip@3x.png */; };
@@ -163,6 +167,14 @@
 		155D38AD2A5570D200310AE2 /* TM_RechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_RechargeViewController.m; sourceTree = "<group>"; };
 		155D38AF2A56B87A00310AE2 /* JT_TopSegmentMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JT_TopSegmentMenuView.m; sourceTree = "<group>"; };
 		155D38B02A56B87B00310AE2 /* JT_TopSegmentMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JT_TopSegmentMenuView.h; sourceTree = "<group>"; };
+		1569CE112A9DF85500FEF252 /* TM_QuestionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_QuestionModel.h; sourceTree = "<group>"; };
+		1569CE122A9DF85500FEF252 /* TM_QuestionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_QuestionModel.m; sourceTree = "<group>"; };
+		1569CE142A9DF86800FEF252 /* TM_QuestionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_QuestionCell.h; sourceTree = "<group>"; };
+		1569CE152A9DF86800FEF252 /* TM_QuestionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_QuestionCell.m; sourceTree = "<group>"; };
+		1569CE172A9E298B00FEF252 /* TM_NewHandGuideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_NewHandGuideViewController.h; sourceTree = "<group>"; };
+		1569CE182A9E298B00FEF252 /* TM_NewHandGuideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_NewHandGuideViewController.m; sourceTree = "<group>"; };
+		1569CE1A2A9E330000FEF252 /* TM_NoticeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_NoticeView.h; sourceTree = "<group>"; };
+		1569CE1B2A9E330000FEF252 /* TM_NoticeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_NoticeView.m; sourceTree = "<group>"; };
 		1578058F2A7B720100CCAC32 /* TM_MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_MainViewController.h; sourceTree = "<group>"; };
 		157805902A7B720100CCAC32 /* TM_MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_MainViewController.m; sourceTree = "<group>"; };
 		157805922A7B82E900CCAC32 /* skip_X@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skip_X@2x.png"; sourceTree = "<group>"; };
@@ -420,10 +432,9 @@
 				15AEC4CC2A9D91510028A3F5 /* TM_CardFlowRechargeViewController.m */,
 				15AEC4CE2A9D916B0028A3F5 /* TM_TaocanUsedViewController.h */,
 				15AEC4CF2A9D916B0028A3F5 /* TM_TaocanUsedViewController.m */,
-				15AEC4D12A9D91810028A3F5 /* TM_QuestionViewController.h */,
-				15AEC4D22A9D91810028A3F5 /* TM_QuestionViewController.m */,
 				15AEC4DE2A9DD7DF0028A3F5 /* TM_CancelCardViewController.h */,
 				15AEC4DF2A9DD7DF0028A3F5 /* TM_CancelCardViewController.m */,
+				1569CE102A9DF82900FEF252 /* Question */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -477,6 +488,19 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		1569CE102A9DF82900FEF252 /* Question */ = {
+			isa = PBXGroup;
+			children = (
+				15AEC4D12A9D91810028A3F5 /* TM_QuestionViewController.h */,
+				15AEC4D22A9D91810028A3F5 /* TM_QuestionViewController.m */,
+				1569CE112A9DF85500FEF252 /* TM_QuestionModel.h */,
+				1569CE122A9DF85500FEF252 /* TM_QuestionModel.m */,
+				1569CE142A9DF86800FEF252 /* TM_QuestionCell.h */,
+				1569CE152A9DF86800FEF252 /* TM_QuestionCell.m */,
+			);
+			path = Question;
+			sourceTree = "<group>";
+		};
 		1586F3B62A384CA100B526BC /* Macro */ = {
 			isa = PBXGroup;
 			children = (
@@ -519,6 +543,8 @@
 				15A307352A5423B8004D70CA /* JTNetworkSignalView.m */,
 				15B4B1112A9A4B8100496DA9 /* TM_CardTopView.h */,
 				15B4B1122A9A4B8100496DA9 /* TM_CardTopView.m */,
+				1569CE1A2A9E330000FEF252 /* TM_NoticeView.h */,
+				1569CE1B2A9E330000FEF252 /* TM_NoticeView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -727,6 +753,8 @@
 				159E476C2A4BD45600810719 /* TM_DataCardManagerViewController.m */,
 				15C9B7A22A5E9139003A8EE7 /* TM_AddDeviceViewController.h */,
 				15C9B7A32A5E913A003A8EE7 /* TM_AddDeviceViewController.m */,
+				1569CE172A9E298B00FEF252 /* TM_NewHandGuideViewController.h */,
+				1569CE182A9E298B00FEF252 /* TM_NewHandGuideViewController.m */,
 				150766892A9C846700960BE1 /* Card */,
 				150766882A9C844D00960BE1 /* Device */,
 			);
@@ -967,6 +995,7 @@
 				159E476D2A4BD45600810719 /* TM_DataCardManagerViewController.m in Sources */,
 				15FE258F2A85FE5200A558E6 /* DatePickerView.m in Sources */,
 				15AEE7852A8B54B700BEA4CF /* TM_ProductInfoViewController.m in Sources */,
+				1569CE192A9E298B00FEF252 /* TM_NewHandGuideViewController.m in Sources */,
 				150751172A3C0A520019F81A /* TM_BannerModel.m in Sources */,
 				15B4B1162A9A5C4000496DA9 /* TM_DeviceIndexInfo.m in Sources */,
 				15A307362A5423B8004D70CA /* JTNetworkSignalView.m in Sources */,
@@ -1015,6 +1044,7 @@
 				1586F3CB2A386C4800B526BC /* UIImageView+TM_Category.m in Sources */,
 				15FE258C2A85FDDF00A558E6 /* BasePickerView.m in Sources */,
 				150751232A3C2D1D0019F81A /* TM_ShortMenuModel.m in Sources */,
+				1569CE1C2A9E330000FEF252 /* TM_NoticeView.m in Sources */,
 				15AEC4DC2A9DBB7F0028A3F5 /* Reachability.m in Sources */,
 				15AEC4CA2A9D913B0028A3F5 /* TM_CardBalanceRechargeViewController.m in Sources */,
 				151A284A2A4977E8004B33E3 /* TM_ForgetPassswordViewController.m in Sources */,
@@ -1023,6 +1053,7 @@
 				151A284F2A4A7C79004B33E3 /* TM_ServicePageViewController.m in Sources */,
 				15C9B7B02A5EA9B5003A8EE7 /* TM_CardTradeModel.m in Sources */,
 				15FE25892A85FA2100A558E6 /* QQTJCalendarPickView.mm in Sources */,
+				1569CE162A9DF86800FEF252 /* TM_QuestionCell.m in Sources */,
 				15BB8EF02A3817AF00A66E51 /* TM_NavigationController.m in Sources */,
 				15C1BADD2A5BA885008063F5 /* TM_WeixinTool.m in Sources */,
 				1589C9F32A6FD0E600CC5F1B /* TM_WXBindViewController.m in Sources */,
@@ -1042,6 +1073,7 @@
 				15AEDDFB2A73BCD100B66557 /* YT_PageControl.m in Sources */,
 				150751112A3BF9270019F81A /* TM_ProductListModel.m in Sources */,
 				15BB8F182A383F4100A66E51 /* TM_ClassName.m in Sources */,
+				1569CE132A9DF85500FEF252 /* TM_QuestionModel.m in Sources */,
 				15BC215F2A41711E00323D13 /* TM_LoginViewController.m in Sources */,
 				155D38A42A55594600310AE2 /* TM_AboutCompanyController.m in Sources */,
 				151A284D2A4A7C5C004B33E3 /* TM_AttributeTextView.m in Sources */,

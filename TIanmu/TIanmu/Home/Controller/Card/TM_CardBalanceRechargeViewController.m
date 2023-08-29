@@ -9,8 +9,10 @@
 #import "TM_CardTopView.h"
 #import "TM_DataCardApiManager.h"
 #import "TM_PayViewController.h"
+#import "TM_NoticeView.h"
 @interface TM_CardBalanceRechargeViewController (){
     UIButton *_selectedBtn;
+    NSString *_noticeContent;
 }
 /* 顶部 */
 @property (strong, nonatomic) TM_CardTopView *topView;
@@ -23,6 +25,9 @@
 @property (strong, nonatomic) NSArray                   *balanceRechargeArr;
 /* 当前选中充值金额 */
 @property (copy, nonatomic) NSString                    *balanceRecharge;
+
+@property (strong, nonatomic) TM_NoticeView *noticeView;
+
 @end
 
 @implementation TM_CardBalanceRechargeViewController
@@ -33,24 +38,6 @@
 }
 - (void)createView {
     self.title = @"余额充值";
-    self.topView = [[TM_CardTopView alloc] initWithFrame:CGRectMake(0, 10, kScreen_Width, 280) model:self.model];
-    [self.view addSubview:self.topView];
-    
-    // 流量卡卡号
-    UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(20, _topView.maxY + 10, 0, 25) title:@"流量卡卡号" fontSize:13 color:TM_ColorRGB(174, 174, 174)];
-    [label1 sizeToFit];
-    [self.view addSubview:label1];
-    // 卡号
-    UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:@"" fontSize:16 color:[UIColor blackColor]];
-    [self.view addSubview:label2];
-    self.balanceCardNumL = label2;
-    self.balanceCardNumL.text = [NSString stringWithFormat:@"%@",self.model.iccid];
-    [self.balanceCardNumL sizeToFit];
-    
-    UIView *lineL = [[UIView alloc]initWithFrame:CGRectMake(label2.x, label2.maxY + 8, kScreen_Width - 2 * label2.x, 0.5)];
-    lineL.backgroundColor = TM_ColorRGB(174, 174, 174);
-    [self.view addSubview:lineL];
-    
     // 充值按钮
     UIButton *recharge = [UIView createButton:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44, kScreen_Width, 44)
                                         title:@"立即充值"
@@ -61,6 +48,28 @@
                                        target:self];
     recharge.backgroundColor = TM_SpecialGlobalColor;
     [self.view addSubview:recharge];
+
+    self.contentScrollView.height = recharge.y;
+    [self.view addSubview:self.contentScrollView];
+    
+    self.topView = [[TM_CardTopView alloc] initWithFrame:CGRectMake(0, 10, kScreen_Width, 280) model:self.model];
+    [self.contentScrollView addSubview:self.topView];
+    
+    // 流量卡卡号
+    UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(20, _topView.maxY + 10, 0, 25) title:@"流量卡卡号" fontSize:13 color:TM_ColorRGB(174, 174, 174)];
+    [label1 sizeToFit];
+    [self.contentScrollView addSubview:label1];
+    // 卡号
+    UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:@"" fontSize:16 color:[UIColor blackColor]];
+    self.balanceCardNumL = label2;
+    self.balanceCardNumL.text = [NSString stringWithFormat:@"%@",self.model.iccid];
+    [self.balanceCardNumL sizeToFit];
+    [self.contentScrollView addSubview:label2];
+    
+    UIView *lineL = [[UIView alloc]initWithFrame:CGRectMake(label2.x, label2.maxY + 8, kScreen_Width - 2 * label2.x, 0.5)];
+    lineL.backgroundColor = TM_ColorRGB(174, 174, 174);
+    [self.contentScrollView addSubview:lineL];
+    
 }
 // 刷新充值金额数据
 - (void)refreshMoneyListUI {
@@ -83,7 +92,7 @@
         btn.layer.borderWidth = 1;
         btn.layer.borderColor = TM_SpecialGlobalColor.CGColor;
         btn.tag = 888 + i;
-        [self.view addSubview:btn];
+        [self.contentScrollView addSubview:btn];
         if (i == 0) {
             [self changeBalanceRechargeMoney:btn];
         }
@@ -104,14 +113,40 @@
             customMoneyTF.clipsToBounds = YES;
             customMoneyTF.layer.borderWidth = 1;
             customMoneyTF.layer.borderColor = TM_SpecialGlobalColor.CGColor;
-            [self.view addSubview:customMoneyTF];
+            [self.contentScrollView addSubview:customMoneyTF];
             self.customMoneyTF = customMoneyTF;
+            
+            [self.noticeView removeFromSuperview];
+            self.noticeView = [[TM_NoticeView alloc] initWithFrame:CGRectMake(20, customMoneyTF.maxY + 30, self.contentScrollView.width - 40, 0) content:_noticeContent];
+            [self.contentScrollView addSubview:self.noticeView];
+            self.contentScrollView.contentSize = CGSizeMake(kScreen_Width, self.noticeView.maxY + 10);
         }
     }
 }
 #pragma mark - 获取数据
 // 获取用户流量信息
 - (void)reloadData {
+    _noticeContent = @"";
+    [TM_DataCardApiManager sendQueryNoticesWithCardNo:self.model.card_define_no type:@"balance" success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"] && [respondObject[@"data"] isKindOfClass:[NSArray class]]) {
+            NSArray *arr = respondObject[@"data"] ;
+            NSString *content = @"";
+            for (NSDictionary *dic in arr) {
+                content = [[content stringByAppendingString:dic[@"info"]] stringByAppendingString:@"\n"];
+            }
+            self->_noticeContent = content;
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+            TM_ShowToast(self.view, msg);
+        }
+        [self requestData];
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+        TM_ShowToast(self.view, @"获取数据失败");
+        [self requestData];
+    }];
+}
+- (void)requestData {
     // 获取充值金额列表数据
     [TM_DataCardApiManager sendQueryMoneyListWithSuccess:^(id  _Nullable respondObject) {
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
@@ -132,7 +167,6 @@
     }];
     
 }
-
 #pragma mark - Activity
 // 余额充值选择
 - (void)changeBalanceRechargeMoney:(UIButton *)btn {

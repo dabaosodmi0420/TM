@@ -110,7 +110,7 @@
             titleL.font = [UIFont systemFontOfSize:19];
             [blankView addSubview:titleL];
             
-            [blankView addSubview:[definitionView createViewCGRect:CGRectMake(40, CGRectGetMaxY(titleL.frame) + 14, blankView_W - 80, 0.5)]];
+            [blankView addSubview:[definitionView createViewCGRect:CGRectMake(20, CGRectGetMaxY(titleL.frame) + 5, blankView_W - 40, 0.5)]];
         }
         
         CGFloat actionH = 40;

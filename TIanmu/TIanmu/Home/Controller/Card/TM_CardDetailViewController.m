@@ -128,7 +128,7 @@
         }
             break;
         case TM_ShortMenuTypeGuzhang: {
-            [JTDefinitionTextView jt_showWithTitle:@"注意" Text:@"是否确认修复" type:0 actionTextArr:@[@"确认"] handler:^(NSInteger index) {
+            [JTDefinitionTextView jt_showWithTitle:@"注意" Text:@"是否确认修复？" type:0 actionTextArr:@[@"确认", @"取消"] handler:^(NSInteger index) {
                 TM_ShowToast(self.view, @"修复成功");
             }];
         }

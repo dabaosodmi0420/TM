@@ -12,7 +12,7 @@
 #import "TM_WeixinTool.h"
 #import "TM_DataCardTaoCanModel.h"
 #import "TM_PayViewController.h"
-
+#import "TM_NoticeView.h"
 #define K_TmpStr  @"# #"
 
 @interface TM_RechargeViewController (){
@@ -20,6 +20,7 @@
     NSArray <UILabel *>*_topInfoLables;
     NSInteger _curTaocanType;
     
+    NSString *_noticeContent;
 }
 
 /* 流量卡使用情况 */
@@ -27,7 +28,7 @@
 /* 套餐整体数据 */
 @property (strong, nonatomic) TM_DataCardTaoCanModel    *taocanData;
 
-
+@property (strong, nonatomic) TM_NoticeView *noticeView;
 #pragma mark - 余额充值
 /* customMoneyTF */
 @property (strong, nonatomic) UITextField               *customMoneyTF;
@@ -66,17 +67,31 @@
 }
 - (void)createView {
     [super createView];
+    // 充值按钮
+    UIButton *recharge = [UIView createButton:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44, kScreen_Width, 44)
+                                        title:@"立即充值"
+                                   titleColoe:TM_ColorRGB(255, 255, 255)
+                                selectedColor:TM_ColorRGB(255, 255, 255)
+                                     fontSize:16
+                                          sel:@selector(rechargeClick)
+                                       target:self];
+    recharge.backgroundColor = TM_SpecialGlobalColor;
+    [self.view addSubview:recharge];
+    
     if (self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge) {
         self.title = @"余额充值";
+        self.contentScrollView.height = recharge.y;
     }else if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) {
         self.title = @"流量充值";
+        self.contentScrollView.height = recharge.y - 30;
         [JTDefinitionTextView jt_showWithTitle:@"" Text:@"订购套餐当月立即生效，请确认！！！" type:JTAlertTypeNot actionTextArr:@[@"确认"] handler:^(NSInteger index) {
                     
         }];
     }
-        
+    [self.view addSubview:self.contentScrollView];
+    
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 220)];
-    [self.view addSubview:topView];
+    [self.contentScrollView addSubview:topView];
     [UIView setVerGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(59, 85, 183)]];
     // 顶部logo
     UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(30, 25, 90, 90)];
@@ -114,16 +129,7 @@
     
     _topInfoLables = @[label1, label2, label3, label4, label5, label6];
 
-    // 充值按钮
-    UIButton *recharge = [UIView createButton:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44, kScreen_Width, 44)
-                                        title:@"立即充值"
-                                   titleColoe:TM_ColorRGB(255, 255, 255)
-                                selectedColor:TM_ColorRGB(255, 255, 255)
-                                     fontSize:16
-                                          sel:@selector(rechargeClick)
-                                       target:self];
-    recharge.backgroundColor = TM_SpecialGlobalColor;
-    [self.view addSubview:recharge];
+    
     
     if (self.menuModel.funcType == TM_ShortMenuTypeFlowRecharge) { // 流量充值
         [self flowRechargeView];
@@ -171,7 +177,7 @@
         [self requestTaocanData:index];
     };
     [self.segmentMenuView makeSegmentUIWithSegDataArr:@[@"畅享版(单网)\n电信", @"优享版(双网)\n电信+移动", @"尊享版(三网)\n电信+移动+联通"] selectIndex:0 selectSegName:nil];
-    [self.view addSubview:_segmentMenuView];
+    [self.contentScrollView addSubview:_segmentMenuView];
     
     // 下方现在选择的套餐
     UILabel *taocanTipL = [UIView createLabelWithFrame:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44 - 30, kScreen_Width, 30) title:@"   请选择套餐" fontSize:15 color: [UIColor darkGrayColor]];
@@ -179,9 +185,9 @@
     [self.view addSubview:taocanTipL];
     self.taocanTipL = taocanTipL;
     
-    self.taocanScrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.segmentMenuView.maxY, kScreen_Width, taocanTipL.y - self.segmentMenuView.maxY)];
-    self.taocanScrollerView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:self.taocanScrollerView];
+//    self.taocanScrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.segmentMenuView.maxY, kScreen_Width, taocanTipL.y - self.segmentMenuView.maxY)];
+//    self.taocanScrollerView.showsVerticalScrollIndicator = NO;
+//    [self.contentScrollView addSubview:self.taocanScrollerView];
 }
 // 刷新套餐选择选择数据
 - (void)refreshTaocanUIData {
@@ -199,13 +205,12 @@
     self.taocanModel = nil;
     
     CGFloat contentSizeH = 0;
-    [self.taocanScrollerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     for (int i = 0; i < self.taocanDataArr.count; i++) {
         TM_DataCardTaoCanInfoModel *model = self.taocanDataArr[i];
         CGFloat h = 65;
         CGFloat margin_top = 10;
         UIColor *btnBgColor = TM_ColorRGB(148, 216, 239);
-        UIButton *btn = [UIView createButton:CGRectMake(20, (i + 1) * margin_top + i * h, kScreen_Width - 40, h) title:@"" titleColoe:btnBgColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeTaocanRechargeMoney:) target:self];
+        UIButton *btn = [UIView createButton:CGRectMake(20, self.segmentMenuView.maxY + (i + 1) * margin_top + i * h, kScreen_Width - 40, h) title:@"" titleColoe:btnBgColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeTaocanRechargeMoney:) target:self];
         NSString *price = [NSString stringWithFormat:@"售价:￥%0.1f元", [model.package_price doubleValue]];
         NSString *str = [NSString stringWithFormat:@"%@\n%@", model.package_name, price];
         NSMutableAttributedString *attribute = [[NSMutableAttributedString alloc] initWithString:str attributes:@{
@@ -236,11 +241,15 @@
         btn.layer.borderWidth = 1;
         btn.layer.borderColor = btnBgColor.CGColor;
         btn.tag = 888 + i;
-        [self.taocanScrollerView addSubview:btn];
+        [self.contentScrollView addSubview:btn];
         
         contentSizeH = btn.maxY;
     }
-    self.taocanScrollerView.contentSize = CGSizeMake(kScreen_Width, contentSizeH);
+    [self.noticeView removeFromSuperview];
+    self.noticeView = [[TM_NoticeView alloc] initWithFrame:CGRectMake(20, contentSizeH + 30, self.contentScrollView.width - 40, 0) content:_noticeContent];
+    [self.contentScrollView addSubview:self.noticeView];
+    contentSizeH = self.noticeView.maxY + 10;
+    self.contentScrollView.contentSize = CGSizeMake(kScreen_Width, contentSizeH);
 }
 // // MARK: 余额充值页面
 - (void)balanceRechargeView {
@@ -250,12 +259,12 @@
     [self.view addSubview:label1];
     // 卡号
     UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:@"" fontSize:16 color:[UIColor blackColor]];
-    [self.view addSubview:label2];
+    [self.contentScrollView addSubview:label2];
     self.balanceCardNumL = label2;
     
     UIView *lineL = [[UIView alloc]initWithFrame:CGRectMake(label2.x, label2.maxY + 8, kScreen_Width - 2 * label2.x, 0.5)];
     lineL.backgroundColor = TM_ColorRGB(174, 174, 174);
-    [self.view addSubview:lineL];
+    [self.contentScrollView addSubview:lineL];
     
 }
 // 刷新充值金额数据
@@ -279,7 +288,7 @@
         btn.layer.borderWidth = 1;
         btn.layer.borderColor = TM_SpecialGlobalColor.CGColor;
         btn.tag = 888 + i;
-        [self.view addSubview:btn];
+        [self.contentScrollView addSubview:btn];
         if (i == 0) {
             [self changeBalanceRechargeMoney:btn];
         }
@@ -300,14 +309,42 @@
             customMoneyTF.clipsToBounds = YES;
             customMoneyTF.layer.borderWidth = 1;
             customMoneyTF.layer.borderColor = TM_SpecialGlobalColor.CGColor;
-            [self.view addSubview:customMoneyTF];
+            [self.contentScrollView addSubview:customMoneyTF];
             self.customMoneyTF = customMoneyTF;
+            [self.noticeView removeFromSuperview];
+            self.noticeView = [[TM_NoticeView alloc] initWithFrame:CGRectMake(20, customMoneyTF.maxY + 30, self.contentScrollView.width - 40, 0) content:_noticeContent];
+            [self.contentScrollView addSubview:self.noticeView];
+            self.contentScrollView.contentSize = CGSizeMake(kScreen_Width, self.noticeView.maxY + 10);
         }
     }
 }
 #pragma mark - 获取数据
 // 获取用户流量信息
 - (void)reloadData {
+    _noticeContent = @"";
+    [TM_DataCardApiManager sendQueryNoticesWithCardNo:self.cardDetailInfoModel.card_define_no type:self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge ? @"balance" : @"flow" success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"] && [respondObject[@"data"] isKindOfClass:[NSArray class]]) {
+            NSArray *arr = respondObject[@"data"] ;
+            NSString *content = @"";
+            for (NSDictionary *dic in arr) {
+                content = [[content stringByAppendingString:dic[@"info"]] stringByAppendingString:@"\n"];
+            }
+            self->_noticeContent = content;
+            
+            
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+            TM_ShowToast(self.view, msg);
+        }
+        [self requestData];
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+        TM_ShowToast(self.view, @"获取数据失败");
+        [self requestData];
+    }];
+    
+}
+- (void)requestData {
     [TM_DataCardApiManager sendQueryUserFlowWithCardNo:self.cardDetailInfoModel.iccid success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
@@ -333,7 +370,6 @@
         [self requestTaocanData:0];
     }
 }
-
 // 获取套餐数据
 - (void)requestTaocanData:(NSInteger)type {
     [TM_DataCardApiManager sendQueryTaoCanListWithCardNo:self.cardDetailInfoModel.card_define_no type:@"all" success:^(id  _Nullable respondObject) {

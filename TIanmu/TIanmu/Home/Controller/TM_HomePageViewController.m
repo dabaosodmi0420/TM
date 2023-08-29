@@ -24,6 +24,7 @@
 #import "TM_ProductInfoViewController.h"
 #import "TM_DataCardApiManager.h"
 #import "TM_CardDetailViewController.h"
+#import "TM_NewHandGuideViewController.h"
 
 #define KProductListCellId  @"KProductListCellId"
 #define KBannerCellId       @"KBannerCellId"
@@ -179,6 +180,15 @@
             break;
         case TM_ShortMenuTypeElectronicWaste: {
             TM_ShowFuncNoOpenToast;
+        }
+            break;
+        case TM_ShortMenuTypeNewGuide: {
+            TM_NewHandGuideViewController *vc = [TM_NewHandGuideViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case TM_ShortMenuTypeUpdate: {
+            
         }
             break;
         default:

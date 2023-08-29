@@ -13,9 +13,11 @@
 #import "TM_DataCardTaoCanModel.h"
 #import "TM_DataCardApiManager.h"
 #import "TM_DataCardUsedFlowModel.h"
+#import "TM_NoticeView.h"
 @interface TM_CardFlowRechargeViewController (){
     UIButton *_selectedBtn;
     NSInteger _curTaocanType;
+    NSString *_noticeContent;
 }
 
 /* 顶部 */
@@ -34,6 +36,10 @@
 @property (strong, nonatomic) TM_DataCardUsedFlowModel  *usedFlowModel;
 /* 套餐整体数据 */
 @property (strong, nonatomic) TM_DataCardTaoCanModel    *taocanData;
+
+/*  */
+@property (strong, nonatomic) TM_NoticeView *noticeView;
+
 @end
 
 @implementation TM_CardFlowRechargeViewController
@@ -47,9 +53,12 @@
     self.title = @"流量充值";
     [JTDefinitionTextView jt_showWithTitle:@"" Text:@"订购套餐当月立即生效，请确认！！！" type:JTAlertTypeNot actionTextArr:@[@"确认"] handler:^(NSInteger index) {
     }];
-    self.topView = [[TM_CardTopView alloc] initWithFrame:CGRectMake(0, 10, kScreen_Width, 280) model:self.model];
-    [self.view addSubview:self.topView];
     
+    // 下方现在选择的套餐
+    UILabel *taocanTipL = [UIView createLabelWithFrame:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44 - 30, kScreen_Width, 30) title:@"   请选择套餐" fontSize:15 color: [UIColor darkGrayColor]];
+    taocanTipL.backgroundColor = TM_SpecialGlobalColorBg;
+    [self.view addSubview:taocanTipL];
+    self.taocanTipL = taocanTipL;
     // 充值按钮
     UIButton *recharge = [UIView createButton:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44, kScreen_Width, 44)
                                         title:@"立即充值"
@@ -61,7 +70,13 @@
     recharge.backgroundColor = TM_SpecialGlobalColor;
     [self.view addSubview:recharge];
     
-    _segmentMenuView = [[JT_TopSegmentMenuView alloc] initWithFrame:CGRectMake(0, _topView.maxY + 10, kScreen_Width, getAutoSize(60))];
+    self.contentScrollView.height = taocanTipL.y;
+    [self.view addSubview:self.contentScrollView];
+    
+    self.topView = [[TM_CardTopView alloc] initWithFrame:CGRectMake(0, 10, kScreen_Width, 280) model:self.model];
+    [self.contentScrollView addSubview:self.topView];
+    
+    _segmentMenuView = [[JT_TopSegmentMenuView alloc] initWithFrame:CGRectMake(0, _topView.maxY + 10, kScreen_Width, getAutoSize(40))];
     _segmentMenuView.backgroundColor = [UIColor whiteColor];
     _segmentMenuView.btnTitleNormalColor = [UIColor blackColor];
     _segmentMenuView.btnTitleSeletColor = TM_SpecialGlobalColor;
@@ -87,17 +102,13 @@
         [taocanTypeArr addObject:@"累计包"];
     }
     [self.segmentMenuView makeSegmentUIWithSegDataArr:taocanTypeArr selectIndex:0 selectSegName:nil];
-    [self.view addSubview:_segmentMenuView];
-    [self requestTaocanData:0];
-    // 下方现在选择的套餐
-    UILabel *taocanTipL = [UIView createLabelWithFrame:CGRectMake(0, kScreen_Height - kNavi_StatusBarHeight - Iphone_Bottom_UnsafeDis - 44 - 30, kScreen_Width, 30) title:@"   请选择套餐" fontSize:15 color: [UIColor darkGrayColor]];
-    taocanTipL.backgroundColor = TM_SpecialGlobalColorBg;
-    [self.view addSubview:taocanTipL];
-    self.taocanTipL = taocanTipL;
+    [self.contentScrollView addSubview:_segmentMenuView];
     
-    self.taocanScrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.segmentMenuView.maxY, kScreen_Width, taocanTipL.y - self.segmentMenuView.maxY)];
-    self.taocanScrollerView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:self.taocanScrollerView];
+    
+    
+//    self.taocanScrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.segmentMenuView.maxY, kScreen_Width, taocanTipL.y - self.segmentMenuView.maxY)];
+//    self.taocanScrollerView.showsVerticalScrollIndicator = NO;
+//    [self.view addSubview:self.taocanScrollerView];
 }
 // 刷新套餐选择选择数据
 - (void)refreshTaocanUIData {
@@ -116,7 +127,7 @@
         CGFloat w = (kScreen_Width - 4 * padding) * 0.5;
         CGFloat margin_top = 10;
         CGFloat x = i % 2 == 0 ? padding : 3 * padding + w;
-        CGFloat y = (i / 2 + 1) * margin_top + i / 2 * h;
+        CGFloat y = self.segmentMenuView.maxY + (i / 2 + 1) * margin_top + i / 2 * h;
         UIColor *btnBgColor = TM_ColorRGB(148, 216, 239);
         UIButton *btn = [UIView createButton:CGRectMake(x, y, w, h) title:@"" titleColoe:btnBgColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeTaocanRechargeMoney:) target:self];
         NSString *price = [NSString stringWithFormat:@"售价:￥%0.1f元", [model.package_price doubleValue]];
@@ -149,15 +160,40 @@
         btn.layer.borderWidth = 1;
         btn.layer.borderColor = btnBgColor.CGColor;
         btn.tag = 888 + i;
-        [self.taocanScrollerView addSubview:btn];
+        [self.contentScrollView addSubview:btn];
         
         contentSizeH = btn.maxY;
     }
-    self.taocanScrollerView.contentSize = CGSizeMake(kScreen_Width, contentSizeH);
+    [self.noticeView removeFromSuperview];
+    self.noticeView = [[TM_NoticeView alloc] initWithFrame:CGRectMake(20, contentSizeH + 30, self.contentScrollView.width - 40, 0) content:_noticeContent];
+    [self.contentScrollView addSubview:self.noticeView];
+    contentSizeH = self.noticeView.maxY + 10;
+    self.contentScrollView.contentSize = CGSizeMake(kScreen_Width, contentSizeH);
 }
 #pragma mark - 获取数据
 // 获取用户流量信息
 - (void)reloadData {
+    _noticeContent = @"";
+    [TM_DataCardApiManager sendQueryNoticesWithCardNo:self.model.card_define_no type:@"flow" success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"] && [respondObject[@"data"] isKindOfClass:[NSArray class]]) {
+            NSArray *arr = respondObject[@"data"] ;
+            NSString *content = @"";
+            for (NSDictionary *dic in arr) {
+                content = [[content stringByAppendingString:dic[@"info"]] stringByAppendingString:@"\n"];
+            }
+            _noticeContent = content;
+            
+            
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+            TM_ShowToast(self.view, msg);
+        }
+        [self requestTaocanData:0];
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+        TM_ShowToast(self.view, @"获取数据失败");
+        [self requestTaocanData:0];
+    }];
 }
 // 获取套餐数据
 - (void)requestTaocanData:(NSInteger)type {

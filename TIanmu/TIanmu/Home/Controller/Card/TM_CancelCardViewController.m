@@ -31,7 +31,7 @@
     [label1 sizeToFit];
     [topView addSubview:label1];
     
-    self.phoneNumTF = [UIView createTextFieldWithFrame:CGRectMake(label1.maxX + 8, label1.y, kScreen_Width - label1.maxX - 8 - 10, label1.height)
+    self.phoneNumTF = [UIView createTextFieldWithFrame:CGRectMake(label1.maxX + 8, label1.y - 10, kScreen_Width - label1.maxX - 8 - 10, label1.height + 20)
                                             fontSize:14
                                          placeholder:self.model.card_define_no
                                             isSecure:NO
@@ -43,8 +43,8 @@
     [label2 sizeToFit];
     [topView addSubview:label2];
     
-    self.codeTF = [UIView createTextFieldWithFrame:CGRectMake(label2.maxX + 8, label2.y, kScreen_Width - label2.maxX - 8 - 10, label2.height)
-                                        fontSize:16
+    self.codeTF = [UIView createTextFieldWithFrame:CGRectMake(label2.maxX + 8, label2.y - 10, kScreen_Width - label2.maxX - 8 - 10, label2.height + 20)
+                                        fontSize:15
                                      placeholder:@"请输入真实姓名"
                                         isSecure:NO
                                           delegate:self];

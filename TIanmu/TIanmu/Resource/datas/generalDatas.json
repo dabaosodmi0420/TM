@@ -88,8 +88,8 @@
             "picpath"           : "",
             "funcCode"          : "weChatService",
             "menuname"          : "在线客服",
-            "funcNo"            : "7",
-            "iconImgName"       : "",
+            "funcNo"            : "",
+            "iconImgName"       : "card_kefu",
             
         },
     ],

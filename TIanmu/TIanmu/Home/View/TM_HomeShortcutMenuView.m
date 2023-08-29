@@ -71,6 +71,7 @@
 
 - (void)setDataArray:(NSArray<TM_ShortMenuModel *> *)dataArray {
     _dataArray = dataArray;
+    _nLineNum = ceil(dataArray.count / [@(_nEachLineNum) doubleValue]);
     [self createUI];
 }
 

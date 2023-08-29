@@ -225,7 +225,8 @@
 - (void)updataShortMenus:(NSArray *)curMenuNames {
     
     NSMutableArray *needMenus = [NSMutableArray array];
-    
+    CGFloat height = self.shortcutMenuView.height / 2.0 * ceil( curMenuNames.count / [@(self.shortcutMenuView.nEachLineNum) doubleValue]);
+    self.shortcutMenuView.height = height;
     NSArray *allMenus = [TM_ShortMenuModel mj_objectArrayWithKeyValuesArray:[TM_ConfigTool getDeviceShortMenuListDatas]];
     for (NSString *name in curMenuNames) {
         for (TM_ShortMenuModel *model in allMenus) {
@@ -272,6 +273,16 @@
             TM_ChangeNetViewController *vc = [TM_ChangeNetViewController new];
             vc.cardDetailInfoModel = self.model;
             [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case TM_ShortMenuTypeService: {
+            [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypeWXServiceChat data:@{} completeBlock:^(TM_WeixinToolType type, NSDictionary * _Nonnull param) {
+                            
+            }];
+        }
+            break;
+        case TM_ShortMenuTypeRemoteControl: {
+            
         }
             break;
         default:
