@@ -114,7 +114,7 @@
     CGFloat padding = 20;
     CGFloat h = 20;
     for (NSUInteger i = 0; i < titles.count; i++) {
-        CGFloat w = (topView.width - padding * 2) * 0.5;
+        CGFloat w = (topView.width - padding * 3) * 0.5;
         CGFloat x = i % 2 == 0 ? padding : 2 * padding + w;
         
         // 几排

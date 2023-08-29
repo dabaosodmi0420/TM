@@ -11,12 +11,6 @@
 @implementation TM_ConfigTool
 
 #pragma mark - 获取plist数据
-
-+ (NSArray *)getProductListDatas {
-    
-    return [TM_ConfigTool loadLocalPlistDataWithName:@"productListDatas"][@"datas"];
-}
-
 + (id)loadLocalPlistDataWithName:(NSString *)pathName {
     //获取bundle
     NSBundle *bundle = [NSBundle mainBundle];
@@ -45,6 +39,9 @@
 }
 + (NSArray *)getCardShortMenuListDatas {
     return [TM_ConfigTool getPrepareData:@"generalDatas"][@"shortMenusCard"] ;
+}
++ (NSArray *)getProductListDatas {
+    return [TM_ConfigTool getPrepareData:@"generalDatas"][@"homeProducts"] ;
 }
 + (NSDictionary *)getPrepareData:(NSString *)fileName {
     NSString *jsonPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];

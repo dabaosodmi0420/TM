@@ -8,6 +8,8 @@
 #import "TM_ProductInfoViewController.h"
 
 @interface TM_ProductInfoViewController ()
+/* scrollview */
+@property (strong, nonatomic) UIScrollView *scrollView;
 
 @end
 
@@ -20,18 +22,22 @@
 
 - (void)createView {
     self.title = self.productModel.menuname;
-    self.requestHandle.requestType = WKRequestType_LOCAL;
-    self.requestHandle.localFile = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    [self.requestHandle loadRequestWithWeb:self.webView];
+    [self.view addSubview:self.scrollView];
     
+    UIImage *image = [UIImage imageNamed:self.productModel.detailImg];
+    CGSize size = image.size;
+    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width * size.height / size.width)];
+    imgV.image = image;
+    self.scrollView.contentSize = imgV.frame.size;
+    [self.scrollView addSubview:imgV];
 }
 
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    [super webView:webView didFinishNavigation:navigation];
-    NSString *js = [NSString stringWithFormat:@"setJSforImageType('%@')", self.productModel.menuname];
-    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
-        NSLog(@"%@",error);
-    }];
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavi_StatusBarHeight)];
+        _scrollView.showsVerticalScrollIndicator = NO;
+        
+    }
+    return _scrollView;
 }
-
 @end

@@ -82,6 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* 是否已订购主体套餐：0，否；>0 ,已订购（已订购的话，主体套餐都是显示灰色）；只有卡的涉及，设备不涉及主体套餐 */
 @property (assign, nonatomic) BOOL ifMainTc;
+// 设备传的是 all
 /* 一级套餐 */
 @property (strong, nonatomic) NSArray<TM_DataCardTaoCanInfoModel *> *singleList;
 /* 二级套餐 */
@@ -89,6 +90,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* 三级套餐 */
 @property (strong, nonatomic) NSArray<TM_DataCardTaoCanInfoModel *> *tripleList;
 
+// 流量卡传 单独传的 next  month add
+/* 卡单独返回套餐  */
+@property (strong, nonatomic) NSArray<TM_DataCardTaoCanInfoModel *> *tcList;
 
 @end
 

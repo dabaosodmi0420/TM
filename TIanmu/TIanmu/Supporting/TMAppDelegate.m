@@ -10,6 +10,12 @@
 #import "TM_WeixinTool.h"
 #import "PrivacyAgreementView.h"
 #import "AppOperateGuideView.h"
+#import <Bugly/Bugly.h>
+/**
+ appid：038e7a942a
+ appkey：8f52d1d8-e3d8-4709-b65e-85f823f1e79b
+ https://bugly.qq.com/docs/user-guide/instruction-manual-ios/?v=1.0.0
+ */
 @interface TMAppDelegate ()
 
 @end
@@ -48,6 +54,8 @@
 //    [WXApi checkUniversalLinkReady:^(WXULCheckStep step, WXCheckULStepResult* result) {
 //        NSLog(@"%@, %u, %@, %@", @(step), result.success, result.errorInfo, result.suggestion);
 //    }];
+    
+    [Bugly startWithAppId:@"038e7a942a"];
 }
 - (void)showPrivateProtocal {
     [PrivacyAgreementView showPrivacyAgreementComplete:^{

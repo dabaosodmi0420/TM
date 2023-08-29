@@ -31,7 +31,7 @@
     bgImg.contentMode = UIViewContentModeScaleToFill;
     [self addSubview:bgImg];
     // 顶部logo
-    UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(50, 25, 90, 90)];
+    UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(35, 25, 90, 90)];
     logoImg.image = [UIImage imageNamed:@"logo"];
     logoImg.layer.cornerRadius = logoImg.width * 0.5;
     logoImg.clipsToBounds = YES;
@@ -40,7 +40,7 @@
     [self addSubview:logoImg];
     
     // 设备编号
-    UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, logoImg.y + 10, 0, 25) title:self.model.iccid fontSize:19 color:[UIColor whiteColor]];
+    UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 15, logoImg.y + 10, 0, 25) title:self.model.iccid fontSize:19 color:[UIColor whiteColor]];
     [label1 sizeToFit];
     [self addSubview:label1];
     // 余额

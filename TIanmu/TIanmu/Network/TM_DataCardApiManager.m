@@ -81,7 +81,9 @@
     } failure:failureBlock];
 }
 //MARK: 查询流量使用情况
-+ (void)sendQueryUserFlowWithCardNo:(NSString *)cardNo success:(TMAPISuccessBlock)successBlock failure:(TMAPIFailureBlock)failureBlock {
++ (void)sendQueryUserFlowWithCardNo:(NSString *)cardNo
+                            success:(TMAPISuccessBlock)successBlock
+                            failure:(TMAPIFailureBlock)failureBlock {
     
     NSString *url = @"/getUsedFlow";
     
@@ -311,6 +313,123 @@
     params[@"iccid"]            = iccid;
     params[@"msisdn"]           = msisdn;
     params[@"netType"]          = netType;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+
+//MARK: 查询卡订购套餐类型
+
+/// - Parameters:
+///   - cardNo: 卡号
+///   - type: //month:当月包；next次月包；(不包含累计包的情况);add累计包;cheap特惠包；all-设备用的套餐（除了next，加的都是当月生效的包）
++ (void)sendQueryTaoCanPackageTypeListWithCardNo:(NSString *)cardNo
+                                         success:(TMAPISuccessBlock)successBlock
+                                         failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryPackageType";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+//MARK: 查询卡订购套餐列表
+
+/// - Parameters:
+///   - cardNo: 卡号
+///   - type: //month:当月包；next次月包；(不包含累计包的情况);add累计包;cheap特惠包；all-设备用的套餐（除了next，加的都是当月生效的包）
++ (void)sendQueryTaoCanPackagesListWithCardNo:(NSString *)cardNo
+                                         type:(NSString *)type
+                                      success:(TMAPISuccessBlock)successBlock
+                                      failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryPackages";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"type"]             = type;
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+
+//MARK: 查询实名接口
++ (void)sendSetAuthWithCardNo:(NSString *)cardNo
+                      success:(TMAPISuccessBlock)successBlock
+                      failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/setAuth";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+
+//MARK: 注意事项查询
+
+/// - Parameters:
+///   - cardNo: 卡号
+///   - type: balance充值；flow订购套餐
++ (void)sendQueryNoticesWithCardNo:(NSString *)cardNo
+                              type:(NSString *)type
+                           success:(TMAPISuccessBlock)successBlock
+                           failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryNotices";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"type"]             = type;
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+
+//MARK: 销卡 queryHelp
++ (void)sendCancelCardWithCardNo:(NSString *)cardNo
+                        realName:(NSString *)realName
+                         success:(TMAPISuccessBlock)successBlock
+                         failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/cancelCard";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"realName"]         = realName;
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+
+//MARK: 常见问题
++ (void)sendQueryHelpWithSuccess:(TMAPISuccessBlock)successBlock
+                         failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryHelp";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     
     [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
                                                       parameters:params

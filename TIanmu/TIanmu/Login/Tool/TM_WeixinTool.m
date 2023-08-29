@@ -308,7 +308,7 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
 - (void)tm_weixinServiceChat {
     WXOpenCustomerServiceReq *req = [[WXOpenCustomerServiceReq alloc] init];
     req.corpid = kWeixin_ServiceChatId;     //企业ID
-    req.url = @"";                           //客服URL
+    req.url = @"https://work.weixin.qq.com/kfid/kfc59762e4713f5b58f";//客服URL
     [WXApi sendReq:req completion:^(BOOL success) {
         NSLog(@"%@",success ? @"成功" : @"失败");
     }];

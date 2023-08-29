@@ -105,4 +105,14 @@
     return image;
 }
 
+#pragma mark - getting
+- (UIScrollView *)contentScrollView {
+    if (!_contentScrollView) {
+        _contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavi_StatusBarHeight - kTabBarHeight)];
+        _contentScrollView.delegate = self;
+        _contentScrollView.showsVerticalScrollIndicator = NO;
+    }
+    return _contentScrollView;
+}
+
 @end

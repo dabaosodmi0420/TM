@@ -96,6 +96,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) TM_Device_info *device_info;
 /* app主菜单（1是开启，0是关闭） */
 @property (strong, nonatomic) TM_Mainmenu *mainmenu;
+/* 当月包个数 */
+@property (assign, nonatomic) int monthCt;
+/* 次月包个数 */
+@property (assign, nonatomic) int nextCt;
+/* 累计包个数 */
+@property (assign, nonatomic) int ljCt;
 @end
 
 

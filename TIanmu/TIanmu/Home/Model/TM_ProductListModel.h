@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *picpath;
 /* 名称 */
 @property (strong, nonatomic) NSString *menuname;
+/* icon */
+@property (strong, nonatomic) NSString *iconImg;
+/* 跳转详情图 */
+@property (strong, nonatomic) NSString *detailImg;
 
 @end
 

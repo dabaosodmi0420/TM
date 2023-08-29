@@ -32,6 +32,7 @@
 #import "TM_SettingManager.h"
 
 #import "JTDefinitionTextView.h"
+#import "JTBaseTool.h"
 
 #define TM_ShowToast(v, m) \
 ({ \

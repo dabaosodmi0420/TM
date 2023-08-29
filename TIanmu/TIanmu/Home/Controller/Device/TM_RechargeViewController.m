@@ -435,6 +435,8 @@
                             NSLog(@"%@",error);
                             TM_ShowToast(self.view, @"获取订单失败");
                         }];
+                    }else {
+                        [JTDefinitionTextView jt_showWithTitle:@"注意" Text:@"当前余额不足，请先充值余额或使用微信支付！" type:0 actionTextArr:@[@"确定"] handler:nil];
                     }
                 }else {
                     // 微信支付

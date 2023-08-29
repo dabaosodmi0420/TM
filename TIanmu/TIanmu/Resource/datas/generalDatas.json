@@ -144,7 +144,7 @@
         },
         {
             "picpath"           : "cancelCard",
-            "funcCode"          : "weChatService",
+            "funcCode"          : "cancelCard",
             "menuname"          : "销卡",
             "funcNo"            : "",
             "iconImgName"       : "card_xiaoka",
@@ -152,11 +152,43 @@
         },
         {
             "picpath"           : "question",
-            "funcCode"          : "weChatService",
+            "funcCode"          : "question",
             "menuname"          : "常见问题",
             "funcNo"            : "",
             "iconImgName"       : "card_wenti",
             
+        },
+    ],
+    "homeProducts" : [
+        {
+            "menuname"  : "MF932",
+            "iconImg"   : "icon_mf932",
+            "detailImg" : "detail_932",
+        },
+        {
+            "menuname"  : "MF935",
+            "iconImg"   : "icon_mf935",
+            "detailImg" : "detail_935",
+        },
+        {
+            "menuname"  : "F30",
+            "iconImg"   : "icon_f30",
+            "detailImg" : "detail_f30",
+        },
+        {
+            "menuname"  : "F31",
+            "iconImg"   : "icon_f31",
+            "detailImg" : "detail_f31",
+        },
+        {
+            "menuname"  : "MU5001",
+            "iconImg"   : "icon_5001",
+            "detailImg" : "detail_5001",
+        },
+        {
+            "menuname"  : "U50Pro",
+            "iconImg"   : "icon_u50",
+            "detailImg" : "detail_u50",
         },
     ]
 }

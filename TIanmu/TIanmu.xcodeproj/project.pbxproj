@@ -65,6 +65,17 @@
 		15A427BA2A4D58AF0018A96F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A427B92A4D58AF0018A96F /* Foundation.framework */; };
 		15A427BD2A4D5F5C0018A96F /* TM_SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A427BC2A4D5F5C0018A96F /* TM_SettingViewController.m */; };
 		15A427C12A4D73D20018A96F /* personalDatas.json in Resources */ = {isa = PBXBuildFile; fileRef = 15A427C02A4D73A40018A96F /* personalDatas.json */; };
+		15AEC4B22A9D79AA0028A3F5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AEC4B12A9D79AA0028A3F5 /* SystemConfiguration.framework */; };
+		15AEC4B42A9D79B10028A3F5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AEC4B32A9D79B10028A3F5 /* Security.framework */; };
+		15AEC4B62A9D79B90028A3F5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AEC4B52A9D79B90028A3F5 /* libz.tbd */; };
+		15AEC4B82A9D79C40028A3F5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AEC4B72A9D79C40028A3F5 /* libc++.tbd */; };
+		15AEC4CA2A9D913B0028A3F5 /* TM_CardBalanceRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEC4C92A9D913B0028A3F5 /* TM_CardBalanceRechargeViewController.m */; };
+		15AEC4CD2A9D91510028A3F5 /* TM_CardFlowRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEC4CC2A9D91510028A3F5 /* TM_CardFlowRechargeViewController.m */; };
+		15AEC4D02A9D916B0028A3F5 /* TM_TaocanUsedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEC4CF2A9D916B0028A3F5 /* TM_TaocanUsedViewController.m */; };
+		15AEC4D32A9D91810028A3F5 /* TM_QuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEC4D22A9D91810028A3F5 /* TM_QuestionViewController.m */; };
+		15AEC4D92A9DBA2C0028A3F5 /* JTBaseTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEC4D72A9DBA2B0028A3F5 /* JTBaseTool.m */; };
+		15AEC4DC2A9DBB7F0028A3F5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEC4DB2A9DBB7F0028A3F5 /* Reachability.m */; };
+		15AEC4E02A9DD7DF0028A3F5 /* TM_CancelCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEC4DF2A9DD7DF0028A3F5 /* TM_CancelCardViewController.m */; };
 		15AEDDF82A73BC2000B66557 /* AppOperateGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEDDF72A73BC2000B66557 /* AppOperateGuideView.m */; };
 		15AEDDFB2A73BCD100B66557 /* YT_PageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEDDF92A73BCD100B66557 /* YT_PageControl.m */; };
 		15AEDDFF2A73BE7000B66557 /* operateGuide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AEDDFC2A73BE6F00B66557 /* operateGuide1.png */; };
@@ -215,6 +226,24 @@
 		15A427BB2A4D5F5C0018A96F /* TM_SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_SettingViewController.h; sourceTree = "<group>"; };
 		15A427BC2A4D5F5C0018A96F /* TM_SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_SettingViewController.m; sourceTree = "<group>"; };
 		15A427C02A4D73A40018A96F /* personalDatas.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = personalDatas.json; sourceTree = "<group>"; };
+		15AEC4B12A9D79AA0028A3F5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		15AEC4B32A9D79B10028A3F5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		15AEC4B52A9D79B90028A3F5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		15AEC4B72A9D79C40028A3F5 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		15AEC4C82A9D913B0028A3F5 /* TM_CardBalanceRechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_CardBalanceRechargeViewController.h; sourceTree = "<group>"; };
+		15AEC4C92A9D913B0028A3F5 /* TM_CardBalanceRechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_CardBalanceRechargeViewController.m; sourceTree = "<group>"; };
+		15AEC4CB2A9D91510028A3F5 /* TM_CardFlowRechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_CardFlowRechargeViewController.h; sourceTree = "<group>"; };
+		15AEC4CC2A9D91510028A3F5 /* TM_CardFlowRechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_CardFlowRechargeViewController.m; sourceTree = "<group>"; };
+		15AEC4CE2A9D916B0028A3F5 /* TM_TaocanUsedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_TaocanUsedViewController.h; sourceTree = "<group>"; };
+		15AEC4CF2A9D916B0028A3F5 /* TM_TaocanUsedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_TaocanUsedViewController.m; sourceTree = "<group>"; };
+		15AEC4D12A9D91810028A3F5 /* TM_QuestionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_QuestionViewController.h; sourceTree = "<group>"; };
+		15AEC4D22A9D91810028A3F5 /* TM_QuestionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_QuestionViewController.m; sourceTree = "<group>"; };
+		15AEC4D72A9DBA2B0028A3F5 /* JTBaseTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTBaseTool.m; sourceTree = "<group>"; };
+		15AEC4D82A9DBA2C0028A3F5 /* JTBaseTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTBaseTool.h; sourceTree = "<group>"; };
+		15AEC4DA2A9DBB7F0028A3F5 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		15AEC4DB2A9DBB7F0028A3F5 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		15AEC4DE2A9DD7DF0028A3F5 /* TM_CancelCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_CancelCardViewController.h; sourceTree = "<group>"; };
+		15AEC4DF2A9DD7DF0028A3F5 /* TM_CancelCardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_CancelCardViewController.m; sourceTree = "<group>"; };
 		15AEDDF62A73BC2000B66557 /* AppOperateGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppOperateGuideView.h; sourceTree = "<group>"; };
 		15AEDDF72A73BC2000B66557 /* AppOperateGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppOperateGuideView.m; sourceTree = "<group>"; };
 		15AEDDF92A73BCD100B66557 /* YT_PageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YT_PageControl.m; sourceTree = "<group>"; };
@@ -300,6 +329,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15AEC4B82A9D79C40028A3F5 /* libc++.tbd in Frameworks */,
+				15AEC4B62A9D79B90028A3F5 /* libz.tbd in Frameworks */,
+				15AEC4B42A9D79B10028A3F5 /* Security.framework in Frameworks */,
+				15AEC4B22A9D79AA0028A3F5 /* SystemConfiguration.framework in Frameworks */,
 				15A427BA2A4D58AF0018A96F /* Foundation.framework in Frameworks */,
 				95823E6D29F61185C4D705EE /* libPods-TIanmu.a in Frameworks */,
 			);
@@ -381,6 +414,16 @@
 			children = (
 				15F172482A5CFFED00D6A1AA /* TM_CardDetailViewController.h */,
 				15F172492A5CFFED00D6A1AA /* TM_CardDetailViewController.m */,
+				15AEC4C82A9D913B0028A3F5 /* TM_CardBalanceRechargeViewController.h */,
+				15AEC4C92A9D913B0028A3F5 /* TM_CardBalanceRechargeViewController.m */,
+				15AEC4CB2A9D91510028A3F5 /* TM_CardFlowRechargeViewController.h */,
+				15AEC4CC2A9D91510028A3F5 /* TM_CardFlowRechargeViewController.m */,
+				15AEC4CE2A9D916B0028A3F5 /* TM_TaocanUsedViewController.h */,
+				15AEC4CF2A9D916B0028A3F5 /* TM_TaocanUsedViewController.m */,
+				15AEC4D12A9D91810028A3F5 /* TM_QuestionViewController.h */,
+				15AEC4D22A9D91810028A3F5 /* TM_QuestionViewController.m */,
+				15AEC4DE2A9DD7DF0028A3F5 /* TM_CancelCardViewController.h */,
+				15AEC4DF2A9DD7DF0028A3F5 /* TM_CancelCardViewController.m */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -531,6 +574,15 @@
 			path = sm4;
 			sourceTree = "<group>";
 		};
+		15AEC4DD2A9DBB8F0028A3F5 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				15AEC4DA2A9DBB7F0028A3F5 /* Reachability.h */,
+				15AEC4DB2A9DBB7F0028A3F5 /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
 		15AEE7802A8B493300BEA4CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +634,7 @@
 		15BB8EDC2A370AB000A66E51 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				15AEC4DD2A9DBB8F0028A3F5 /* Reachability */,
 				15AEE7802A8B493300BEA4CF /* Frameworks */,
 				15A427A32A4D2AB90018A96F /* sm4 */,
 			);
@@ -701,6 +754,8 @@
 		15BB8F152A38383900A66E51 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				15AEC4D82A9DBA2C0028A3F5 /* JTBaseTool.h */,
+				15AEC4D72A9DBA2B0028A3F5 /* JTBaseTool.m */,
 				1586F3B62A384CA100B526BC /* Macro */,
 				15BB8F192A38491300A66E51 /* UIView+TM_Frame.h */,
 				15BB8F1A2A38491300A66E51 /* UIView+TM_Frame.m */,
@@ -756,6 +811,10 @@
 		6C723870405F1668F5F69CE5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15AEC4B72A9D79C40028A3F5 /* libc++.tbd */,
+				15AEC4B52A9D79B90028A3F5 /* libz.tbd */,
+				15AEC4B32A9D79B10028A3F5 /* Security.framework */,
+				15AEC4B12A9D79AA0028A3F5 /* SystemConfiguration.framework */,
 				15A427B92A4D58AF0018A96F /* Foundation.framework */,
 				D17A36117D471399C28E1EAA /* libPods-TIanmu.a */,
 			);
@@ -900,6 +959,7 @@
 			files = (
 				155D38AB2A55639C00310AE2 /* JTDefinitionTextView.m in Sources */,
 				159E476A2A4BCE0E00810719 /* TM_StorageData.m in Sources */,
+				15AEC4D02A9D916B0028A3F5 /* TM_TaocanUsedViewController.m in Sources */,
 				15CE23382A4954A400DD595E /* UIView+TM_View.m in Sources */,
 				155D38A12A55569A00310AE2 /* TM_WKRequestHandle.m in Sources */,
 				15BB8EC52A36A42800A66E51 /* TMAppDelegate.m in Sources */,
@@ -925,6 +985,7 @@
 				1586F3BD2A384E3500B526BC /* UIImage+TM_Category.m in Sources */,
 				15A427A22A4D27A90018A96F /* TM_DeviceDetailViewController.m in Sources */,
 				157805912A7B720100CCAC32 /* TM_MainViewController.m in Sources */,
+				15AEC4D32A9D91810028A3F5 /* TM_QuestionViewController.m in Sources */,
 				1586F3F42A395C0000B526BC /* TM_imgLabelButton.m in Sources */,
 				15A427AF2A4D2EEB0018A96F /* TM_SettingManager.m in Sources */,
 				155D38B12A56B87B00310AE2 /* JT_TopSegmentMenuView.m in Sources */,
@@ -933,7 +994,9 @@
 				15A427B52A4D4FA90018A96F /* TM_KeyChainDataDIc.m in Sources */,
 				15C9B7A72A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.m in Sources */,
 				1578059C2A7B8E0400CCAC32 /* PrivacyAgreementView.m in Sources */,
+				15AEC4D92A9DBA2C0028A3F5 /* JTBaseTool.m in Sources */,
 				15C9B7AD2A5E9DB4003A8EE7 /* TM_ChangeNetViewController.m in Sources */,
+				15AEC4E02A9DD7DF0028A3F5 /* TM_CancelCardViewController.m in Sources */,
 				159E47702A4C280400810719 /* TM_DataCardInfoModel.m in Sources */,
 				155D38A72A555F9800310AE2 /* TM_ProtocolViewController.m in Sources */,
 				15F172472A5CE8BB00D6A1AA /* TM_NoFuncView.m in Sources */,
@@ -941,6 +1004,7 @@
 				150751302A3C5AC70019F81A /* TM_OrderFormView.m in Sources */,
 				1586F3C12A3851A900B526BC /* TM_NetworkTool.m in Sources */,
 				154FF7712A42C49F00FAEE73 /* TM_LoginApiManger.m in Sources */,
+				15AEC4CD2A9D91510028A3F5 /* TM_CardFlowRechargeViewController.m in Sources */,
 				15BB8F142A38350F00A66E51 /* TM_PersonPageViewController.m in Sources */,
 				15A427AC2A4D2BBF0018A96F /* TM_UserInfo.m in Sources */,
 				15A427A92A4D2B4C0018A96F /* NSString+TM_Encrypt.m in Sources */,
@@ -951,6 +1015,8 @@
 				1586F3CB2A386C4800B526BC /* UIImageView+TM_Category.m in Sources */,
 				15FE258C2A85FDDF00A558E6 /* BasePickerView.m in Sources */,
 				150751232A3C2D1D0019F81A /* TM_ShortMenuModel.m in Sources */,
+				15AEC4DC2A9DBB7F0028A3F5 /* Reachability.m in Sources */,
+				15AEC4CA2A9D913B0028A3F5 /* TM_CardBalanceRechargeViewController.m in Sources */,
 				151A284A2A4977E8004B33E3 /* TM_ForgetPassswordViewController.m in Sources */,
 				1586F3F72A39615C00B526BC /* TM_ScrollView.m in Sources */,
 				15BB8F1B2A38491300A66E51 /* UIView+TM_Frame.m in Sources */,

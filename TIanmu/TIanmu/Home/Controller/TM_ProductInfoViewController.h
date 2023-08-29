@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TM_ProductInfoViewController : TM_WKBaseWebViewController
+@interface TM_ProductInfoViewController : TM_BaseViewController
 
 /* 数据源 */
 @property (strong, nonatomic) TM_ProductListModel *productModel;

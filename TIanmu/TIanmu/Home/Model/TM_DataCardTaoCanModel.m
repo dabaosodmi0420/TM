@@ -28,7 +28,8 @@ MJExtensionCodingImplementation
     return @{
         @"singleList" : [TM_DataCardTaoCanInfoModel class],
         @"doubleList" : [TM_DataCardTaoCanInfoModel class],
-        @"tripleList" : [TM_DataCardTaoCanInfoModel class]
+        @"tripleList" : [TM_DataCardTaoCanInfoModel class],
+        @"tcList"     : [TM_DataCardTaoCanInfoModel class]
     };
 }
 

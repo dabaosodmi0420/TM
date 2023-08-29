@@ -69,10 +69,10 @@
 
 #pragma mark - 数据
 - (void)loadDatas {
-    NSArray *cycleImages = @[@"http://jdwlwm2m.com/excel/appImg/banner1.png",
-                             @"http://jdwlwm2m.com/excel/appImg/banner2.png",
-                             @"http://jdwlwm2m.com/excel/appImg/banner3.png"];
-    self.cycleScrollView.imageURLStringsGroup = cycleImages;
+    NSArray *cycleImages = @[@"banner1",
+                             @"banner2",
+                             @"banner3"];
+    self.cycleScrollView.localizationImageNamesGroup = cycleImages;
     
     self.shortMenuDatas = (NSMutableArray *)[[TM_ShortMenuModel mj_objectArrayWithKeyValuesArray:[TM_ConfigTool getDeviceShortMenuListDatas]] subarrayWithRange:NSMakeRange(0, 8)];
     self.shortcutMenuView.dataArray = self.shortMenuDatas;

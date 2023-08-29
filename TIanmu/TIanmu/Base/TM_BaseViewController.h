@@ -9,7 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TM_BaseViewController : UIViewController
+@interface TM_BaseViewController : UIViewController <UIScrollViewDelegate>
+
+/* uiscrollView */
+@property (strong, nonatomic) UIScrollView *contentScrollView;
+
+
 - (void)createNav;
 - (void)createView;
 - (void)reloadData;

@@ -40,7 +40,8 @@
 
 - (void)setModel:(TM_ProductListModel *)model{
     _model = model;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:_model.picpath] placeholderImage:[UIImage imageNamed:@"logo_placehold"]];
+//    [self.imageView sd_setImageWithURL:[NSURL URLWithString:_model.picpath] placeholderImage:[UIImage imageNamed:@"logo_placehold"]];
+    self.imageView.image = [UIImage imageNamed:model.iconImg];
     self.titleLabel.text = _model.menuname;
 }
 @end

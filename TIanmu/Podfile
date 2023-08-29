@@ -19,4 +19,5 @@ target 'TIanmu' do
   pod 'YYWebImage'            , '1.0.4'
   pod 'SDCycleScrollView'     , '1.82'
   pod 'WechatOpenSDK'         , '2.0.2'
+  pod 'Bugly'                 , '2.5.93'
 end
