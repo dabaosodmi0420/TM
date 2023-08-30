@@ -60,12 +60,13 @@
 - (void)createView {
     [super createView];
     self.title = @"设备";
+    [self.view addSubview:self.contentScrollView];
     [self createDeviceInfoUI];
 }
 - (void)createDeviceInfoUI {
     /** 顶部View */
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 320)];
-    [self.view addSubview:topView];
+    [self.contentScrollView addSubview:topView];
     [UIView setVerGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(59, 85, 183)]];
     self.topView = topView;
     // 更换设备按钮
@@ -89,7 +90,7 @@
     CGFloat margin = 40;
     CGFloat width = (kScreen_Width - 3 * margin) / 2.0;
     UILabel *signalView = [[UILabel alloc] initWithFrame:CGRectMake(margin, code.maxY + 10, width, 35)];
-    signalView.font = [UIFont systemFontOfSize:18];
+    signalView.font = [UIFont systemFontOfSize:17];
     signalView.textColor = TM_ColorRGB(102, 113, 159);
     signalView.backgroundColor = [UIColor whiteColor];
     signalView.textAlignment = NSTextAlignmentCenter;
@@ -99,7 +100,7 @@
     self.signalView = signalView;
     // 余额
     UILabel *balanceView = [[UILabel alloc] initWithFrame:CGRectMake(margin + signalView.maxX, code.maxY + 10, width, 35)];
-    balanceView.font = [UIFont systemFontOfSize:18];
+    balanceView.font = [UIFont systemFontOfSize:17];
     balanceView.textColor = TM_ColorRGB(102, 113, 159);
     balanceView.backgroundColor = [UIColor whiteColor];
     balanceView.textAlignment = NSTextAlignmentCenter;
@@ -124,7 +125,7 @@
             y += (h + 10 + 10);
         }
         
-        UILabel *label = [UIView createLabelWithFrame:CGRectMake(x, y, 0, h) title:titles[i] fontSize:18 color:[UIColor whiteColor]];
+        UILabel *label = [UIView createLabelWithFrame:CGRectMake(x, y, 0, h) title:titles[i] fontSize:16 color:[UIColor whiteColor]];
         label.textAlignment = NSTextAlignmentLeft;
         [label sizeToFit];
         [topView addSubview:label];
@@ -146,7 +147,7 @@
     [wifiContentView setCornerRadius:10];
     wifiContentView.hidden = YES;
     wifiContentView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:wifiContentView];
+    [self.contentScrollView addSubview:wifiContentView];
     self.wifiContentView = wifiContentView;
     // 图标
     UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, wifiContentView.height - 40, wifiContentView.height - 40)];
@@ -155,21 +156,21 @@
     logoImg.contentMode = UIViewContentModeScaleToFill;
     [wifiContentView addSubview:logoImg];
     // 内容
-    UILabel *wifiTitleL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 35, logoImg.y, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"WIFI管理" fontSize:20 color:TM_ColorRGB(93, 93, 93)];
+    UILabel *wifiTitleL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, logoImg.y, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"WIFI管理" fontSize:18 color:TM_ColorRGB(93, 93, 93)];
     wifiTitleL.textAlignment = NSTextAlignmentCenter;
     [wifiContentView addSubview:wifiTitleL];
-    UILabel *wifiNameL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 35, wifiTitleL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"WIFI管理" fontSize:19 color:TM_ColorRGB(115, 115, 115)];
+    UILabel *wifiNameL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiTitleL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"" fontSize:17 color:TM_ColorRGB(115, 115, 115)];
     wifiNameL.textAlignment = NSTextAlignmentLeft;
     [wifiContentView addSubview:wifiNameL];
-    UILabel *wifiPWL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 35, wifiNameL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"WIFI管理" fontSize:19 color:TM_ColorRGB(115, 115, 115)];
+    UILabel *wifiPWL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiNameL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"" fontSize:17 color:TM_ColorRGB(115, 115, 115)];
     wifiPWL.textAlignment = NSTextAlignmentLeft;
     [wifiContentView addSubview:wifiPWL];
-    UILabel *wifiNumL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 35, wifiPWL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"WIFI管理" fontSize:19 color:TM_ColorRGB(115, 115, 115)];
+    UILabel *wifiNumL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiPWL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"" fontSize:17 color:TM_ColorRGB(115, 115, 115)];
     wifiNumL.textAlignment = NSTextAlignmentLeft;
     [wifiContentView addSubview:wifiNumL];
     _wifiInfoLabels = @[wifiNameL, wifiPWL, wifiNumL];
     /** 下面菜单 */
-    [self.view addSubview:self.shortcutMenuView];
+    [self.contentScrollView addSubview:self.shortcutMenuView];
 }
 #pragma mark - 获取数据
 - (void)loadDatas {
@@ -204,11 +205,11 @@
 }
 - (void)refreshContentView {
     
-    if ([self.deviceIndexInfoModel.wifiInfo.state isEqualToString:@"success"]) {
+    if (![self.deviceIndexInfoModel.wifiInfo.state isEqualToString:@"success"]) {
         self.wifiContentView.hidden = NO;
         self.shortcutMenuView.y = self.wifiContentView.maxY + 10;
-        _wifiInfoLabels[0].text = [NSString stringWithFormat:@"WIFI名称:%@", self.deviceIndexInfoModel.wifiInfo.ssid];
-        _wifiInfoLabels[1].text = [NSString stringWithFormat:@"WIFI密码:%@", self.deviceIndexInfoModel.wifiInfo.key];
+        _wifiInfoLabels[0].text = [NSString stringWithFormat:@"WIFI名称:%@", self.deviceIndexInfoModel.wifiInfo.ssid ?: @"--"];
+        _wifiInfoLabels[1].text = [NSString stringWithFormat:@"WIFI密码:%@", self.deviceIndexInfoModel.wifiInfo.key ?: @"--"];
         _wifiInfoLabels[2].text = [NSString stringWithFormat:@"WIFI连接:%d人", self.deviceIndexInfoModel.wifiInfo.conn_cnt];
 
     }else {
@@ -221,6 +222,8 @@
         NSArray *menuNames = [[self.deviceIndexInfoModel.cardTypeInfo.webConn substringToIndex:self.deviceIndexInfoModel.cardTypeInfo.webConn.length -1] componentsSeparatedByString:@";"];
         [self updataShortMenus:menuNames];
     }
+    
+    self.contentScrollView.contentSize = CGSizeMake(kScreen_Width, self.shortcutMenuView.maxY + 20);
 }
 - (void)updataShortMenus:(NSArray *)curMenuNames {
     
@@ -272,6 +275,7 @@
         case TM_ShortMenuTypeNetChange: {
             TM_ChangeNetViewController *vc = [TM_ChangeNetViewController new];
             vc.cardDetailInfoModel = self.model;
+            vc.deviceIndexInfoModel = self.deviceIndexInfoModel;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
@@ -292,7 +296,7 @@
 #pragma mark - 懒加载
 - (TM_HomeShortcutMenuView *)shortcutMenuView{
     if(!_shortcutMenuView) {
-        _shortcutMenuView = [[TM_HomeShortcutMenuView alloc] initWithFrame:CGRectMake(10, 0, kScreen_Width - 20, kScreen_Width / 862 * 333)];
+        _shortcutMenuView = [[TM_HomeShortcutMenuView alloc] initWithFrame:CGRectMake(10, 0, kScreen_Width - 20, 200)];
         _shortcutMenuView.hidden = YES;
         _shortcutMenuView.delegate = self;
         _shortcutMenuView.backgroundColor = [UIColor whiteColor];

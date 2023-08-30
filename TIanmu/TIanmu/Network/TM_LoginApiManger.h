@@ -56,6 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sendQueryBindWXLoginWithwxData:(NSDictionary *)wxData
                                success:(TMAPISuccessBlock)successBlock
                                failure:(TMAPIFailureBlock)failureBlock;
+
+//MARK: 查询切换网络列表
++ (void)sendQueryAppVersionWithSuccess:(TMAPISuccessBlock)successBlock
+                               failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

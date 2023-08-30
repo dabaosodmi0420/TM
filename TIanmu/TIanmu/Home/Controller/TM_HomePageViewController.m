@@ -25,7 +25,7 @@
 #import "TM_DataCardApiManager.h"
 #import "TM_CardDetailViewController.h"
 #import "TM_NewHandGuideViewController.h"
-
+#import "TM_LoginApiManger.h"
 #define KProductListCellId  @"KProductListCellId"
 #define KBannerCellId       @"KBannerCellId"
 #define KShortMenuCellId    @"KShortMenuCellId"
@@ -125,6 +125,10 @@
     [self.collectionView.mj_header endRefreshing];
     [self.collectionView.mj_footer endRefreshing];
 }
+- (void)updateApp:(NSString *)url {
+    NSLog(@"%@",@"更新");
+    [JTBaseTool jt_openUrl:@"itms-apps://itunes.apple.com/cn/app/jie-zou-da-shi/id493901993?mt=8"];
+}
 #pragma mark - tm_NavTitleViewDelegate --- 导航栏按钮点击代理
 - (void)clickHomeNavTitleViewBtnsWithSigns:(NSString *)signs {
     if ([signs isEqualToString:@"1"]) { //1-搜索按钮点击
@@ -188,7 +192,26 @@
         }
             break;
         case TM_ShortMenuTypeUpdate: {
-            
+            [TM_LoginApiManger sendQueryAppVersionWithSuccess:^(id  _Nullable respondObject) {
+                if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                    if ([[NSString stringWithFormat:@"%@", respondObject[@"data"][@"force_update"]] isEqualToString:@"1"]) {
+                        [JTDefinitionTextView jt_showWithTitle:@"更新" Text:@"请更新到最新版本" type:0 actionTextArr:@[@"更新"] handler:^(NSInteger index) {
+                            [self updateApp:respondObject[@"data"][@"url"]];
+                        }];
+                    }else if (![[[UIDevice currentDevice] systemVersion] isEqualToString:respondObject[@"data"][@"apk_version"]]) {
+                        [JTDefinitionTextView jt_showWithTitle:@"更新" Text:@"是否更新到最新版本" type:0 actionTextArr:@[@"取消", @"更新"] handler:^(NSInteger index) {
+                            if (index == 1) {
+                                [self updateApp:respondObject[@"data"][@"url"]];
+                            }
+                        }];
+                    }
+                }else {
+                    NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                    TM_ShowToast(self.view, msg);
+                }
+            } failure:^(NSError * _Nullable error) {
+                TM_ShowToast(self.view, @"查询失败");
+            }];
         }
             break;
         default:
@@ -313,7 +336,7 @@
 }
 - (TM_HomeShortcutMenuView *)shortcutMenuView{
     if(!_shortcutMenuView) {
-        _shortcutMenuView = [[TM_HomeShortcutMenuView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width / 862 * 333)];
+        _shortcutMenuView = [[TM_HomeShortcutMenuView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 200)];
         _shortcutMenuView.delegate = self;
         _shortcutMenuView.backgroundColor = TM_SpecialGlobalColorBg;
     }

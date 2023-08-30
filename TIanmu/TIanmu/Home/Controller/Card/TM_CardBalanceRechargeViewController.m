@@ -170,7 +170,8 @@
 #pragma mark - Activity
 // 余额充值选择
 - (void)changeBalanceRechargeMoney:(UIButton *)btn {
-    
+    self.customMoneyTF.text = @"";
+    [self.customMoneyTF resignFirstResponder];
     if (_selectedBtn != btn) {
         _selectedBtn.selected = NO;
         _selectedBtn = btn;

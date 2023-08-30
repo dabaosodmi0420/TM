@@ -141,6 +141,34 @@ NS_ASSUME_NONNULL_BEGIN
 //MARK: 常见问题
 + (void)sendQueryHelpWithSuccess:(TMAPISuccessBlock)successBlock
                          failure:(TMAPIFailureBlock)failureBlock;
+
+//MARK: 切换网络
+//1：移动，2：联通，3：电信
++ (void)sendChangeNetWithCardNo:(NSString *)cardNo
+                        network:(NSString *)network
+                        success:(TMAPISuccessBlock)successBlock
+                        failure:(TMAPIFailureBlock)failureBlock;
+//MARK: 远程控制
+//1：移动，2：联通，3：电信
++ (void)sendSaveControlWithCardNo:(NSString *)cardNo
+                          network:(NSString *)network
+                          success:(TMAPISuccessBlock)successBlock
+                          failure:(TMAPIFailureBlock)failureBlock;
+//MARK: 查询切换网络列表
++ (void)sendQueryDeviceNetWithCardNo:(NSString *)cardNo
+                             success:(TMAPISuccessBlock)successBlock
+                             failure:(TMAPIFailureBlock)failureBlock;
+
+//MARK: 修改wifi密码
++ (void)sendSaveWifiPasswordlWithCardNo:(NSString *)cardNo
+                               wifiName:(NSString *)wifiName
+                                 wifiPW:(NSString *)wifiPW
+                                success:(TMAPISuccessBlock)successBlock
+                                failure:(TMAPIFailureBlock)failureBlock;
+//MARK: 查询设备实名链接
++ (void)sendQueryDeviceAuthUrlWithCardNo:(NSString *)cardNo
+                                 success:(TMAPISuccessBlock)successBlock
+                                 failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

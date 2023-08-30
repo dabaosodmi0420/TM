@@ -20,6 +20,8 @@
 @property (copy, nonatomic) NSString *ssid;
 /* key */
 @property (copy, nonatomic) NSString *key;
+/* 设备当前在用内贴卡网络类型：cmcc移动，cucc联通，ctcc电信 */
+@property (copy, nonatomic) NSString *opname;
 @end
 
 @interface TM_DeviceIndexInfo_flow : NSObject

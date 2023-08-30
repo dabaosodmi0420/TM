@@ -437,4 +437,95 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
+
+//MARK: 切换网络
+//1：移动，2：联通，3：电信
++ (void)sendChangeNetWithCardNo:(NSString *)cardNo
+                        network:(NSString *)network
+                        success:(TMAPISuccessBlock)successBlock
+                        failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/updateDeviceNet";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"operator"]         = network;
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+//MARK: 远程控制
+//1：移动，2：联通，3：电信
++ (void)sendSaveControlWithCardNo:(NSString *)cardNo
+                        network:(NSString *)network
+                        success:(TMAPISuccessBlock)successBlock
+                        failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/saveDeviceControll";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"operator"]         = network;
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+//MARK: 查询切换网络列表
++ (void)sendQueryDeviceNetWithCardNo:(NSString *)cardNo
+                             success:(TMAPISuccessBlock)successBlock
+                             failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryDeviceNet";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+//MARK: 修改wifi密码
++ (void)sendSaveWifiPasswordlWithCardNo:(NSString *)cardNo
+                               wifiName:(NSString *)wifiName
+                                 wifiPW:(NSString *)wifiPW
+                                success:(TMAPISuccessBlock)successBlock
+                                failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/saveDeviceWifi";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = cardNo;
+    params[@"wifiPwd"]          = wifiPW;
+    params[@"wifiName"]         = wifiName;
+
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
+//MARK: 查询设备实名链接
++ (void)sendQueryDeviceAuthUrlWithCardNo:(NSString *)cardNo
+                                 success:(TMAPISuccessBlock)successBlock
+                                 failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryDeviceAuthUrl";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 @end

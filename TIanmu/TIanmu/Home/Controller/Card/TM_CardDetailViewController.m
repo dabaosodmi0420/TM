@@ -158,11 +158,9 @@
 #pragma mark - 懒加载
 - (TM_HomeShortcutMenuView *)shortcutMenuView{
     if(!_shortcutMenuView) {
-        _shortcutMenuView = [[TM_HomeShortcutMenuView alloc] initWithFrame:CGRectMake(10, 0, kScreen_Width - 20, kScreen_Width / 862 * 500)];
+        _shortcutMenuView = [[TM_HomeShortcutMenuView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width - 0, 300)];
         _shortcutMenuView.delegate = self;
         _shortcutMenuView.backgroundColor = [UIColor whiteColor];
-        _shortcutMenuView.layer.cornerRadius = 10;
-        _shortcutMenuView.clipsToBounds = YES;
     }
     return _shortcutMenuView;
 }

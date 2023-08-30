@@ -6,8 +6,10 @@
 //
 
 #import "TM_ChangeNetViewController.h"
-
+#import "TM_DataCardApiManager.h"
 @interface TM_ChangeNetViewController ()
+/* <#descript#> */
+@property (strong, nonatomic) UISwitch *curSwitch;
 
 @end
 
@@ -37,9 +39,17 @@
     [topView addSubview:label2];
     
     
-    // 运营商实名部分
+    // 运营商实名部分 电信  联通  移动
     NSArray *icons = @[@"china_telecom", @"china_unicom", @"china_mobile"];
-    
+    //设备当前在用内贴卡网络类型 wifi opname ：cmcc移动，cucc联通，ctcc电信
+    NSInteger indexSelected = -1;
+    if ([self.deviceIndexInfoModel.wifiInfo.opname isEqualToString:@"ctcc"]) {
+        indexSelected = 0;
+    }else if ([self.deviceIndexInfoModel.wifiInfo.opname isEqualToString:@"cucc"]) {
+        indexSelected = 1;
+    }else if ([self.deviceIndexInfoModel.wifiInfo.opname isEqualToString:@"cmcc"]) {
+        indexSelected = 2;
+    }
     for (int i = 0; i < icons.count; i++) {
         UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(30, topView.maxY + 30 + (100 + 25) * i, kScreen_Width - 60, 100)];
         contentView.backgroundColor = TM_ColorHex(@"#DDDDDD");
@@ -65,7 +75,15 @@
         [sw addTarget:self action:@selector(changeNetwork:) forControlEvents:UIControlEventValueChanged];
         sw.tag = 110 + i;
         [contentView1 addSubview:sw];
+        
+        if (indexSelected == i) {
+            self.curSwitch = sw;
+            self.curSwitch.selected = YES;
+        }
     }
+    
+    
+    
 }
 - (void)refreshUI {
     
@@ -76,19 +94,32 @@
 }
 
 - (void)changeNetwork:(UISwitch *)sw {
+    if (self.curSwitch == sw) return;
+    
     NSInteger tag = sw.tag - 110;
-    NSString *isp = @"";
     NSString *netType = @"";
-    // 网络类型，yd，lt，dx
+    //1：移动，2：联通，3：电信
     if (tag == 0) { // 电信
-        isp = @"telecom";
-        netType = @"dx";
+        netType = @"3";
     }else if (tag == 1) { // 联通
-        isp = @"cmcc";
-        netType = @"lt";
+        netType = @"2";
     }else if (tag == 2) { // 移动
-        isp = @"unicom";
-        netType = @"yd";
+        netType = @"1";
     }
+    
+    [TM_DataCardApiManager sendChangeNetWithCardNo:self.cardDetailInfoModel.card_define_no network:netType success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+            self.curSwitch.on = NO;
+            self.curSwitch = sw;
+            self.curSwitch.on = YES;
+        }else {
+            sw.on = NO;
+        }
+        NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+        TM_ShowToast(self.view, msg);
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+        TM_ShowToast(self.view, @"获取数据失败");
+    }];
 }
 @end

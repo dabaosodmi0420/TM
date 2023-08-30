@@ -102,8 +102,8 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 40)];
     view.backgroundColor = TM_ColorHex(@"ddddddd");
     
-    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 30, 30)];
-    imageV.image = [UIImage imageNamed:model.isExpand ? @"" : @""];
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:CGRectMake(6, 8, 25, 25)];
+    imageV.image = [UIImage imageNamed:model.isExpand ? @"jiantou_up" : @"jiantou_down"];
     imageV.contentMode = UIViewContentModeScaleAspectFit;
     [view addSubview:imageV];
     
@@ -135,7 +135,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - kNavigationBarHeight - kStatusBarHeight) style:UITableViewStyleGrouped];
         _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.bounces = NO;
+        _tableView.bounces = YES;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

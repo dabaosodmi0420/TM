@@ -139,4 +139,18 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
+//MARK: 查询切换网络列表
++ (void)sendQueryAppVersionWithSuccess:(TMAPISuccessBlock)successBlock
+                               failure:(TMAPIFailureBlock)failureBlock {
+    
+    NSString *url = @"/queryAppVersion";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 @end

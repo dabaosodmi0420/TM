@@ -42,7 +42,7 @@
         midd_Y -= 1;
     }
     NSInteger W = (self.frame.size.width - (_nEachLineNum - 1) * midd_X - 2 * left_X) / _nEachLineNum + 1;   //快捷菜单宽
-    NSInteger H = getAutoSize((30+5+18.5)); //快捷菜单高
+    NSInteger H = getAutoSize((50+5+18.5)); //快捷菜单高
     NSInteger screenNum = _nEachLineNum * _nLineNum;     //每页的按钮个数
     NSInteger page = 0;      //页数
     NSInteger row = 0;       //行数
