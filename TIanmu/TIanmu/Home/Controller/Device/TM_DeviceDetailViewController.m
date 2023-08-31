@@ -16,11 +16,13 @@
 #import "TM_BuyHistoryViewController.h"
 #import "TM_RealNameAuthViewController.h"
 #import "TM_ChangeNetViewController.h"
+#import "TM_DeivceActivityViewController.h"
 
-@interface TM_DeviceDetailViewController ()<TM_HomeShortcutMenuViewDelegate>{
+@interface TM_DeviceDetailViewController ()<TM_HomeShortcutMenuViewDelegate, UITextFieldDelegate>{
     NSMutableArray <UILabel *>*_topInfoLables;
     NSArray <UILabel *>*_wifiInfoLabels;
     JTNetworkSignalView *_netSigV;
+    NSString *_wifiPw;
 }
 /* 顶部View */
 @property (strong, nonatomic) UIView *topView;
@@ -36,6 +38,8 @@
 /* wifi View */
 @property (strong, nonatomic) UIView  *wifiContentView;
 
+/* wifi password */
+@property (strong, nonatomic) UITextField *wifiPWTF;
 
 /* 按钮菜单 */
 @property (strong, nonatomic) TM_HomeShortcutMenuView   *shortcutMenuView;
@@ -62,6 +66,12 @@
     self.title = @"设备";
     [self.view addSubview:self.contentScrollView];
     [self createDeviceInfoUI];
+    //新增了一个参数"need_active": "0", //0不需要跳转激活页面，1需要进激活页面
+    if ([self.deviceIndexInfoModel.need_active intValue] == 1) {
+        TM_DeivceActivityViewController *activity = [TM_DeivceActivityViewController new];
+        activity.cardInfoModel = self.cardInfoModel;
+        [self.navigationController pushViewController:activity animated:YES];
+    }
 }
 - (void)createDeviceInfoUI {
     /** 顶部View */
@@ -156,19 +166,41 @@
     logoImg.contentMode = UIViewContentModeScaleToFill;
     [wifiContentView addSubview:logoImg];
     // 内容
-    UILabel *wifiTitleL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, logoImg.y, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"WIFI管理" fontSize:18 color:TM_ColorRGB(93, 93, 93)];
+    UILabel *wifiTitleL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, 10, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"WIFI管理" fontSize:18 color:TM_ColorRGB(93, 93, 93)];
     wifiTitleL.textAlignment = NSTextAlignmentCenter;
     [wifiContentView addSubview:wifiTitleL];
-    UILabel *wifiNameL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiTitleL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"" fontSize:17 color:TM_ColorRGB(115, 115, 115)];
+    // wifi名称
+    UILabel *wifiNameL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiTitleL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 25) title:@"" fontSize:16 color:TM_ColorRGB(115, 115, 115)];
     wifiNameL.textAlignment = NSTextAlignmentLeft;
     [wifiContentView addSubview:wifiNameL];
-    UILabel *wifiPWL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiNameL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"" fontSize:17 color:TM_ColorRGB(115, 115, 115)];
+    // wifi密码
+    UILabel *wifiPWL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiNameL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 25) title:@"" fontSize:16 color:TM_ColorRGB(115, 115, 115)];
     wifiPWL.textAlignment = NSTextAlignmentLeft;
     [wifiContentView addSubview:wifiPWL];
-    UILabel *wifiNumL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiPWL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 30) title:@"" fontSize:17 color:TM_ColorRGB(115, 115, 115)];
+    UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(wifiPWL.x + 70, wifiPWL.y, wifiPWL.width - 70, wifiPWL.height)];
+    tf.font = [UIFont systemFontOfSize:16];
+    tf.textColor = TM_ColorRGB(115, 115, 115);
+    tf.delegate = self;
+    [wifiContentView addSubview:tf];
+    self.wifiPWTF = tf;
+    // wifi连接人数
+    UILabel *wifiNumL = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, wifiPWL.maxY + 3, wifiContentView.width - 70 - logoImg.maxX, 25) title:@"" fontSize:16 color:TM_ColorRGB(115, 115, 115)];
     wifiNumL.textAlignment = NSTextAlignmentLeft;
     [wifiContentView addSubview:wifiNumL];
     _wifiInfoLabels = @[wifiNameL, wifiPWL, wifiNumL];
+    
+    UIButton *saveWifiPW = [UIView createButton:CGRectMake(0, wifiNumL.maxY + 6, 80, 25)
+                                            title:@"保存修改"
+                                       titleColoe:[UIColor whiteColor]
+                                    selectedColor:[UIColor whiteColor]
+                                         fontSize:15
+                                        sel:@selector(savePassword:)
+                                       target:self];
+    saveWifiPW.centerX = wifiTitleL.centerX;
+    saveWifiPW.backgroundColor = TM_SpecialGlobalColor;
+    [saveWifiPW setCornerRadius:saveWifiPW.height * 0.5];
+    [wifiContentView addSubview:saveWifiPW];
+    
     /** 下面菜单 */
     [self.contentScrollView addSubview:self.shortcutMenuView];
 }
@@ -205,7 +237,7 @@
 }
 - (void)refreshContentView {
     
-    if (![self.deviceIndexInfoModel.wifiInfo.state isEqualToString:@"success"]) {
+    if ([self.deviceIndexInfoModel.show_wifi intValue] == 1) {
         self.wifiContentView.hidden = NO;
         self.shortcutMenuView.y = self.wifiContentView.maxY + 10;
         _wifiInfoLabels[0].text = [NSString stringWithFormat:@"WIFI名称:%@", self.deviceIndexInfoModel.wifiInfo.ssid ?: @"--"];
@@ -248,6 +280,44 @@
     NSLog(@"%@",@"设备切换");
     TM_DataCardManagerViewController *vc = [[TM_DataCardManagerViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+- (void)savePassword:(UIButton *)btn {
+    if (_wifiPw.length == 0) {
+        TM_ShowToast(self.view, @"请输入密码");
+        return;
+    }
+    [TM_DataCardApiManager sendSaveWifiPasswordlWithCardNo:self.cardInfoModel.card_define_no wifiName:self.deviceIndexInfoModel.wifiInfo.ssid wifiPW:_wifiPw success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+            TM_ShowToast(self.view, @"修改成功");
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+            TM_ShowToast(self.view, msg);
+        }
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+        TM_ShowToast(self.view, @"修改失败");
+    }];
+}
+- (void)wifiPasswordTextFieldEdit:(UITextField*)textfield {
+    NSString * tempStr = textfield.text;
+    if (tempStr.length >= 0){
+        
+    }
+}
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    _wifiInfoLabels[1].text = @"WIFI密码:";
+    return YES;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    _wifiPw = textField.text;
+    if (textField.text.length > 0) {
+        _wifiInfoLabels[1].text = [NSString stringWithFormat:@"WIFI密码:%@", textField.text];
+    }else {
+        _wifiInfoLabels[1].text = [NSString stringWithFormat:@"WIFI密码:%@", self.deviceIndexInfoModel.wifiInfo.key ?: @"--"];
+    }
+    
+    textField.text = @"";
 }
 #pragma mark - TM_HomeShortcutMenuViewDelegate
 - (void)clickHomeShortcutMenuWithModel:(TM_ShortMenuModel *)model {

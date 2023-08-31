@@ -7,11 +7,12 @@
 
 #import "TM_RealNameAuthViewController.h"
 #import "TM_DataCardApiManager.h"
-#import "TM_TmfskInfoModel.h"
 #import "TM_WeixinTool.h"
 @interface TM_RealNameAuthViewController ()
-/* data */
-@property (strong, nonatomic) TM_TmfskInfoModel *tmfskInfoData;
+
+/* 运营商数组 */
+@property (strong, nonatomic) NSArray *operator_list;
+
 
 @end
 
@@ -41,11 +42,16 @@
     [topView addSubview:label2];
     
     
-    // 运营商实名部分
-    NSArray *icons = @[@"china_telecom", @"china_unicom", @"china_mobile"];
     
-    for (int i = 0; i < icons.count; i++) {
-        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(30, topView.maxY + 30 + (100 + 25) * i, kScreen_Width - 60, 100)];
+}
+- (void)refreshUI {
+    for (int i = 0; i < self.operator_list.count; i++) {
+        NSDictionary *data = self.operator_list[i];
+        // 运营商实名部分
+
+        NSString *type = data[@"card_operator"];
+        
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(30, 180 + (100 + 25) * i, kScreen_Width - 60, 100)];
         contentView.backgroundColor = TM_ColorHex(@"#DDDDDD");
         contentView.layer.cornerRadius = 10;
         contentView.clipsToBounds = YES;
@@ -62,7 +68,7 @@
         
         UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(25, 20, 94, 72)];
         icon.centerY = contentView1.height * 0.5;
-        icon.image = [UIImage imageNamed: icons[i]];
+        icon.image = [UIImage imageNamed: type];
         icon.contentMode = UIViewContentModeScaleAspectFit;
         [contentView1 addSubview:icon];
         
@@ -79,21 +85,9 @@
         realNameL.backgroundColor = [UIColor clearColor];
         [realNameL setCornerRadius:realNameL.height * 0.5 rectCorner:(UIRectCornerTopLeft | UIRectCornerBottomLeft)];
         [contentView1 addSubview:realNameL];
-    }
-}
-- (void)refreshUI {
-    for (TM_TmfskInfoListModel *model in self.tmfskInfoData.list) {
-        NSInteger i = 0;
-        if ([model.isp isEqualToString:@"telecom"]) { // 电信
-            i = 0;
-        }else if ([model.isp isEqualToString:@"cmcc"]) {  // 联通
-            i = 1;
-        }else if ([model.isp isEqualToString:@"unicom"]) {  // 移动
-            i = 2;
-        }
-        UILabel *realNameV = (UILabel *)[self.view viewWithTag:110 + i];
-        UILabel *realNameL = (UILabel *)[self.view viewWithTag:120 + i];
-        if ([model.is_identity intValue] == 1) {
+        
+        NSString *is_realname = [NSString stringWithFormat:@"%@",data[@"is_realname"]];
+        if ([is_realname intValue] == 2) {
             [UIView setHorGradualChangingColor:realNameV colorArr:@[TM_ColorHex(@"#FFFEAD"), TM_ColorHex(@"#FFA500")]];
             realNameL.text = @"已实名";
         }else {
@@ -103,12 +97,12 @@
     }
 }
 - (void)reloadData {
-    [TM_DataCardApiManager sendQueryTmfskInfoWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
+    [TM_DataCardApiManager sendQueryDeviceAuthUrlWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             id data = respondObject[@"data"];
             if ([data isKindOfClass:[NSDictionary class]]) {
-                self.tmfskInfoData = [TM_TmfskInfoModel mj_objectWithKeyValues:respondObject[@"data"]];
+                self.operator_list = data[@"operator_info"][@"operator_list"];
                 [self refreshUI];
             }else {
                 TM_ShowToast(self.view, @"获取数据失败");
@@ -128,66 +122,36 @@
 - (void)realNameClick:(UIGestureRecognizer *)ges {
     NSLog(@"%@",ges.view);
     UIView *selectedView = ges.view;
+    
     NSInteger tag = selectedView.tag - 100;
-    NSString *isp = @"";
-    NSString *netType = @"";
-    // 网络类型，yd，lt，dx
-    if (tag == 0) { // 电信
-        isp = @"telecom";
-        netType = @"dx";
-    }else if (tag == 1) { // 联通
-        isp = @"cmcc";
-        netType = @"lt";
-    }else if (tag == 2) { // 移动
-        isp = @"unicom";
-        netType = @"yd";
-    }
-    TM_TmfskInfoListModel *model = nil;
-    for (TM_TmfskInfoListModel *modelTmp in self.tmfskInfoData.list) {
-        if ([modelTmp.isp isEqualToString:isp]) {
-            model = modelTmp;
-            break;
-        }
-        
-    }
-    if ([model.is_identity intValue] == 1) {
+    NSDictionary *data = self.operator_list[tag];
+    NSString *is_realname = [NSString stringWithFormat:@"%@",data[@"is_realname"]];
+    if ([is_realname intValue] == 2) {
         TM_ShowToast(self.view, @"已实名");
     }else {
-        if (tag == 1) { // 联通拉起小程序
-            [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypeMiniProgram data:@{} completeBlock:^(TM_WeixinToolType type, NSDictionary * _Nonnull param) {
+        NSString *type = data[@"card_operator"];
+        if ([type isEqualToString:@"mobile"] || [type isEqualToString:@"unicom"]) { // 移动、联通拉起小程序
+            NSString *netType = @"";
+            if ([type isEqualToString:@"mobile"] ) {
+                netType = @"yd";
+            }else {
+                netType = @"lt";
+            }
+            [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypeMiniProgram data:@{@"netType" : netType} completeBlock:^(TM_WeixinToolType type, NSDictionary * _Nonnull param) {
                 
             }];
         }else {
-            [TM_DataCardApiManager sendSetTmfskAuthWithCardNo:self.cardDetailInfoModel.card_no
-                                                        iccid:model.iccid
-                                                       msisdn:model.msisdn
-                                                      netType:netType
-                                                      success:^(id  _Nullable respondObject) {
-                NSLog(@"%@",respondObject);
+            [TM_DataCardApiManager sendSetAuthWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
                 if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
                     id data = respondObject[@"data"];
-                    if ([data isKindOfClass:[NSDictionary class]]) {
-                        
-                    }else {
-                        TM_ShowToast(self.view, @"获取数据失败");
-                    }
-                }else {
-                    NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
-                    TM_ShowToast(self.view, msg);
-                }
-            } failure:^(NSError * _Nullable error) {
-                NSLog(@"%@",error);
-                TM_ShowToast(self.view, @"获取数据失败");
-            }];
-            
-            [TM_DataCardApiManager sendUpdateTmfskAuthWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
-                NSLog(@"%@",respondObject);
-                if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
-                    id data = respondObject[@"data"];
-                    if ([data isKindOfClass:[NSDictionary class]]) {
-                        
-                    }else {
-                        TM_ShowToast(self.view, @"获取数据失败");
+                    //实名url，若是data为空，且state是success，则说明已实名
+                    NSString *url = data[@"url"];
+                    if (url && url.length > 0) {
+                        [JTDefinitionTextView jt_showWithTitle:@"温馨提示" Text:@"您的卡还没有实名认证，是否进行实名？" type:0 actionTextArr:@[@"取消", @"去实名"] handler:^(NSInteger index) {
+                            if (index == 1) {
+                                [JTBaseTool jt_openUrl:url];
+                            }
+                        }];
                     }
                 }else {
                     NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];

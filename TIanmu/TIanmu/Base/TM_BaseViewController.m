@@ -14,6 +14,8 @@
 
 @implementation TM_BaseViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = TM_SpecialGlobalColorBg;

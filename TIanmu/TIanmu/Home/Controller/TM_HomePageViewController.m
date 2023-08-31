@@ -126,8 +126,8 @@
     [self.collectionView.mj_footer endRefreshing];
 }
 - (void)updateApp:(NSString *)url {
-    NSLog(@"%@",@"更新");
-    [JTBaseTool jt_openUrl:@"itms-apps://itunes.apple.com/cn/app/jie-zou-da-shi/id493901993?mt=8"];
+    // @"itms-apps://itunes.apple.com/cn/app/..."
+    [JTBaseTool jt_openUrl:url];
 }
 #pragma mark - tm_NavTitleViewDelegate --- 导航栏按钮点击代理
 - (void)clickHomeNavTitleViewBtnsWithSigns:(NSString *)signs {

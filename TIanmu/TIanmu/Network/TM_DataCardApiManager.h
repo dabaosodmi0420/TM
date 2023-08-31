@@ -169,6 +169,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)sendQueryDeviceAuthUrlWithCardNo:(NSString *)cardNo
                                  success:(TMAPISuccessBlock)successBlock
                                  failure:(TMAPIFailureBlock)failureBlock;
+
+//MARK: 激活设备
++ (void)sendDeviceActivityWithPhoneNum:(NSString *)phoneNum
+                        card_define_no:(NSString *)card_define_no
+                                  code:(NSString *)code
+                               success:(TMAPISuccessBlock)successBlock
+                               failure:(TMAPIFailureBlock)failureBlock;
 @end
 
 NS_ASSUME_NONNULL_END

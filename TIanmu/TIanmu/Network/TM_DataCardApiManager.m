@@ -528,4 +528,25 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
+
+//MARK: 激活设备
++ (void)sendDeviceActivityWithPhoneNum:(NSString *)phoneNum
+                        card_define_no:(NSString *)card_define_no
+                                  code:(NSString *)code
+                               success:(TMAPISuccessBlock)successBlock
+                               failure:(TMAPIFailureBlock)failureBlock{
+    
+    NSString *url = @"/deviceSQActive";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_define_no"]   = card_define_no;
+    params[@"mobile"]           = phoneNum;
+    params[@"code"]             = code;
+
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 @end

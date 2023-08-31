@@ -293,9 +293,15 @@ typedef void (^TMAPIFailureBlock)(NSError * _Nullable error);
 }
 // 微信小程序
 - (void)tm_weixinMiniProgram {
+    NSString *userName = @"";
+    if ([_data[@"netType"] isEqualToString:@"yd"]) {
+        userName = @"gh_e0002e2a3027";
+    }else if ([_data[@"netType"] isEqualToString:@"lt"]) {
+        userName = @"gh_5eac63f4d504";
+    }
     WXLaunchMiniProgramReq *launchMiniProgramReq = [WXLaunchMiniProgramReq object];
     //拉起的小程序的username gh_5eac63f4d504
-    launchMiniProgramReq.userName = @"gh_5eac63f4d504";
+    launchMiniProgramReq.userName = userName;
     //拉起小程序页面的可带参路径，不填默认拉起小程序首页，对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
     launchMiniProgramReq.path = @"";
     //拉起小程序的类型

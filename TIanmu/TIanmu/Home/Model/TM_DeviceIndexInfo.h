@@ -81,7 +81,10 @@
 @property (strong, nonatomic) NSString *auth;
 /* 余额 */
 @property (assign, nonatomic) CGFloat balance;
-
+/* 是否需要激活 */
+@property (copy, nonatomic) NSString *need_active;
+/* 是否显示wifi */
+@property (copy, nonatomic) NSString *show_wifi;
 /* wifi */
 @property (strong, nonatomic) TM_DeviceIndexInfo_wifi *wifiInfo;
 /* flow */
