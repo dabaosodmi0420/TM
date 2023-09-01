@@ -27,9 +27,11 @@ static TM_SettingManager *settingMgr = nil;
 
 + (void)clear {
     // 清除保存的手机号
-    [TM_KeyChainDataDIc tm_deleteValueFromKeyChainDicWithKey:kIdentifierId];
+    [TM_StorageData deleteArchiveDataWithPath:kIdentifierId];
     // 清除保存的选中设备
     [TM_StorageData deleteArchiveDataWithPath:kDataCardInfoModelPath];
+    // 清除微信个人信息
+    [TM_StorageData deleteArchiveDataWithPath:wx_userData];
     settingMgr = nil;
     
     [[TM_WeixinTool shareWeixinToolManager] clearData];
@@ -46,12 +48,17 @@ static TM_SettingManager *settingMgr = nil;
  */
 - (void)readLoadInformation {
     // 获取手机号
-    NSString *identifierId = [TM_KeyChainDataDIc tm_getValueFromKeyChainDicWithKey:kIdentifierId];
+    NSString *identifierId = [TM_StorageData unarchiveRootDataFromCache:kIdentifierId];
     if (identifierId.length) {
         NSString *decryptStr = [identifierId tm_sm4_ecb_decryptWithKey:sm4_ecb_key];
         if(decryptStr.length) {
             self.sIdentifierId = decryptStr;
         }
+    }
+    // 获取微信数据
+    NSDictionary *wxData = [TM_StorageData unarchiveDictionaryDataFromCache:wx_userData];
+    if (wxData) {
+        self.wxHeaderUrl = wxData[@"headimgurl"];
     }
 }
 

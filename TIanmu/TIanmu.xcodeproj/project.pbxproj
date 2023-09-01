@@ -82,14 +82,14 @@
 		15AEC4E02A9DD7DF0028A3F5 /* TM_CancelCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEC4DF2A9DD7DF0028A3F5 /* TM_CancelCardViewController.m */; };
 		15AEDDF82A73BC2000B66557 /* AppOperateGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEDDF72A73BC2000B66557 /* AppOperateGuideView.m */; };
 		15AEDDFB2A73BCD100B66557 /* YT_PageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEDDF92A73BCD100B66557 /* YT_PageControl.m */; };
-		15AEDDFF2A73BE7000B66557 /* operateGuide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AEDDFC2A73BE6F00B66557 /* operateGuide1.png */; };
-		15AEDE002A73BE7000B66557 /* operateGuide2.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AEDDFD2A73BE7000B66557 /* operateGuide2.png */; };
-		15AEDE012A73BE7000B66557 /* operateGuide0.png in Resources */ = {isa = PBXBuildFile; fileRef = 15AEDDFE2A73BE7000B66557 /* operateGuide0.png */; };
 		15AEE7852A8B54B700BEA4CF /* TM_ProductInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AEE7842A8B54B700BEA4CF /* TM_ProductInfoViewController.m */; };
 		15B4B1132A9A4B8100496DA9 /* TM_CardTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B4B1122A9A4B8100496DA9 /* TM_CardTopView.m */; };
 		15B4B1162A9A5C4000496DA9 /* TM_DeviceIndexInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B4B1152A9A5C4000496DA9 /* TM_DeviceIndexInfo.m */; };
 		15B6A50C2AA0A2A3001225C6 /* TM_DeivceActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B6A50B2AA0A2A3001225C6 /* TM_DeivceActivityViewController.m */; };
 		15B6E3142A7253D200BBA0DF /* TM_DataCardTaoCanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 15B6E3132A7253D200BBA0DF /* TM_DataCardTaoCanModel.m */; };
+		15BA242B2AA1863F00C38DEA /* launch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15BA242A2AA1863F00C38DEA /* launch@2x.png */; };
+		15BA242E2AA186F500C38DEA /* TM_DeviceBalanceRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BA242D2AA186F500C38DEA /* TM_DeviceBalanceRechargeViewController.m */; };
+		15BA24312AA1871A00C38DEA /* TM_DeviceTaocanRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BA24302AA1871A00C38DEA /* TM_DeviceTaocanRechargeViewController.m */; };
 		15BB8EC52A36A42800A66E51 /* TMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BB8EC42A36A42800A66E51 /* TMAppDelegate.m */; };
 		15BB8ED02A36A42F00A66E51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15BB8ECF2A36A42F00A66E51 /* Assets.xcassets */; };
 		15BB8ED32A36A42F00A66E51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BB8ED12A36A42F00A66E51 /* LaunchScreen.storyboard */; };
@@ -261,9 +261,6 @@
 		15AEDDF72A73BC2000B66557 /* AppOperateGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppOperateGuideView.m; sourceTree = "<group>"; };
 		15AEDDF92A73BCD100B66557 /* YT_PageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YT_PageControl.m; sourceTree = "<group>"; };
 		15AEDDFA2A73BCD100B66557 /* YT_PageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YT_PageControl.h; sourceTree = "<group>"; };
-		15AEDDFC2A73BE6F00B66557 /* operateGuide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = operateGuide1.png; sourceTree = "<group>"; };
-		15AEDDFD2A73BE7000B66557 /* operateGuide2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = operateGuide2.png; sourceTree = "<group>"; };
-		15AEDDFE2A73BE7000B66557 /* operateGuide0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = operateGuide0.png; sourceTree = "<group>"; };
 		15AEE7812A8B494F00BEA4CF /* FeimaoLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FeimaoLib.framework; sourceTree = "<group>"; };
 		15AEE7832A8B54B700BEA4CF /* TM_ProductInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_ProductInfoViewController.h; sourceTree = "<group>"; };
 		15AEE7842A8B54B700BEA4CF /* TM_ProductInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_ProductInfoViewController.m; sourceTree = "<group>"; };
@@ -275,6 +272,11 @@
 		15B6A50B2AA0A2A3001225C6 /* TM_DeivceActivityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_DeivceActivityViewController.m; sourceTree = "<group>"; };
 		15B6E3122A7253D200BBA0DF /* TM_DataCardTaoCanModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_DataCardTaoCanModel.h; sourceTree = "<group>"; };
 		15B6E3132A7253D200BBA0DF /* TM_DataCardTaoCanModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_DataCardTaoCanModel.m; sourceTree = "<group>"; };
+		15BA242A2AA1863F00C38DEA /* launch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launch@2x.png"; sourceTree = "<group>"; };
+		15BA242C2AA186F500C38DEA /* TM_DeviceBalanceRechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_DeviceBalanceRechargeViewController.h; sourceTree = "<group>"; };
+		15BA242D2AA186F500C38DEA /* TM_DeviceBalanceRechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_DeviceBalanceRechargeViewController.m; sourceTree = "<group>"; };
+		15BA242F2AA1871A00C38DEA /* TM_DeviceTaocanRechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TM_DeviceTaocanRechargeViewController.h; sourceTree = "<group>"; };
+		15BA24302AA1871A00C38DEA /* TM_DeviceTaocanRechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TM_DeviceTaocanRechargeViewController.m; sourceTree = "<group>"; };
 		15BB8EC02A36A42800A66E51 /* TIanmu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TIanmu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BB8EC32A36A42800A66E51 /* TMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TMAppDelegate.h; sourceTree = "<group>"; };
 		15BB8EC42A36A42800A66E51 /* TMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMAppDelegate.m; sourceTree = "<group>"; };
@@ -412,8 +414,10 @@
 				15A427A12A4D27A90018A96F /* TM_DeviceDetailViewController.m */,
 				15B6A50A2AA0A2A3001225C6 /* TM_DeivceActivityViewController.h */,
 				15B6A50B2AA0A2A3001225C6 /* TM_DeivceActivityViewController.m */,
-				155D38AC2A5570D200310AE2 /* TM_RechargeViewController.h */,
-				155D38AD2A5570D200310AE2 /* TM_RechargeViewController.m */,
+				15BA242C2AA186F500C38DEA /* TM_DeviceBalanceRechargeViewController.h */,
+				15BA242D2AA186F500C38DEA /* TM_DeviceBalanceRechargeViewController.m */,
+				15BA242F2AA1871A00C38DEA /* TM_DeviceTaocanRechargeViewController.h */,
+				15BA24302AA1871A00C38DEA /* TM_DeviceTaocanRechargeViewController.m */,
 				15BED1F72A7CE10900C125F6 /* TM_PayViewController.h */,
 				15BED1F82A7CE10900C125F6 /* TM_PayViewController.m */,
 				15C9B7A52A5E9CB8003A8EE7 /* TM_BuyHistoryViewController.h */,
@@ -622,6 +626,15 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
+		15BA24292AA185F800C38DEA /* Tmfsk */ = {
+			isa = PBXGroup;
+			children = (
+				155D38AC2A5570D200310AE2 /* TM_RechargeViewController.h */,
+				155D38AD2A5570D200310AE2 /* TM_RechargeViewController.m */,
+			);
+			path = Tmfsk;
+			sourceTree = "<group>";
+		};
 		15BB8EB72A36A42800A66E51 = {
 			isa = PBXGroup;
 			children = (
@@ -695,9 +708,7 @@
 				1578059B2A7B8E0400CCAC32 /* PrivacyAgreementView.m */,
 				15AEDDFA2A73BCD100B66557 /* YT_PageControl.h */,
 				15AEDDF92A73BCD100B66557 /* YT_PageControl.m */,
-				15AEDDFE2A73BE7000B66557 /* operateGuide0.png */,
-				15AEDDFC2A73BE6F00B66557 /* operateGuide1.png */,
-				15AEDDFD2A73BE7000B66557 /* operateGuide2.png */,
+				15BA242A2AA1863F00C38DEA /* launch@2x.png */,
 				157805922A7B82E900CCAC32 /* skip_X@2x.png */,
 				157805952A7B82EB00CCAC32 /* skip_X@3x.png */,
 				157805942A7B82EA00CCAC32 /* skip@2x.png */,
@@ -762,6 +773,7 @@
 				1569CE182A9E298B00FEF252 /* TM_NewHandGuideViewController.m */,
 				150766892A9C846700960BE1 /* Card */,
 				150766882A9C844D00960BE1 /* Device */,
+				15BA24292AA185F800C38DEA /* Tmfsk */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -923,16 +935,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15AEDDFF2A73BE7000B66557 /* operateGuide1.png in Resources */,
 				157805982A7B82EB00CCAC32 /* skip@2x.png in Resources */,
+				15BA242B2AA1863F00C38DEA /* launch@2x.png in Resources */,
 				150751142A3C06FE0019F81A /* index.html in Resources */,
 				15BC21522A40454500323D13 /* settingDatas.plist in Resources */,
 				15BB8ED32A36A42F00A66E51 /* LaunchScreen.storyboard in Resources */,
 				157805972A7B82EB00CCAC32 /* skip@3x.png in Resources */,
 				15A427C12A4D73D20018A96F /* personalDatas.json in Resources */,
-				15AEDE012A73BE7000B66557 /* operateGuide0.png in Resources */,
 				1507511A2A3C26880019F81A /* shortMenuDatas.plist in Resources */,
-				15AEDE002A73BE7000B66557 /* operateGuide2.png in Resources */,
 				157805962A7B82EB00CCAC32 /* skip_X@2x.png in Resources */,
 				15BC215A2A414A8100323D13 /* generalDatas.json in Resources */,
 				1507511C2A3C26A10019F81A /* productListDatas.plist in Resources */,
@@ -1065,6 +1075,8 @@
 				1589C9F32A6FD0E600CC5F1B /* TM_WXBindViewController.m in Sources */,
 				15A427BD2A4D5F5C0018A96F /* TM_SettingViewController.m in Sources */,
 				15FE25922A8632A400A558E6 /* TM_TmfskInfoModel.m in Sources */,
+				15BA24312AA1871A00C38DEA /* TM_DeviceTaocanRechargeViewController.m in Sources */,
+				15BA242E2AA186F500C38DEA /* TM_DeviceBalanceRechargeViewController.m in Sources */,
 				15C1BAE02A5BDF54008063F5 /* TM_DataCardUsedFlowModel.m in Sources */,
 				15F1724A2A5CFFED00D6A1AA /* TM_CardDetailViewController.m in Sources */,
 				155D389D2A55524600310AE2 /* TM_WKBaseWebViewController.m in Sources */,

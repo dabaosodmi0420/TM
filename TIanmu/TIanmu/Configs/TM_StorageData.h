@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+static NSString * _Nullable wx_userData = @"tm_wxUserData"; // 微信数据
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TM_StorageData : NSObject

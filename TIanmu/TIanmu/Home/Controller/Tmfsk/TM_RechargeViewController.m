@@ -256,7 +256,7 @@
     // 流量卡卡号
     UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(20, 240, 0, 25) title:@"流量卡卡号" fontSize:13 color:TM_ColorRGB(174, 174, 174)];
     [label1 sizeToFit];
-    [self.view addSubview:label1];
+    [self.contentScrollView addSubview:label1];
     // 卡号
     UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:@"" fontSize:16 color:[UIColor blackColor]];
     [self.contentScrollView addSubview:label2];
@@ -344,6 +344,7 @@
     }];
     
 }
+// 查询流量使用情况
 - (void)requestData {
     [TM_DataCardApiManager sendQueryUserFlowWithCardNo:self.cardDetailInfoModel.iccid success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);

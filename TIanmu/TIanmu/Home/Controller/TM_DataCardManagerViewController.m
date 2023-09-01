@@ -79,6 +79,33 @@
     addDataCard.layer.cornerRadius = 10;
     [self.view addSubview:addDataCard];
 }
+- (void)addNoDataUI {
+    UILabel *msgL = [UILabel createLabelWithFrame:CGRectMake(30, 70, kScreen_Width - 60, 80) title:@"您还没有绑定流量卡\n可点击下方添加按钮\n进行添加绑定" fontSize:16 color:TM_ColorHex(@"888888")];
+    msgL.numberOfLines = 0;
+    msgL.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:msgL];
+    
+    UIButton *back = [UIButton createButton:CGRectMake(0, msgL.maxY + 30, 80, 30) title:@"返回首页" titleColoe:TM_SpecialGlobalColor selectedColor:TM_SpecialGlobalColor fontSize:16 sel:@selector(back:) target:self];
+    back.centerX = self.view.centerX;
+    [back setCornerRadius:back.height * 0.5 borderColor:TM_SpecialGlobalColorBg borderLineW:0.5];
+    [self.view addSubview:back];
+}
+- (void)addErrorDataUI {
+    UILabel *msgL = [UILabel createLabelWithFrame:CGRectMake(30, 70, kScreen_Width - 60, 80) title:@"数据加载失败\n请重新刷新数据" fontSize:16 color:TM_ColorHex(@"888888")];
+    msgL.numberOfLines = 0;
+    msgL.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:msgL];
+    
+    UIButton *refresh = [UIButton createButton:CGRectMake(0, msgL.maxY + 30, 80, 30) title:@"刷新" titleColoe:TM_SpecialGlobalColor selectedColor:TM_SpecialGlobalColor fontSize:16 sel:@selector(getDatas) target:self];
+    refresh.centerX = self.view.centerX;
+    [refresh setCornerRadius:refresh.height * 0.5 borderColor:TM_SpecialGlobalColorBg borderLineW:0.5];
+    [self.view addSubview:refresh];
+    
+    UIButton *back = [UIButton createButton:CGRectMake(0, refresh.maxY + 30, 80, 30) title:@"返回首页" titleColoe:TM_SpecialGlobalColor selectedColor:TM_SpecialGlobalColor fontSize:16 sel:@selector(back:) target:self];
+    back.centerX = self.view.centerX;
+    [back setCornerRadius:back.height * 0.5 borderColor:TM_SpecialGlobalColorBg borderLineW:0.5];
+    [self.view addSubview:back];
+}
 #pragma mark - 获取数据
 - (void)getDatas {
     [TM_DataCardApiManager sendQueryUserAllCardWithPhoneNum:[TM_SettingManager shareInstance].sIdentifierId success:^(id  _Nullable respondObject) {
@@ -87,20 +114,30 @@
             id data = respondObject[@"data"];
             if ([data isKindOfClass:[NSArray class]]) {
                 self.dataArray = [TM_DataCardInfoModel mj_objectArrayWithKeyValuesArray:data];
-                [self.tableView reloadData];
+                if (self.dataArray.count > 0) {
+                    [self.tableView reloadData];
+                }else {
+                    [self addNoDataUI];
+                }
             }else {
                 TM_ShowToast(self.view, @"获取数据失败");
+                [self addErrorDataUI];
             }
         }else {
             NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
             TM_ShowToast(self.view, msg);
+            [self addErrorDataUI];
         }
     } failure:^(NSError * _Nullable error) {
         NSLog(@"%@",error);
         TM_ShowToast(self.view, @"获取数据失败");
+        [self addErrorDataUI];
     }];
 }
 #pragma mark - Activity
+- (void)back:(UIButton *)btn {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 - (void)leftNavItemClick {
     NSLog(@"%@",@"跳转设置");
     TM_SettingViewController *vc = [[TM_SettingViewController alloc] init];

@@ -28,7 +28,7 @@
     return self;
 }
 - (void)createView:(CGRect)frame {
-    imageNames = @[@"operateGuide0", @"operateGuide1", @"operateGuide2"];
+    imageNames = @[@"launch"];
     self.pageControl.numberOfPages = imageNames.count;
     //滚动面板
     _scrollView = [[UIScrollView alloc] initWithFrame:frame];

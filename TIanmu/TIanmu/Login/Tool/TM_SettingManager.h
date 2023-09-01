@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *sIdentifierId;                    // 用户注册的号
 @property (nonatomic, assign, readonly) BOOL  hasPhoneLogged;           // 手机号是否登录成功
 @property (nonatomic, copy) NSString *wxAccessToken;                    // 微信获取token
+@property (nonatomic, copy) NSString *wxHeaderUrl;                      // 微信头像url
 /* 当前选中的卡片 */
 @property (strong, nonatomic, readonly) TM_DataCardInfoModel *dataCardInfoModel;
 - (void)updateCurrentDataCardInfoModel:(TM_DataCardInfoModel *)dataCardInfoModel;    // 更新当前选中的卡片

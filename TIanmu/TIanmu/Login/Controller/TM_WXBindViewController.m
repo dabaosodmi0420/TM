@@ -7,7 +7,7 @@
 
 #import "TM_WXBindViewController.h"
 #import "TM_LoginApiManger.h"
-
+#import "TM_StorageData.h"
 @interface TM_WXBindViewController (){
     NSTimer         * _timer;
     NSUInteger        _secondNumber;
@@ -188,7 +188,7 @@
         NSLog(@"%@",respondObject);
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             TM_ShowToast(self.view, @"绑定成功");
-            [TM_KeyChainDataDIc tm_addValueToKeyChainDic:[self.phoneNumTF.text tm_sm4_ecb_encryptWithKey:sm4_ecb_key] key:kIdentifierId];
+            [TM_StorageData archiveRootData:[self.phoneNumTF.text tm_sm4_ecb_encryptWithKey:sm4_ecb_key] IntoCache:kIdentifierId];
             [TM_SettingManager shareInstance].sIdentifierId = self.phoneNumTF.text;
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }else {

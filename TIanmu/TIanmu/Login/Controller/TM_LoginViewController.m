@@ -12,13 +12,15 @@
 #import "TM_ForgetPassswordViewController.h"
 #import "TM_WeixinTool.h"
 #import "TM_WXBindViewController.h"
-
+#import "TM_StorageData.h"
 @interface TM_LoginViewController ()<UITextFieldDelegate>{
     NSTimer         * _timer;
     NSUInteger        _secondNumber;
     BOOL              _isPWLogin; //是否是密码登录
     
 }
+/* headerImage */
+@property (strong, nonatomic) UIImageView       *headerImage;
 
 /* 登录 */
 @property (strong, nonatomic) UIButton          *loginMenuBtn;
@@ -49,9 +51,6 @@
     
     // 默认密码登录
     [self changeLoginType:self.loginMenuBtn];
-        
-    self.phoneNumTF.text = @"15910906332";
-    self.passwordTF.text = @"123456";
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -76,6 +75,7 @@
     logoImg.contentMode = UIViewContentModeScaleAspectFit;
     logoImg.backgroundColor = [UIColor clearColor];
     [self.view addSubview:logoImg];
+    self.headerImage = logoImg;
     
     // 中间登录View
     CGFloat wh = getAutoWidth(920);
@@ -259,7 +259,7 @@
     [TM_LoginApiManger sendLoginWithPhoneNum:self.phoneNumTF.text password:self.passwordTF.text code:self.codeTF.text isPwLogin:_isPWLogin success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
-            [TM_KeyChainDataDIc tm_addValueToKeyChainDic:[self.phoneNumTF.text tm_sm4_ecb_encryptWithKey:sm4_ecb_key] key:kIdentifierId];
+            [TM_StorageData archiveRootData:[self.phoneNumTF.text tm_sm4_ecb_encryptWithKey:sm4_ecb_key] IntoCache:kIdentifierId];
             [TM_SettingManager shareInstance].sIdentifierId = self.phoneNumTF.text;
             [self dismissViewControllerAnimated:YES completion:nil];
         }else {
@@ -316,8 +316,10 @@
                         [self.navigationController pushViewController:vc animated:YES];
                     }else {
                         NSString *phoneNum = respondObject[@"data"][@"user_name"];
-                        [TM_KeyChainDataDIc tm_addValueToKeyChainDic:[phoneNum tm_sm4_ecb_encryptWithKey:sm4_ecb_key] key:kIdentifierId];
+                        [TM_StorageData archiveRootData:[self.phoneNumTF.text tm_sm4_ecb_encryptWithKey:sm4_ecb_key] IntoCache:kIdentifierId];
                         [TM_SettingManager shareInstance].sIdentifierId = phoneNum;
+                        [TM_StorageData archiveDictionaryData:param IntoCache:wx_userData];
+                        [TM_SettingManager shareInstance].wxHeaderUrl = param[@"headimgurl"];
                         [self dismissViewControllerAnimated:YES completion:nil];
                     }
                 }else {

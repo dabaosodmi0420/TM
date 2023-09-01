@@ -12,7 +12,8 @@
 #import "TM_DataCardApiManager.h"
 #import "JTNetworkSignalView.h"
 #import "TM_DataCardManagerViewController.h"
-#import "TM_RechargeViewController.h"
+#import "TM_DeviceBalanceRechargeViewController.h"
+#import "TM_DeviceTaocanRechargeViewController.h"
 #import "TM_BuyHistoryViewController.h"
 #import "TM_RealNameAuthViewController.h"
 #import "TM_ChangeNetViewController.h"
@@ -322,9 +323,15 @@
 #pragma mark - TM_HomeShortcutMenuViewDelegate
 - (void)clickHomeShortcutMenuWithModel:(TM_ShortMenuModel *)model {
     switch (model.funcType) {
-        case TM_ShortMenuTypeBalanceRecharge:
+        case TM_ShortMenuTypeBalanceRecharge: {
+            TM_DeviceBalanceRechargeViewController *vc = [TM_DeviceBalanceRechargeViewController new];
+            vc.menuModel = model;
+            vc.cardDetailInfoModel = self.model;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
         case TM_ShortMenuTypeFlowRecharge: {
-            TM_RechargeViewController *vc = [TM_RechargeViewController new];
+            TM_DeviceTaocanRechargeViewController *vc = [TM_DeviceTaocanRechargeViewController new];
             vc.menuModel = model;
             vc.cardDetailInfoModel = self.model;
             [self.navigationController pushViewController:vc animated:YES];

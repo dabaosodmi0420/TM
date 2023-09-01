@@ -114,8 +114,12 @@
 }
 #pragma mark - public
 - (void)reload {
+    
     if ([TM_SettingManager shareInstance].hasPhoneLogged) {
         self.phoneNumLabel.text = [TM_SettingManager shareInstance].sIdentifierId;
+        if ([TM_SettingManager shareInstance].wxHeaderUrl) {
+            [self.headerBtn sd_setImageWithURL:[NSURL URLWithString:[TM_SettingManager shareInstance].wxHeaderUrl] forState:UIControlStateNormal];
+        }
     }else {
         self.phoneNumLabel.text = @"请登录";
     }

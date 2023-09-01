@@ -30,6 +30,7 @@
 #import "NSString+TM_Encrypt.h"
 #import "TM_KeyChainDataDIc.h"
 #import "TM_SettingManager.h"
+#import "TM_StorageData.h"
 
 #import "JTDefinitionTextView.h"
 #import "JTBaseTool.h"
