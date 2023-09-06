@@ -1414,8 +1414,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_ChangeNetViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "-changeNetwork:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1574,8 +1574,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_DeviceTaocanRechargeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "-requestTaocanData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1590,8 +1590,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_DeviceTaocanRechargeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "-requestTaocanData:"
             landmarkType = "7">
          </BreakpointContent>

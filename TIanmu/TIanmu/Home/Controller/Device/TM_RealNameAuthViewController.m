@@ -141,7 +141,7 @@
                 
             }];
         }else {
-            [TM_DataCardApiManager sendSetAuthWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
+            [TM_DataCardApiManager sendSetAuthWithCardNo:self.cardDetailInfoModel.iccid success:^(id  _Nullable respondObject) {
                 if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
                     id data = respondObject[@"data"];
                     //实名url，若是data为空，且state是success，则说明已实名

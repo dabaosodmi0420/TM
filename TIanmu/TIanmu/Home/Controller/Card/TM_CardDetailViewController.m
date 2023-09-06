@@ -72,10 +72,10 @@
 #pragma mark - 获取数据
 - (void)reloadData {
     if (![self.model.is_realname isEqualToString:@"2"]) {
-        [TM_DataCardApiManager sendSetAuthWithCardNo:self.model.card_define_no success:^(id  _Nullable respondObject) {
+        [TM_DataCardApiManager sendSetAuthWithCardNo:self.model.iccid success:^(id  _Nullable respondObject) {
             if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
                 id data = respondObject[@"data"];
-                //实名url，若是data为空，且state是success，则说明已实名
+                //实名url，若是data为空，且state是succesxis，则说明已实名
                 NSString *url = data[@"url"];
                 if (url && url.length > 0) {
                     [JTDefinitionTextView jt_showWithTitle:@"温馨提示" Text:@"您的卡还没有实名认证，是否进行实名？" type:0 actionTextArr:@[@"取消", @"去实名"] handler:^(NSInteger index) {

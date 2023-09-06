@@ -286,7 +286,8 @@
     } failure:^(NSError * _Nullable error) {
         NSLog(@"%@",error);
         TM_ShowToast(self.view, @"获取数据失败");
-    }];}
+    }];
+}
 // 获取套餐数据
 - (void)requestTaocanData:(NSInteger)type {
     NSDictionary *dic = _taocanTypeArr[type];

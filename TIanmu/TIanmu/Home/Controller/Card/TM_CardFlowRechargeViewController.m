@@ -91,17 +91,17 @@
         self->_curTaocanType = index;
         [self requestTaocanData:index];
     };
-    NSMutableArray *taocanTypeArr = [NSMutableArray array];
-    if (self.model.monthCt != 0) {
-        [taocanTypeArr addObject:@"当月包"];
-    }
-    if (self.model.nextCt != 0) {
-        [taocanTypeArr addObject:@"次月包"];
-    }
-    if (self.model.ljCt != 0) {
-        [taocanTypeArr addObject:@"累计包"];
-    }
-    [self.segmentMenuView makeSegmentUIWithSegDataArr:taocanTypeArr selectIndex:0 selectSegName:nil];
+//    NSMutableArray *taocanTypeArr = [NSMutableArray array];
+//    if (self.model.monthCt != 0) {
+//        [taocanTypeArr addObject:@"当月包"];
+//    }
+//    if (self.model.nextCt != 0) {
+//        [taocanTypeArr addObject:@"次月包"];
+//    }
+//    if (self.model.ljCt != 0) {
+//        [taocanTypeArr addObject:@"累计包"];
+//    }
+//    [self.segmentMenuView makeSegmentUIWithSegDataArr:taocanTypeArr selectIndex:0 selectSegName:nil];
     [self.contentScrollView addSubview:_segmentMenuView];
     
     
@@ -181,18 +181,46 @@
             for (NSDictionary *dic in arr) {
                 content = [[content stringByAppendingString:dic[@"info"]] stringByAppendingString:@"\n"];
             }
-            _noticeContent = content;
+            self->_noticeContent = content;
             
             
         }else {
             NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
             TM_ShowToast(self.view, msg);
         }
-        [self requestTaocanData:0];
+        [self requestTaocanType];
     } failure:^(NSError * _Nullable error) {
         NSLog(@"%@",error);
         TM_ShowToast(self.view, @"获取数据失败");
-        [self requestTaocanData:0];
+        [self requestTaocanType];
+    }];
+}
+// 获取套餐类型
+- (void)requestTaocanType {
+    [TM_DataCardApiManager sendQueryTaoCanPackageTypeListWithCardNo:self.model.card_define_no success:^(id  _Nullable respondObject) {
+        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+            NSArray *data = respondObject[@"data"];
+            if ([data isKindOfClass:[NSArray class]] && data.count > 0) {
+                self->_taocanDataArr = data;
+                NSMutableArray *taocanTypeArr = [NSMutableArray array];
+                for (NSDictionary *dic in data) {
+                    NSString *typeCname = dic[@"typeCname"];
+                    [taocanTypeArr addObject:typeCname];
+                }
+                
+                if (taocanTypeArr.count > 0) {
+                    [self.segmentMenuView makeSegmentUIWithSegDataArr:taocanTypeArr selectIndex:0 selectSegName:nil];
+                    self->_curTaocanType = 0;
+                    [self requestTaocanData:0];
+                }
+            }
+        }else {
+            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+            TM_ShowToast(self.view, msg);
+        }
+    } failure:^(NSError * _Nullable error) {
+        NSLog(@"%@",error);
+        TM_ShowToast(self.view, @"获取数据失败");
     }];
 }
 // 获取套餐数据
@@ -202,15 +230,8 @@
      private static final String NEXT = "next";次月
      private static final String ADD = "add";累计
      */
-    NSString *typeStr = @"";
-    if (type == 0) {
-        typeStr = @"month";
-    }else if (type == 1) {
-        typeStr = @"next";
-    }else if (type == 2) {
-        typeStr = @"add";
-    }
-    [TM_DataCardApiManager sendQueryTaoCanListWithCardNo:self.model.card_define_no type:typeStr success:^(id  _Nullable respondObject) {
+    NSDictionary *dic = _taocanDataArr[type];
+    [TM_DataCardApiManager sendQueryTaoCanListWithCardNo:self.model.card_define_no type:dic[@"type"] success:^(id  _Nullable respondObject) {
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             self.taocanData = [TM_DataCardTaoCanModel mj_objectWithKeyValues:respondObject[@"data"]];
             [self refreshTaocanUIData];

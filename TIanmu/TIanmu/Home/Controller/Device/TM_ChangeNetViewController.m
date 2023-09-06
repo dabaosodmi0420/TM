@@ -85,12 +85,11 @@
 }
 
 - (void)reloadData {
-    [TM_DataCardApiManager sendQueryDeviceAuthUrlWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
-        NSLog(@"%@",respondObject);
+    [TM_DataCardApiManager sendQueryDeviceNetWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             id data = respondObject[@"data"];
             if ([data isKindOfClass:[NSDictionary class]]) {
-                self.operator_list = data[@"operator_info"][@"operator_list"];
+                self.operator_list = data[@"operator_list"];
                 [self refreshUI];
             }else {
                 TM_ShowToast(self.view, @"获取数据失败");
@@ -103,6 +102,24 @@
         NSLog(@"%@",error);
         TM_ShowToast(self.view, @"获取数据失败");
     }];
+//    [TM_DataCardApiManager sendQueryDeviceAuthUrlWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
+//        NSLog(@"%@",respondObject);
+//        if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+//            id data = respondObject[@"data"];
+//            if ([data isKindOfClass:[NSDictionary class]]) {
+//                self.operator_list = data[@"operator_info"][@"operator_list"];
+//                [self refreshUI];
+//            }else {
+//                TM_ShowToast(self.view, @"获取数据失败");
+//            }
+//        }else {
+//            NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+//            TM_ShowToast(self.view, msg);
+//        }
+//    } failure:^(NSError * _Nullable error) {
+//        NSLog(@"%@",error);
+//        TM_ShowToast(self.view, @"获取数据失败");
+//    }];
     
     
 }
