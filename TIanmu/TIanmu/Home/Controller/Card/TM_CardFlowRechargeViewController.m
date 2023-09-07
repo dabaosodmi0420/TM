@@ -28,6 +28,8 @@
 @property (strong, nonatomic) UIScrollView              *taocanScrollerView;
 /* 选择的套餐 */
 @property (strong, nonatomic) UILabel                   *taocanTipL;
+/* 套餐类别数据 */
+@property (strong, nonatomic) NSArray                   *taocanTypeArr;
 /* 套餐数据 */
 @property (strong, nonatomic) NSArray                   *taocanDataArr;
 /* 当前选择套餐 */
@@ -201,7 +203,7 @@
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             NSArray *data = respondObject[@"data"];
             if ([data isKindOfClass:[NSArray class]] && data.count > 0) {
-                self->_taocanDataArr = data;
+                self.taocanTypeArr = data;
                 NSMutableArray *taocanTypeArr = [NSMutableArray array];
                 for (NSDictionary *dic in data) {
                     NSString *typeCname = dic[@"typeCname"];
@@ -230,7 +232,7 @@
      private static final String NEXT = "next";次月
      private static final String ADD = "add";累计
      */
-    NSDictionary *dic = _taocanDataArr[type];
+    NSDictionary *dic = _taocanTypeArr[type];
     [TM_DataCardApiManager sendQueryTaoCanListWithCardNo:self.model.card_define_no type:dic[@"type"] success:^(id  _Nullable respondObject) {
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             self.taocanData = [TM_DataCardTaoCanModel mj_objectWithKeyValues:respondObject[@"data"]];

@@ -85,7 +85,7 @@
 }
 
 - (void)reloadData {
-    [TM_DataCardApiManager sendQueryDeviceNetWithCardNo:self.cardDetailInfoModel.card_define_no success:^(id  _Nullable respondObject) {
+    [TM_DataCardApiManager sendQueryDeviceNetWithCardNo:self.cardDetailInfoModel.iccid success:^(id  _Nullable respondObject) {
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
             id data = respondObject[@"data"];
             if ([data isKindOfClass:[NSDictionary class]]) {

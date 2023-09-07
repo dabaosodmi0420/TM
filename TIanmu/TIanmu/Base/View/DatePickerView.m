@@ -193,7 +193,7 @@
     label.textAlignment = 1;
     label.font = [UIFont systemFontOfSize:16];
     label.text = text;
-    
+    label.textColor = [UIColor blackColor];
     return label;
 }
 

@@ -31,7 +31,7 @@
         self.btnJianGe = 10.0;
         self.btnTitleTextHeight = 20.0;
         [self addSubview:self.scrollView];
-        [self addSubview:self.botLineView];
+//        [self addSubview:self.botLineView];
     }
     return self;
 }
@@ -93,9 +93,11 @@
     }
     
     if (self.btnDataArr.count > 0) {
-        UIView *lineBottom = [UIView new];
-        [self addSubview:lineBottom];
-        _lineBottom = lineBottom;
+        if (!_lineBottom) {
+            UIView *lineBottom = [UIView new];
+            [self addSubview:lineBottom];
+            _lineBottom = lineBottom;
+        }
         UIButton *firstBtn = self.btnDataArr.firstObject;
         [self clickGroupNameBtn:firstBtn];
     }
@@ -180,11 +182,11 @@
     btn.selected = YES;
     [btn setBackgroundColor:self.btnBackSeletColor];
     self.lastSelBtn = btn;
+    _lineBottom.frame = CGRectMake(btn.x, self.height - 3, btn.width, 3);
+    _lineBottom.backgroundColor = self.btnTitleSeletColor;
     if (self.clickGroupBtnBlock) {
         self.clickGroupBtnBlock(btn.titleLabel.text, btn.tag - 730);
     }
-    _lineBottom.frame = CGRectMake(btn.x, self.height - 3, btn.width, 3);
-    _lineBottom.backgroundColor = self.btnTitleSeletColor;
 }
 
 #pragma mark - 计算文字总宽度

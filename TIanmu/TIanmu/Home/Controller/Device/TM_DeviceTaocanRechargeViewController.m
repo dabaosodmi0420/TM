@@ -167,6 +167,9 @@
     CGFloat contentSizeH = 0;
     for (int i = 0; i < self.taocanDataArr.count; i++) {
         TM_DataCardTaoCanInfoModel *model = self.taocanDataArr[i];
+        if ([JTBaseTool judgeNull:model.package_name]) {
+            model.package_name = @" ";
+        }
         CGFloat h = 65;
         CGFloat margin_top = 10;
         UIColor *btnBgColor = TM_ColorRGB(148, 216, 239);

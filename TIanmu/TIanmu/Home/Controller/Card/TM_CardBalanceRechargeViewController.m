@@ -54,44 +54,8 @@
     self.contentScrollView.height = recharge.y;
     [self.view addSubview:self.contentScrollView];
     
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 220)];
-    [self.contentScrollView addSubview:topView];
-    [UIView setVerGradualChangingColor:topView colorArr:@[TM_SpecialGlobalColor, TM_ColorRGB(59, 85, 183)]];
-    // 顶部logo
-    UIImageView *logoImg = [[UIImageView alloc] initWithFrame:CGRectMake(30, 25, 90, 90)];
-    logoImg.image = [UIImage imageNamed:@"logo"];
-    logoImg.layer.cornerRadius = logoImg.width * 0.5;
-    logoImg.clipsToBounds = YES;
-    logoImg.contentMode = UIViewContentModeScaleAspectFit;
-    logoImg.backgroundColor = [UIColor clearColor];
-    [topView addSubview:logoImg];
-    
-    // 当前套餐
-    UILabel *label1 = [UIView createLabelWithFrame:CGRectMake(logoImg.maxX + 25, 20, 0, 25) title:[NSString stringWithFormat:@"当前套餐:%@", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
-    [label1 sizeToFit];
-    [topView addSubview:label1];
-    // 已用天数
-    UILabel *label2 = [UIView createLabelWithFrame:CGRectMake(label1.x, label1.maxY + 15, 0, 25) title:[NSString stringWithFormat:@"已使用:%@天", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
-    [label2 sizeToFit];
-    [topView addSubview:label2];
-    // 剩余天数
-    UILabel *label3 = [UIView createLabelWithFrame:CGRectMake(label2.maxX + 30, label2.y, 0, 25) title:[NSString stringWithFormat:@"剩余:%@天", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
-    [label3 sizeToFit];
-    [topView addSubview:label3];
-    // 余额
-    UILabel *label4 = [UIView createLabelWithFrame:CGRectMake(label1.x, label2.maxY + 15, 0, 25) title:[NSString stringWithFormat:@"剩余:%@元", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
-    [label4 sizeToFit];
-    [topView addSubview:label4];
-    // 设备编号
-    UILabel *label5 = [UIView createLabelWithFrame:CGRectMake(logoImg.x, logoImg.maxY + 20, 0, 25) title:[NSString stringWithFormat:@"设备编号:%@", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
-    [label5 sizeToFit];
-    [topView addSubview:label5];
-    // 有效期
-    UILabel *label6 = [UIView createLabelWithFrame:CGRectMake(logoImg.x, label5.maxY + 20, 0, 25) title:[NSString stringWithFormat:@"套餐有效期:%@", K_TmpStr] fontSize:16 color:[UIColor whiteColor]];
-    [label6 sizeToFit];
-    [topView addSubview:label6];
-    
-    _topInfoLables = @[label1, label2, label3, label4, label5, label6];
+    self.topView = [[TM_CardTopView alloc] initWithFrame:CGRectMake(0, 10, kScreen_Width, 280) model:self.model];
+    [self.contentScrollView addSubview:self.topView];
     
 }
 // 刷新充值金额数据
@@ -104,7 +68,7 @@
     for (int i = 0; i < rechargeArr.count; i++) {
         NSString *recharge = [NSString stringWithFormat:@"￥%0.2f", [rechargeArr[i] doubleValue]];
         CGFloat x = gap + i % lineNum * (w + gap);
-        CGFloat y = gap + i / lineNum * (h + gap) + self.balanceCardNumL.maxY + 10;
+        CGFloat y = gap + i / lineNum * (h + gap) + self.topView.maxY + 10;
         UIButton *btn = [UIView createButton:CGRectMake(x, y, w, h) title:recharge titleColoe:TM_SpecialGlobalColor selectedColor:[UIColor whiteColor] fontSize:15 sel:@selector(changeBalanceRechargeMoney:) target:self];
         [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIImage tm_imageWithColor:[UIColor whiteColor]] forState:UIControlStateHighlighted];
@@ -121,7 +85,7 @@
         }
         if (i == rechargeArr.count - 1) { // 自定义金额
             x = gap;
-            y = ceil((CGFloat)i / lineNum) * (h + gap) + self.balanceCardNumL.maxY + 10 + gap ;
+            y = ceil((CGFloat)i / lineNum) * (h + gap) + self.topView.maxY + 10 + gap ;
             UITextField *customMoneyTF = [[UITextField alloc] initWithFrame:CGRectMake(x, y, w, h)];
             customMoneyTF.font = [UIFont systemFontOfSize:14];
             customMoneyTF.textColor = TM_SpecialGlobalColor;

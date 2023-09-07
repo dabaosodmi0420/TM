@@ -41,7 +41,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self reloadData];
+    [self reloadData1];
 }
 - (void)createView {
     [super createView];
@@ -200,7 +200,7 @@
 }
 #pragma mark - 获取数据
 // 获取用户流量信息
-- (void)reloadData {
+- (void)reloadData1 {
     _noticeContent = @"";
     [TM_DataCardApiManager sendQueryNoticesWithCardNo:self.cardDetailInfoModel.card_define_no type:self.menuModel.funcType == TM_ShortMenuTypeBalanceRecharge ? @"balance" : @"flow" success:^(id  _Nullable respondObject) {
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"] && [respondObject[@"data"] isKindOfClass:[NSArray class]]) {

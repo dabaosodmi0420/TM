@@ -101,8 +101,8 @@
             CGFloat used = [data[@"used"] doubleValue];
             CGFloat total = [data[@"total"] doubleValue];
             CGFloat percent = used / total;
-            self.usedPencentageL.text = [NSString stringWithFormat:@"已用%.2f%%", percent * 100];
-            self.lastPencentageL.text = [NSString stringWithFormat:@"剩余%.2f%%", (1 - percent) * 100];
+            self.usedPencentageL.text = [NSString stringWithFormat:@"已用%.2f%%", total != 0 ? percent * 100 : 0];
+            self.lastPencentageL.text = [NSString stringWithFormat:@"剩余%.2f%%", total != 0 ? (1 - percent) * 100 : 0];
             self.usedL.text = [NSString stringWithFormat:@"共%.2f GB", used];
             self.lastL.text = [NSString stringWithFormat:@"共%.2f GB", total - used];
             self.timeL.text = [NSString stringWithFormat:@"流量有效期:%@",data[@"tc_end_time"]];

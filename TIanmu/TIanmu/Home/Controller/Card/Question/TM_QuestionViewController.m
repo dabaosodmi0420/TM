@@ -139,6 +139,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor whiteColor];
 #ifdef __IPHONE_15_0
         if (@available(iOS 15.0, *)) {
             _tableView.sectionHeaderTopPadding = 0;
