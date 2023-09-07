@@ -156,10 +156,20 @@
                 if (cardInfoModel) {
                     [TM_DataCardApiManager sendQueryUserAllCardWithCardNo:cardInfoModel.iccid success:^(TM_DataCardDetalInfoModel * _Nonnull model) {
                         if([[NSString stringWithFormat:@"%@",model.card_or_device] isEqualToString:@"0"]) { // 卡
-                            TM_CardDetailViewController *vc = [[TM_CardDetailViewController alloc] init];
-                            vc.cardInfoModel = cardInfoModel;
-                            vc.model = model;
-                            [self.navigationController pushViewController:vc animated:YES];
+                            if ([[NSString stringWithFormat:@"%@",model.card_type] isEqualToString:@"card_qhdx"] ||
+                                [[NSString stringWithFormat:@"%@",model.card_type] isEqualToString:@"card_qhdx2"] ||
+                                [[NSString stringWithFormat:@"%@",model.card_type] isEqualToString:@"card_gddx"]) {
+                                TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
+                                vc.cardInfoModel = cardInfoModel;
+                                vc.model = model;
+                                [self.navigationController pushViewController:vc animated:YES];
+                            }else {
+                                TM_CardDetailViewController *vc = [[TM_CardDetailViewController alloc] init];
+                                vc.cardInfoModel = cardInfoModel;
+                                vc.model = model;
+                                [self.navigationController pushViewController:vc animated:YES];
+                                
+                            }
                         }else if ([[NSString stringWithFormat:@"%@", model.card_or_device] isEqualToString:@"1"]) { // 设备
                             TM_DeviceDetailViewController *vc = [[TM_DeviceDetailViewController alloc] init];
                             vc.cardInfoModel = cardInfoModel;

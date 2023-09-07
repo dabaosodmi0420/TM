@@ -555,4 +555,9 @@ CGFloat _jtCurrentVolume;
  其它:
  Receiver
  */
+
++ (void)copyContent:(NSString *)content {
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = content;
+}
 @end

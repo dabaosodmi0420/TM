@@ -165,6 +165,13 @@ NS_ASSUME_NONNULL_BEGIN
                                  wifiPW:(NSString *)wifiPW
                                 success:(TMAPISuccessBlock)successBlock
                                 failure:(TMAPIFailureBlock)failureBlock;
+
+//MARK: 查询全网通设备、聚火设备 单张内置卡信息实名信息。
++ (void)sendQueryQWTDeviceAuthInfoWithCardNo:(NSString *)cardNo
+                               card_operator:(NSString *)card_operator
+                                     success:(TMAPISuccessBlock)successBlock
+                                     failure:(TMAPIFailureBlock)failureBlock;
+
 //MARK: 查询设备实名链接
 + (void)sendQueryDeviceAuthUrlWithCardNo:(NSString *)cardNo
                                  success:(TMAPISuccessBlock)successBlock

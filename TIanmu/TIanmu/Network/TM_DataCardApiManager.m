@@ -380,7 +380,23 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
-
+//MARK: 查询全网通设备、聚火设备 单张内置卡信息实名信息。
++ (void)sendQueryQWTDeviceAuthInfoWithCardNo:(NSString *)cardNo
+                               card_operator:(NSString *)card_operator
+                                     success:(TMAPISuccessBlock)successBlock
+                                     failure:(TMAPIFailureBlock)failureBlock {
+    NSString *url = @"/queryQWTDeviceAuthInfo";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"card_operator"]    = card_operator;
+    params[@"card_define_no"]   = cardNo;
+    
+    [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
+                                                      parameters:params
+                                                         headers:@{}
+                                                         success:successBlock
+                                                         failure:failureBlock];
+}
 //MARK: 注意事项查询
 
 /// - Parameters:
@@ -529,7 +545,13 @@
                                                          success:successBlock
                                                          failure:failureBlock];
 }
-
+//MARK: 查询全网通设备、聚火设备 单张内置卡信息实名信息。
++ (void)sendQueryDeviceAuthUrlWithCardNo:(NSString *)cardNo
+                           card_operator:(NSString *)card_operator
+                                 success:(TMAPISuccessBlock)successBlock
+                                 failure:(TMAPIFailureBlock)failureBlock {
+    
+}
 //MARK: 激活设备
 + (void)sendDeviceActivityWithPhoneNum:(NSString *)phoneNum
                         card_define_no:(NSString *)card_define_no

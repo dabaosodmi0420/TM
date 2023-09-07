@@ -14,8 +14,8 @@
             filePath = "TIanmu/Home/Controller/TM_HomePageViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "-navTitleView"
             landmarkType = "7">
          </BreakpointContent>
@@ -1151,22 +1151,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3A07F4B9-1560-4738-8B7F-4B6DCF06B24F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TIanmu/Home/Controller/Card/TM_CardDetailViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "-reloadData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "233ED1C0-8592-46F5-A0A7-B2D1A0BC9368"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1423,54 +1407,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6903245A-85C9-4418-B6B5-92DC062D9821"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TIanmu/Home/Controller/Device/TM_RealNameAuthViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "-reloadData"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6903245A-85C9-4418-B6B5-92DC062D9821 - b4484dcf9073bef6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TM_RealNameAuthViewController reloadData]"
-                  moduleName = "TIanmu"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhenglianjie/Desktop/TM_Workspace/TM/TIanmu/TIanmu/Home/Controller/Device/TM_RealNameAuthViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  uuid = "6903245A-85C9-4418-B6B5-92DC062D9821 - c90456255252e1a0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__43-[TM_RealNameAuthViewController reloadData]_block_invoke"
-                  moduleName = "TIanmu"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/zhenglianjie/Desktop/TM_Workspace/TM/TIanmu/TIanmu/Home/Controller/Device/TM_RealNameAuthViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
-                  offsetFromSymbolStart = "44">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "11CD419D-3F71-4321-B280-F7725279414F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1526,8 +1462,8 @@
             filePath = "TIanmu/Network/TM_DataCardApiManager.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
+            startingLineNumber = "525"
+            endingLineNumber = "525"
             landmarkName = "+sendSaveWifiPasswordlWithCardNo:wifiName:wifiPW:success:failure:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1606,9 +1542,73 @@
             filePath = "TIanmu/Home/Controller/TM_HomePageViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "-clickHomeShortcutMenuWithModel:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0D3763FE-8B98-4743-99C6-578A7A4897AB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Home/Controller/Device/TM_RealNameAuthViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "-realNameClick:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0D3763FE-8B98-4743-99C6-578A7A4897AB - 810358d5f2689ce2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[TM_RealNameAuthViewController realNameClick:]"
+                  moduleName = "TIanmu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhenglianjie/Desktop/TM_Workspace/TM/TIanmu/TIanmu/Home/Controller/Device/TM_RealNameAuthViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "136"
+                  endingLineNumber = "136"
+                  offsetFromSymbolStart = "1056">
+               </Location>
+               <Location
+                  uuid = "0D3763FE-8B98-4743-99C6-578A7A4897AB - 55a72660907b0e72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__47-[TM_RealNameAuthViewController realNameClick:]_block_invoke"
+                  moduleName = "TIanmu"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zhenglianjie/Desktop/TM_Workspace/TM/TIanmu/TIanmu/Home/Controller/Device/TM_RealNameAuthViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F714DA01-F805-4CA9-ABE7-6D6BBDE23EA3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Home/Controller/Device/TM_RealNameAuthViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "-realNameClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

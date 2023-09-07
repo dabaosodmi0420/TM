@@ -97,6 +97,7 @@
     }
 }
 - (void)reloadData {
+    
     [TM_DataCardApiManager sendQueryDeviceAuthUrlWithCardNo:self.cardDetailInfoModel.iccid success:^(id  _Nullable respondObject) {
         NSLog(@"%@",respondObject);
         if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
@@ -130,28 +131,17 @@
         TM_ShowToast(self.view, @"已实名");
     }else {
         NSString *type = data[@"card_operator"];
-        if ([type isEqualToString:@"mobile"] || [type isEqualToString:@"unicom"]) { // 移动、联通拉起小程序
-            NSString *netType = @"";
-            if ([type isEqualToString:@"mobile"] ) {
-                netType = @"yd";
-            }else {
-                netType = @"lt";
-            }
-            [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypeMiniProgram data:@{@"netType" : netType} completeBlock:^(TM_WeixinToolType type, NSDictionary * _Nonnull param) {
-                
-            }];
-        }else {
-            [TM_DataCardApiManager sendSetAuthWithCardNo:self.cardDetailInfoModel.iccid success:^(id  _Nullable respondObject) {
+        // 全网通 聚火
+        if ([self.deviceIndexInfoModel.cardTypeInfo.card_type isEqualToString:@"device_qwtsb"] || [self.deviceIndexInfoModel.cardTypeInfo.card_type isEqualToString:@"device_qwt3wbjh "]) {
+            [TM_DataCardApiManager sendQueryQWTDeviceAuthInfoWithCardNo:self.cardDetailInfoModel.iccid card_operator:type success:^(id  _Nullable respondObject) {
                 if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
                     id data = respondObject[@"data"];
-                    //实名url，若是data为空，且state是success，则说明已实名
-                    NSString *url = data[@"url"];
-                    if (url && url.length > 0) {
-                        [JTDefinitionTextView jt_showWithTitle:@"温馨提示" Text:@"您的卡还没有实名认证，是否进行实名？" type:0 actionTextArr:@[@"取消", @"去实名"] handler:^(NSInteger index) {
-                            if (index == 1) {
-                                [JTBaseTool jt_openUrl:url];
-                            }
-                        }];
+                    NSString *iccid = data[@"iccid"];
+                    if (iccid && iccid.length > 0) {
+                        // 电信
+                        NSString *url = @"http://uniteapp.ctwing.cn:9090/uapp/certifhtml/certif_entry.html?userCode=r/s9Tc00hjiKcR13MIjZHg==&passWord=9u8VuY1xbez6r6k/BBnLlw==&tmstemp=1595318328145&from=groupmessage&isappinstalled=0";
+                        
+                        [self gotoLoadRealNameCard_operator:type iccid:iccid url:url];
                     }
                 }else {
                     NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
@@ -161,9 +151,66 @@
                 NSLog(@"%@",error);
                 TM_ShowToast(self.view, @"获取数据失败");
             }];
+        }else {
+            NSString *card_iccid = data[@"card_iccid"];
+            if ([type isEqualToString:@"mobile"] || [type isEqualToString:@"unicom"]) {
+                [self gotoLoadRealNameCard_operator:type iccid:card_iccid url:@""];
+            }else {
+                [TM_DataCardApiManager sendSetAuthWithCardNo:card_iccid success:^(id  _Nullable respondObject) {
+                    if ([[NSString stringWithFormat:@"%@", respondObject[@"state"]] isEqualToString:@"success"]) {
+                        id data = respondObject[@"data"];
+                        //实名url，若是data为空，且state是success，则说明已实名
+                        NSString *url = data[@"url"];
+                        if (url && url.length > 0) {
+                            [self gotoLoadRealNameCard_operator:type iccid:card_iccid url:url];
+                        }
+                    }else {
+                        NSString *msg = [NSString stringWithFormat:@"%@", respondObject[@"info"]];
+                        TM_ShowToast(self.view, msg);
+                    }
+                } failure:^(NSError * _Nullable error) {
+                    NSLog(@"%@",error);
+                    TM_ShowToast(self.view, @"获取数据失败");
+                }];
+            }
         }
+        
+        
     }
     
 }
-
+// 去实名
+- (void)gotoLoadRealNameCard_operator:(NSString *)card_operator iccid:(NSString *)iccid  url:(NSString *)url{
+    //telecom电信，mobile移动；unicom联通
+    NSString *title = @"";
+    if ([card_operator isEqualToString:@"mobile"] ) {
+        title = @"移动";
+    }else if ([card_operator isEqualToString:@"unicom"] ) {
+        title = @"联通";
+    }else {
+        title = @"电信";
+    }
+    [JTBaseTool copyContent:iccid];
+    [JTDefinitionTextView jt_showWithTitle:title Text:iccid type:0 actionTextArr:@[@"取消", @"已复制，去实名"] handler:^(NSInteger index) {
+        if (index == 1) {
+            // 移动、联通拉起小程序
+            if ([card_operator isEqualToString:@"mobile"] || [card_operator isEqualToString:@"unicom"]) {
+                NSString *netType = @"";
+                if ([card_operator isEqualToString:@"mobile"] ) {
+                    netType = @"yd";
+                }else {
+                    netType = @"lt";
+                }
+                [[TM_WeixinTool shareWeixinToolManager] tm_weixinToolWithType:TM_WeixinToolTypeMiniProgram data:@{@"netType" : netType} completeBlock:^(TM_WeixinToolType type, NSDictionary * _Nonnull param) {
+                    
+                }];
+            }else {
+                if (url.length > 0) {
+                    [JTBaseTool jt_openUrl:url];
+                }
+            }
+        }
+    }];
+    TM_ShowToast(self.view, @"已复制");
+}
 @end

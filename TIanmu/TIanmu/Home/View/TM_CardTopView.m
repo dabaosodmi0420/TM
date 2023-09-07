@@ -61,13 +61,16 @@
     
     
     NSString *realStatus = @"未实名";
-    if ([self.model.is_realname isEqualToString:@"1"]) {
-        realStatus = @"审请中";
-    }else if ([self.model.is_realname isEqualToString:@"2"] ) {
+    if ([self.model.is_realname isEqualToString:@"2"] ) {
         realStatus = @"已实名";
-    }else if ([self.model.is_realname isEqualToString:@"3"] ) {
-        realStatus = @"恶意实名";
     }
+//    if ([self.model.is_realname isEqualToString:@"1"]) {
+//        realStatus = @"审请中";
+//    }else if ([self.model.is_realname isEqualToString:@"2"] ) {
+//        realStatus = @"已实名";
+//    }else if ([self.model.is_realname isEqualToString:@"3"] ) {
+//        realStatus = @"恶意实名";
+//    }
     
     NSArray *title1 = @[status, realStatus, self.model.package_name];
     NSArray *title2 = @[@"当前状态", @"实名状态", @"套餐名称"];

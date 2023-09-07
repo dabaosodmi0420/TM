@@ -100,4 +100,9 @@
     "unknown"    未知
  */
 + (NSString *)getHeadsetStatus;
+
+/**
+ 复制内容到粘贴板
+ */
++ (void)copyContent:(NSString *)content;
 @end
