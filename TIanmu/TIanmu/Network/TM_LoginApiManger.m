@@ -146,7 +146,7 @@
     NSString *url = @"/queryAppVersion";
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@""] = @"IOS";
+    params[@"type"] = @"IOS";
     [[TM_NetworkTool sharedNetworkTool] sendPOST_RequestWithPath:url
                                                       parameters:params
                                                          headers:@{}

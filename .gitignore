@@ -1,0 +1,7 @@
+# Xcode
+#
+# gitignore
+
+
+*.pbxuser
+xcuserdata/

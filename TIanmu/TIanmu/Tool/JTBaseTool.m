@@ -62,6 +62,7 @@ CGFloat _jtCurrentVolume;
  * 打开url
  **/
 + (void)jt_openUrl:(NSString *)urlStr{
+    if([JTBaseTool judgeNull:urlStr]) return;
     NSURL *url = [NSURL URLWithString:urlStr];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (![[UIApplication sharedApplication] canOpenURL:url]) return;
