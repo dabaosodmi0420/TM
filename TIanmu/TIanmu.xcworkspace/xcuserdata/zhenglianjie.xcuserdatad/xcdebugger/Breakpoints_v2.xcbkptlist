@@ -1039,22 +1039,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "149935E4-1112-42FC-855F-2809C06AE076"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TIanmu/Network/TM_DataCardApiManager.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "+sendQueryDeviceIndexInfoWithCardNo:success:failure:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "C163B8C9-44B2-438F-ACEE-1A3291036D83"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1078,8 +1062,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_DeviceDetailViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-createDeviceInfoUI"
             landmarkType = "7">
          </BreakpointContent>
@@ -1094,8 +1078,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_DeviceDetailViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "-createDeviceInfoUI"
             landmarkType = "7">
          </BreakpointContent>
@@ -1110,8 +1094,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_DeviceDetailViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-createDeviceInfoUI"
             landmarkType = "7">
          </BreakpointContent>
@@ -1126,8 +1110,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_DeviceDetailViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "-refreshTopInfo"
             landmarkType = "7">
          </BreakpointContent>
@@ -1382,8 +1366,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_DeviceDetailViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "-refreshContentView"
             landmarkType = "7">
          </BreakpointContent>
@@ -1430,8 +1414,8 @@
             filePath = "TIanmu/Home/Controller/Device/TM_DeviceDetailViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "-createView"
             landmarkType = "7">
          </BreakpointContent>
@@ -1446,9 +1430,9 @@
             filePath = "TIanmu/Tool/UIView+TM_View.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "+createTextFieldWithFrame:fontSize:placeholder:isSecure:delegate:leftImageName:isShowBottomLine:"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "+createTextFieldWithFrame:fontSize:placeholder:isSecure:delegate:isShowBottomLine:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1456,7 +1440,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "295C08E0-AE3F-43F9-B5B2-91AD84750635"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TIanmu/Network/TM_DataCardApiManager.m"
@@ -1609,6 +1593,22 @@
             startingLineNumber = "160"
             endingLineNumber = "160"
             landmarkName = "-realNameClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB2CC8BE-14A9-46E3-8238-B55B5C5C42EB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TIanmu/Home/Controller/Device/TM_DeviceDetailViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "-refreshContentView"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

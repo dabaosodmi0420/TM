@@ -219,7 +219,7 @@
     [contentView addSubview:imageV];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(imageV.maxX + margin, margin, contentView.width - (imageV.maxX + margin) - 55, imageV.height)];
-    label.text = [NSString stringWithFormat:@"%@",model.iccid];
+    label.text = [NSString stringWithFormat:@"%@",model.card_define_no];
     label.textColor = [UIColor darkGrayColor];
     label.font = [UIFont systemFontOfSize:17];
     label.adjustsFontSizeToFitWidth = YES;

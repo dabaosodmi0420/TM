@@ -63,6 +63,26 @@
     return tf;
 }
 
++ (UITextField *)createTextFieldWithFrame:(CGRect)frame fontSize:(CGFloat)fontSize placeholder:(NSString *)placeholder isSecure:(BOOL)isSecure delegate:(id)delegate isShowBottomLine:(BOOL)isShowBottomLine {
+    UITextField *tf = [[UITextField alloc] initWithFrame:frame];
+    tf.delegate = delegate;
+    tf.font = [UIFont systemFontOfSize:fontSize];
+    tf.textColor = [UIColor blackColor];
+    tf.placeholder = placeholder;
+    [tf setSecureTextEntry:isSecure];
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:placeholder attributes:@{NSForegroundColorAttributeName:TM_ColorRGB(174, 174, 174),
+                    NSFontAttributeName:tf.font
+            }];
+    tf.attributedPlaceholder = attrString;
+    
+    if (isShowBottomLine) {
+        UIView *lineView = [[UIView alloc]initWithFrame:CGRectMake(0, tf.height - 1, tf.width, 1)];
+        lineView.backgroundColor = TM_ColorRGB(174, 174, 174);
+        [tf addSubview:lineView];
+    }
+    return tf;
+}
+
 + (UITextField *)createTextFieldWithFrame:(CGRect)frame fontSize:(CGFloat)fontSize placeholder:(NSString *)placeholder isSecure:(BOOL)isSecure delegate:(id)delegate leftImageName:(NSString *)leftImageName isShowBottomLine:(BOOL)isShowBottomLine{
     TM_TextField *tf = [[TM_TextField alloc] initWithFrame:frame];
     tf.delegate = delegate;

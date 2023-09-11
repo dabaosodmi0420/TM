@@ -12,6 +12,7 @@
 #import "AppOperateGuideView.h"
 #import <Bugly/Bugly.h>
 /**
+ com.tm.tmlife
  appid：038e7a942a
  appkey：8f52d1d8-e3d8-4709-b65e-85f823f1e79b
  https://bugly.qq.com/docs/user-guide/instruction-manual-ios/?v=1.0.0
